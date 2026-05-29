@@ -2,6 +2,9 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase-config.js"></script>
+<script src="../cms-cloud.js"></script>
 <script src="auth-gate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Projects · CMS — Hasan Waulat</title>
@@ -645,6 +648,16 @@
     if (activeId) selectProject(activeId);
     else renderMain();
     renderSidebar();
+
+    /* When cloud data arrives (initial pull from Supabase), reload the
+       project list so the editor reflects the shared content. */
+    window.addEventListener('hw-cloud-applied', () => {
+      projects = ProjectStore.load();
+      if (!projects.find(p => p.id === activeId)) activeId = projects[0] ? projects[0].id : null;
+      if (activeId) selectProject(activeId);
+      else { draft = null; renderMain(); }
+      renderSidebar();
+    });
   </script>
 </body>
 </html>
