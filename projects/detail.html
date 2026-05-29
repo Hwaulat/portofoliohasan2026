@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Project Detail — Hasan Waulat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  .detail { padding-top: 120px; padding-bottom: 100px; }
+  .detail .back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .detail .back:hover { color: var(--fg); }
+  .detail .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+  .detail .meta-row span { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+  .detail h1 { font-size: clamp(40px, 5.4vw, 80px); margin: 8px 0 22px; max-width: 18ch; }
+  .detail h1 .accent { color: var(--accent); font-style: italic; }
+  .detail .lead { color: var(--muted); font-size: 18px; max-width: 60ch; line-height: 1.55; margin-bottom: 36px; }
+  .detail .hero-img {
+    aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; border: 1px solid var(--border);
+    background:
+      radial-gradient(80% 60% at 30% 30%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
+      repeating-linear-gradient(45deg, transparent 0 16px, color-mix(in oklab, var(--fg) 4%, transparent) 16px 17px);
+    display: grid; place-items: center;
+    font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: clamp(48px, 7vw, 120px);
+    color: color-mix(in oklab, var(--fg) 80%, transparent);
+    margin-bottom: 60px;
+    text-align: center; padding: 30px;
+    letter-spacing: -0.02em;
+  }
+  .detail .info-grid { display: grid; grid-template-columns: 280px 1fr; gap: 60px; margin-bottom: 60px; padding-top: 36px; border-top: 1px solid var(--border); }
+  .detail .info-grid .info { display: flex; flex-direction: column; gap: 18px; }
+  .detail .info-grid .info .row { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+  .detail .info-grid .info .row .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .detail .info-grid .info .row .v { font-size: 14px; }
+  .detail .body p { font-size: 16px; line-height: 1.7; max-width: 62ch; margin: 0 0 18px; }
+  .detail .body h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 36px 0 12px; }
+  .detail .body ul { padding: 0; margin: 0 0 24px; list-style: none; max-width: 62ch; }
+  .detail .body ul li { padding: 10px 0 10px 22px; border-bottom: 1px dashed var(--border); position: relative; font-size: 15px; }
+  .detail .body ul li::before { content: '↳'; position: absolute; left: 0; color: var(--accent); }
+  .detail .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 40px 0; }
+  .detail .gallery .tile {
+    aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; display: grid; place-items: center;
+    background: var(--paper);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .detail .next-cta {
+    margin-top: 60px; padding: 36px; border: 1px solid var(--border); border-radius: 4px; background: var(--card);
+    display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .detail .next-cta h4 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; margin: 0; max-width: 22ch; letter-spacing: -0.01em; }
+  @media (max-width: 900px) { .detail .info-grid { grid-template-columns: 1fr; gap: 30px; } .detail .gallery { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+  <div class="scroll-bar" id="scrollBar"></div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+      <div class="mark">h</div>
+      <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— UI/UX Designer</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">All Projects</a>
+      <a href="../admin/index.html" style="color: var(--accent);">CMS</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#about">About</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#skills">Skills</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn" href="../cv/Hasan-Waulat-CV.pdf" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span class="label">Download CV</span>
+      </a>
+      <a class="btn btn-primary" href="https://wa.me/6285254308418" target="_blank" rel="noopener">
+        <span class="dot"></span><span class="label">WhatsApp</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="shell detail">
+    <a class="back" href="index.html">← All projects</a>
+    <div id="detailRoot">Loading…</div>
+  </main>
+
+  <script src="store.js"></script>
+  <script>
+    /* ===== Theme ===== */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    function setTheme(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem('theme', t); }catch(e){} themeBtn.innerHTML = t === 'dark' ? sun : moon; }
+    const saved = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; }})();
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    /* ===== Render ===== */
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+
+    function renderSectionBlock(s) {
+      const heading = escapeHtml(s.heading || '');
+      if (s.type === 'list') {
+        const items = (s.items || []).filter(Boolean).map(b => '<li>' + escapeHtml(b) + '</li>').join('');
+        return '<h3>' + heading + '</h3><ul>' + items + '</ul>';
+      }
+      return '<h3>' + heading + '</h3><p>' + escapeHtml(s.body || '') + '</p>';
+    }
+
+    function render() {
+      const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
+      const p = ProjectStore.get(id);
+      if (!p) {
+        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
+        return;
+      }
+      document.title = p.t + ' — Hasan Waulat';
+      const tags = (p.chips && p.chips.length ? p.chips : p.display || []);
+      const galleryHTML = (p.gallery && p.gallery.length)
+        ? p.gallery.map((src, i) => '<div class="tile" style="background-image:url(' + JSON.stringify(src) + '); background-size:cover; background-position:center;"><span style="display:none;">Screen ' + (i+1) + '</span></div>').join('')
+        : '<div class="tile">Screen 01 · Coming soon</div><div class="tile">Screen 02 · Coming soon</div><div class="tile">Screen 03 · Coming soon</div><div class="tile">Screen 04 · Coming soon</div>';
+
+      const heroVisual = p.coverImage
+        ? '<div class="hero-img" style="background-image:url(' + JSON.stringify(p.coverImage) + '); background-size:cover; background-position:center;"></div>'
+        : '<div class="hero-img">' + escapeHtml(p.cover || p.t) + '</div>';
+
+      document.getElementById('detailRoot').innerHTML = `
+        <div class="meta-row">${tags.map(t => '<span>' + escapeHtml(t) + '</span>').join('')}<span>${escapeHtml(p.y || '')}</span></div>
+        <h1 class="display">${escapeHtml(p.headline || p.t)}</h1>
+        <p class="lead">${escapeHtml(p.lead || p.d || '')}</p>
+        ${heroVisual}
+        <div class="info-grid">
+          <aside class="info">
+            <div class="row"><span class="k">Client</span><span class="v">${escapeHtml(p.client || '')}</span></div>
+            <div class="row"><span class="k">Industry</span><span class="v">${escapeHtml(p.industry || '')}</span></div>
+            <div class="row"><span class="k">Role</span><span class="v">${escapeHtml(p.role || '')}</span></div>
+            <div class="row"><span class="k">Team</span><span class="v">${escapeHtml(p.team || '')}</span></div>
+            <div class="row"><span class="k">Surfaces</span><span class="v">${escapeHtml(p.surfaces || '')}</span></div>
+            <div class="row"><span class="k">Timeline</span><span class="v">${escapeHtml(p.timeline || '')}</span></div>
+          </aside>
+          <div class="body">
+            ${(p.sections || []).map(renderSectionBlock).join('')}
+            <div class="gallery">${galleryHTML}</div>
+            <div class="next-cta">
+              <h4>Want a project like this for your team?</h4>
+              <div style="display:flex; gap:10px;">
+                <a class="btn" href="index.html">More projects</a>
+                <a class="btn btn-primary" href="../Hasan%20Waulat%20-%20Personal%20Branding.html#contact">Start a project</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    render();
+    window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
+    window.addEventListener('hw-projects-changed', render);
+
+    const bar = document.getElementById('scrollBar');
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max ? (h.scrollTop / max) * 100 : 0) + '%';
+    }, { passive: true });
+  </script>
+</body>
+</html>

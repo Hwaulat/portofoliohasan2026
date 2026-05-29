@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>All Projects — Hasan Waulat</title>
+<meta name="description" content="The complete archive of 32 shipped projects across fintech, government, HR-tech, and logistics." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  .projects-page { padding-top: 120px; }
+  .projects-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; padding-bottom: 60px; border-bottom: 1px solid var(--border); }
+  .projects-head h1 { font-size: clamp(48px, 6.4vw, 96px); margin: 18px 0 0; max-width: 14ch; }
+  .projects-head .stats { display: flex; gap: 36px; flex-wrap: wrap; padding-bottom: 8px; }
+  .projects-head .stats div .v { font-family: 'Montserrat', system-ui, sans-serif; font-size: 36px; color: var(--accent); line-height: 1; }
+  .projects-head .stats div .l { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 28px 0; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+  .filter {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--fg); cursor: pointer;
+    transition: all 200ms ease;
+  }
+  .filter:hover { border-color: var(--fg); }
+  .filter.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .all-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding-bottom: 80px; }
+  @media (max-width: 900px) { .all-grid { grid-template-columns: repeat(2, 1fr); } .projects-head { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) { .all-grid { grid-template-columns: 1fr; } }
+  .pcard {
+    border: 1px solid var(--border); background: var(--card); border-radius: 4px;
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform 240ms ease, border-color 240ms ease;
+    text-decoration: none; color: inherit;
+  }
+  .pcard:hover { transform: translateY(-4px); border-color: var(--fg); }
+  .pcard .cover {
+    aspect-ratio: 5/3; position: relative; overflow: hidden;
+    background:
+      radial-gradient(80% 60% at 30% 30%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
+      repeating-linear-gradient(45deg, transparent 0 14px, color-mix(in oklab, var(--fg) 4%, transparent) 14px 15px);
+    display: grid; place-items: center;
+    font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: clamp(28px, 3vw, 44px);
+    color: color-mix(in oklab, var(--fg) 80%, transparent);
+    text-align: center; padding: 16px;
+    letter-spacing: -0.01em;
+  }
+  .pcard .cover .idx {
+    position: absolute; top: 12px; left: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    background: var(--fg); color: var(--bg); padding: 3px 8px; border-radius: 999px; letter-spacing: 0.1em;
+  }
+  .pcard .body { padding: 18px 18px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .pcard .body .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+  .pcard .body h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.18; letter-spacing: -0.005em; margin: 4px 0 4px; }
+  .pcard .body p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 0; }
+  .pcard .body .chips { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; margin-top: auto; border-top: 1px dashed var(--border); }
+  .pcard .body .chips span {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px;
+  }
+  .pcard .body .more { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); margin-top: 8px; }
+  .back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); padding-bottom: 14px; }
+  .back:hover { color: var(--fg); }
+</style>
+</head>
+<body>
+  <div class="scroll-bar" id="scrollBar"></div>
+
+  <nav class="nav">
+    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+      <div class="mark">h</div>
+      <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— UI/UX Designer</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#work">Work</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#about">About</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#skills">Skills</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html#contact">Contact</a>
+      <a href="../admin/index.html" style="color: var(--accent);">CMS</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn" href="../cv/Hasan-Waulat-CV.pdf" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+        <span class="label">Download CV</span>
+      </a>
+      <a class="btn btn-primary" href="https://wa.me/6285254308418" target="_blank" rel="noopener">
+        <span class="dot"></span>
+        <span class="label">WhatsApp</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="shell projects-page">
+    <a class="back" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">← Back to home</a>
+
+    <div class="projects-head">
+      <div>
+        <span class="eyebrow">Archive</span>
+        <h1 class="display">All projects, <span class="accent display-italic">in one place.</span></h1>
+      </div>
+      <div class="stats">
+        <div><div class="v">32</div><div class="l">Projects shipped</div></div>
+        <div><div class="v">4</div><div class="l">Industries</div></div>
+        <div><div class="v">7</div><div class="l">Companies</div></div>
+        <div><div class="v">2yr+</div><div class="l">In production</div></div>
+      </div>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all">All · 32</button>
+      <button class="filter" data-filter="mobile">Mobile</button>
+      <button class="filter" data-filter="web">Web</button>
+      <button class="filter" data-filter="ipad">iPad</button>
+      <button class="filter" data-filter="design-system">Design System</button>
+      <button class="filter" data-filter="government">Government</button>
+      <button class="filter" data-filter="hr-tech">HR-Tech</button>
+      <button class="filter" data-filter="edu-tech">Edu-Tech</button>
+    </div>
+
+    <div class="all-grid" id="allGrid"></div>
+  </main>
+
+  <script src="store.js"></script>
+  <script>
+    /* ===== Theme ===== */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    function setTheme(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem('theme', t); }catch(e){} themeBtn.innerHTML = t === 'dark' ? sun : moon; }
+    const saved = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; }})();
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    const grid = document.getElementById('allGrid');
+    function getDisplay(p) { return (p.display && p.display[0]) || 'Project'; }
+    function render(filter) {
+      const all = ProjectStore.load();
+      const items = filter === 'all' ? all : all.filter(p => (p.tags||[]).includes(filter));
+      grid.innerHTML = items.map(p => {
+        const coverInner = p.coverImage
+          ? `<img src="${p.coverImage}" alt="${escapeHtml(p.t)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
+          : escapeHtml(p.cover || p.t);
+        return `
+        <a class="pcard" href="detail.html?id=${encodeURIComponent(p.id)}">
+          <div class="cover">
+            <div class="idx" style="z-index:2;">${escapeHtml(p.n || '')}</div>
+            ${coverInner}
+          </div>
+          <div class="body">
+            <div class="meta"><span>${escapeHtml(p.y || '')}</span><span>${escapeHtml(getDisplay(p))}</span></div>
+            <h3>${escapeHtml(p.t)}</h3>
+            <p>${escapeHtml(p.d || '')}</p>
+            <div class="chips">${(p.display||[]).map(d => `<span>${escapeHtml(d)}</span>`).join('')}</div>
+            <span class="more">View case study →</span>
+          </div>
+        </a>`;
+      }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted);">No projects match "${filter}".</div>`;
+    }
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+    render('all');
+
+    /* Update filter counts */
+    function updateCounts() {
+      const all = ProjectStore.load();
+      const allBtn = document.querySelector('[data-filter="all"]');
+      if (allBtn) allBtn.textContent = 'All · ' + all.length;
+    }
+    updateCounts();
+
+    document.getElementById('filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter'); if (!btn) return;
+      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(btn.dataset.filter);
+    });
+
+    /* React to admin saves in another tab */
+    window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') { render('all'); updateCounts(); } });
+    window.addEventListener('hw-projects-changed', () => { render('all'); updateCounts(); });
+
+    /* ===== Scroll bar ===== */
+    const bar = document.getElementById('scrollBar');
+    addEventListener('scroll', () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max ? (h.scrollTop / max) * 100 : 0) + '%';
+    }, { passive: true });
+  </script>
+</body>
+</html>

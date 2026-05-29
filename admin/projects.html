@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projects · CMS — Hasan Waulat</title>
+<meta name="description" content="Edit project cards and detail pages." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; }
+  .admin-shell { padding-top: 80px; display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+  .admin-side {
+    border-right: 1px solid var(--border);
+    padding: 24px 18px;
+    background: color-mix(in oklab, var(--paper) 60%, var(--bg));
+    overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    position: sticky; top: 80px;
+  }
+  .admin-main { padding: 28px 36px 80px; overflow-y: auto; max-width: 980px; }
+  .side-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .side-head h2 { font-family: 'Montserrat', system-ui, sans-serif; font-size: 22px; margin: 0; font-weight: 600; }
+  .side-head .count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; }
+  .toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .toolbar .btn { width: 100%; justify-content: center; }
+  .toolbar-row { display: flex; gap: 8px; }
+  .toolbar-row .btn { flex: 1; padding: 8px 10px; font-size: 12px; }
+  .sidelist {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .sidelist li {
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: all 180ms ease;
+    position: relative;
+  }
+  .sidelist li:hover { border-color: var(--fg); }
+  .sidelist li.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .sidelist li.active .meta { color: color-mix(in oklab, var(--bg) 60%, transparent); }
+  .sidelist li .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.12em; min-width: 22px; }
+  .sidelist li.active .num { color: var(--bg); }
+  .sidelist li .body { flex: 1; min-width: 0; }
+  .sidelist li .title { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sidelist li .meta { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sidelist li .star { color: var(--accent); font-size: 11px; }
+  .sidelist li.active .star { color: #ffd86b; }
+
+  .admin-main h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .admin-main .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .admin-main .status { font-size: 13px; color: var(--accent); margin-bottom: 24px; min-height: 18px; }
+
+  .panel { border: 1px solid var(--border); background: var(--card); border-radius: 6px; margin-bottom: 18px; }
+  .panel-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .panel-head h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 18px; margin: 0; letter-spacing: -0.005em; }
+  .panel-head .hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .panel-body { padding: 20px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .grid-2 .full, .grid-3 .full { grid-column: 1 / -1; }
+
+  .fld { display: flex; flex-direction: column; gap: 6px; }
+  .fld label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .fld input, .fld textarea, .fld select {
+    background: var(--bg); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 10px 12px; font: inherit; font-size: 14px; outline: none;
+    transition: border-color 160ms ease;
+  }
+  .fld input:focus, .fld textarea:focus, .fld select:focus { border-color: var(--accent); }
+  .fld textarea { min-height: 90px; resize: vertical; font-family: inherit; }
+  .fld .help { font-size: 11px; color: var(--muted); }
+
+  .toggle { display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); }
+  .toggle input { width: 16px; height: 16px; accent-color: var(--accent); }
+  .toggle label { font-size: 13px; cursor: pointer; }
+  .toggle .desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .image-slot {
+    border: 2px dashed var(--border); border-radius: 6px; padding: 24px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    transition: border-color 160ms ease, background 160ms ease;
+    cursor: pointer; position: relative;
+    min-height: 160px;
+    justify-content: center;
+  }
+  .image-slot:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .image-slot.has-image { padding: 0; border-style: solid; }
+  .image-slot.dragover { border-color: var(--accent); background: var(--accent-soft); }
+  .image-slot img { max-width: 100%; max-height: 240px; display: block; border-radius: 4px; }
+  .image-slot input[type=file] { display: none; }
+  .image-slot .placeholder { color: var(--muted); font-size: 13px; }
+  .image-slot .placeholder small { display: block; margin-top: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
+  .image-slot .remove-btn {
+    position: absolute; top: 8px; right: 8px; z-index: 2;
+    width: 26px; height: 26px; border-radius: 999px; background: var(--fg); color: var(--bg); border: 0;
+    cursor: pointer; display: grid; place-items: center; font-size: 12px;
+    opacity: 0; transition: opacity 160ms ease;
+  }
+  .image-slot.has-image:hover .remove-btn { opacity: 1; }
+
+  .section-editor {
+    border: 1px solid var(--border); border-radius: 4px; padding: 14px; margin-bottom: 12px; background: var(--bg);
+  }
+  .section-editor .se-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .section-editor .se-head select { font: inherit; font-size: 12px; padding: 6px 8px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); color: var(--fg); }
+  .section-editor .se-head input { flex: 1; font: inherit; font-size: 14px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); color: var(--fg); }
+  .section-editor .se-head .icon-btn { width: 30px; height: 30px; flex-shrink: 0; }
+  .section-editor textarea { width: 100%; box-sizing: border-box; min-height: 70px; padding: 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); color: var(--fg); font: inherit; font-size: 13px; resize: vertical; }
+  .section-editor .list-rows { display: flex; flex-direction: column; gap: 6px; }
+  .section-editor .list-row { display: flex; gap: 6px; }
+  .section-editor .list-row input { flex: 1; padding: 8px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--card); color: var(--fg); font: inherit; font-size: 13px; }
+  .section-editor .list-row button { padding: 6px 10px; background: transparent; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; color: var(--muted); font-size: 12px; }
+  .section-editor .list-row button:hover { color: var(--fg); border-color: var(--fg); }
+  .add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); cursor: pointer; padding: 6px 10px; border: 1px dashed var(--border); border-radius: 4px; background: transparent; margin-top: 6px; }
+  .add-row:hover { border-color: var(--accent); }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gallery-tile { position: relative; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--paper); display: grid; place-items: center; }
+  .gallery-tile img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-tile.add { cursor: pointer; color: var(--muted); font-size: 12px; }
+  .gallery-tile.add:hover { background: var(--accent-soft); color: var(--accent); }
+  .gallery-tile .remove-btn { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 999px; background: var(--fg); color: var(--bg); border: 0; cursor: pointer; display: grid; place-items: center; opacity: 0; transition: opacity 160ms ease; font-size: 11px; }
+  .gallery-tile:hover .remove-btn { opacity: 1; }
+
+  .actions { display: flex; gap: 10px; padding: 18px 0 0; position: sticky; bottom: 0; background: linear-gradient(to top, var(--bg) 80%, transparent); padding-bottom: 12px; z-index: 5; flex-wrap: wrap; }
+  .actions .right { margin-left: auto; display: flex; gap: 10px; }
+
+  .empty {
+    border: 2px dashed var(--border); border-radius: 6px; padding: 60px 24px; text-align: center;
+    color: var(--muted);
+  }
+  .empty h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; color: var(--fg); margin: 0 0 8px; }
+
+  /* dialogs */
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 12px 18px; border-radius: 999px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translate(-50%, -8px); }
+
+  @media (max-width: 900px) {
+    .admin-shell { grid-template-columns: 1fr; }
+    .admin-side { position: static; max-height: none; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .admin-main { padding: 24px 20px 80px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+      <div class="mark">h</div>
+      <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— Project CMS</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">CMS Home</a>
+      <a href="site.html">Site Content</a>
+      <a href="../projects/index.html">All Projects (public)</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html">Live Site</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn" href="../projects/index.html">View public archive →</a>
+    </div>
+  </nav>
+
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <div class="side-head">
+        <h2>Projects</h2>
+        <span class="count" id="countLabel">0</span>
+      </div>
+      <div class="toolbar">
+        <button class="btn btn-primary" id="addBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add new project
+        </button>
+        <div class="toolbar-row">
+          <button class="btn" id="exportBtn" title="Download all projects as JSON">Export</button>
+          <button class="btn" id="importBtn" title="Restore projects from JSON file">Import</button>
+        </div>
+        <button class="btn" id="resetBtn" style="font-size: 12px; padding: 8px 10px;" title="Restore the original seed data — your changes will be lost">Reset to defaults</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" />
+      </div>
+      <ul class="sidelist" id="sidelist"></ul>
+    </aside>
+
+    <main class="admin-main">
+      <div id="mainContent"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="../projects/store.js"></script>
+  <script>
+    /* ===== Theme ===== */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    function setTheme(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem('theme', t); }catch(e){} themeBtn.innerHTML = t === 'dark' ? sun : moon; }
+    const saved = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; }})();
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    /* ===== State ===== */
+    let projects = ProjectStore.load();
+    let activeId = projects[0]?.id || null;
+    let draft = null; // working copy of the selected project
+
+    /* ===== Toast ===== */
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+    }
+
+    /* ===== Sidebar ===== */
+    function renderSidebar() {
+      const list = document.getElementById('sidelist');
+      document.getElementById('countLabel').textContent = projects.length;
+      list.innerHTML = projects.map(p => `
+        <li data-id="${p.id}" class="${p.id === activeId ? 'active' : ''}">
+          <span class="num">${p.n || ''}</span>
+          <div class="body">
+            <div class="title">${escapeHtml(p.t)}</div>
+            <div class="meta">${escapeHtml(p.c)}</div>
+          </div>
+          ${p.featured ? '<span class="star">★</span>' : ''}
+        </li>
+      `).join('');
+      list.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => selectProject(li.dataset.id));
+      });
+    }
+
+    /* ===== Main panel ===== */
+    function selectProject(id) {
+      // commit any pending changes? We auto-save on each edit, so just switch.
+      activeId = id;
+      const p = projects.find(x => x.id === id);
+      draft = p ? JSON.parse(JSON.stringify(p)) : null;
+      renderSidebar();
+      renderMain();
+    }
+
+    function renderMain() {
+      const root = document.getElementById('mainContent');
+      if (!draft) {
+        root.innerHTML = `
+          <div class="empty">
+            <h3>No project selected</h3>
+            <p>Add a new project or pick one from the list.</p>
+          </div>`;
+        return;
+      }
+      root.innerHTML = `
+        <div class="crumbs">Editing project · ${escapeHtml(draft.n || '')}</div>
+        <h1>${escapeHtml(draft.t)}</h1>
+        <div class="status" id="statusLine"></div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Card &amp; basics</h3><span class="hint">Shown on the home archive and all-projects list</span></div>
+          <div class="panel-body">
+            <div class="grid-2">
+              <div class="fld"><label>Title</label><input id="f-t" value="${attr(draft.t)}" /></div>
+              <div class="fld"><label>Year</label><input id="f-y" value="${attr(draft.y)}" /></div>
+              <div class="fld"><label>Client / Industry (card meta)</label><input id="f-c" value="${attr(draft.c)}" placeholder="e.g. PT. Ragdalion · Government" /></div>
+              <div class="fld"><label>Card number</label><input id="f-n" value="${attr(draft.n)}" placeholder="01" /></div>
+              <div class="fld full"><label>Short description (card)</label><textarea id="f-d">${escapeHtml(draft.d)}</textarea></div>
+              <div class="fld"><label>Display chips (comma-separated)</label><input id="f-display" value="${attr((draft.display||[]).join(', '))}" placeholder="Mobile, Web, Government" /><span class="help">Visible as chips on the card. e.g. Mobile, Web Admin, iPad</span></div>
+              <div class="fld"><label>Filter tags (comma-separated)</label><input id="f-tags" value="${attr((draft.tags||[]).join(', '))}" placeholder="mobile, web, government" /><span class="help">Lowercase slugs for filtering. Match the filter buttons: mobile, web, ipad, design-system, government, hr-tech, edu-tech</span></div>
+              <div class="fld full"><label>Card mini-chips (comma-separated)</label><input id="f-chips" value="${attr((draft.chips||[]).join(', '))}" placeholder="Featured, Multi-surface" /></div>
+            </div>
+            <div style="margin-top: 14px;" class="toggle">
+              <input type="checkbox" id="f-featured" ${draft.featured ? 'checked' : ''} />
+              <div>
+                <label for="f-featured">Show on home page "Projects handled" grid</label>
+                <div class="desc">Only featured projects appear on the home archive section. The "All projects" page shows everything.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Cover image</h3><span class="hint">Used on cards and detail hero</span></div>
+          <div class="panel-body">
+            <div class="image-slot ${draft.coverImage ? 'has-image' : ''}" id="coverSlot">
+              ${draft.coverImage ?
+                `<button class="remove-btn" id="coverRemove" title="Remove">✕</button>
+                 <img src="${draft.coverImage}" alt="" />` :
+                `<div class="placeholder">
+                   <strong>Click or drop an image here</strong>
+                   <small>JPG, PNG · auto-resized to 1600px wide</small>
+                 </div>`
+              }
+              <input type="file" id="coverInput" accept="image/*" />
+            </div>
+            <div class="fld" style="margin-top: 14px;">
+              <label>Cover text (fallback if no image)</label>
+              <input id="f-cover" value="${attr(draft.cover)}" placeholder="Project title" />
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Detail page</h3><span class="hint">Shown when someone clicks the card</span></div>
+          <div class="panel-body">
+            <div class="grid-2">
+              <div class="fld full"><label>Headline</label><input id="f-headline" value="${attr(draft.headline)}" placeholder="Big sentence at the top of the detail page" /></div>
+              <div class="fld full"><label>Lead paragraph</label><textarea id="f-lead">${escapeHtml(draft.lead)}</textarea></div>
+              <div class="fld"><label>Client (full)</label><input id="f-client" value="${attr(draft.client)}" /></div>
+              <div class="fld"><label>Industry</label><input id="f-industry" value="${attr(draft.industry)}" /></div>
+              <div class="fld"><label>Role</label><input id="f-role" value="${attr(draft.role)}" /></div>
+              <div class="fld"><label>Team</label><input id="f-team" value="${attr(draft.team)}" /></div>
+              <div class="fld"><label>Surfaces</label><input id="f-surfaces" value="${attr(draft.surfaces)}" /></div>
+              <div class="fld"><label>Timeline</label><input id="f-timeline" value="${attr(draft.timeline)}" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Content sections</h3><span class="hint">Add as many as you need — paragraphs or bullet lists</span></div>
+          <div class="panel-body">
+            <div id="sectionsList"></div>
+            <button class="add-row" id="addParagraph">+ Add paragraph section</button>
+            <button class="add-row" id="addList">+ Add list section</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Gallery</h3><span class="hint">Screen captures shown on the detail page</span></div>
+          <div class="panel-body">
+            <div class="gallery-grid" id="galleryGrid"></div>
+            <input type="file" id="galleryInput" accept="image/*" style="display:none" />
+            <p class="help" style="margin-top: 12px; color: var(--muted); font-size: 12px;">Click any tile to remove it. Click "+ Add image" to add new ones.</p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="../projects/detail.html?id=${draft.id}" target="_blank">Preview detail page →</a>
+          <a class="btn" href="../projects/index.html" target="_blank">Preview archive →</a>
+          <div class="right">
+            <button class="btn" id="deleteBtn" style="border-color: #d54545; color: #d54545;">Delete project</button>
+            <button class="btn btn-primary" id="saveBtn">Save changes</button>
+          </div>
+        </div>
+      `;
+      bindForm();
+      renderSections();
+      renderGallery();
+      bindCover();
+    }
+
+    /* ===== Bindings ===== */
+    function bindForm() {
+      const map = {
+        't': 't', 'y': 'y', 'c': 'c', 'n': 'n', 'd': 'd',
+        'headline': 'headline', 'lead': 'lead',
+        'client': 'client', 'industry': 'industry', 'role': 'role',
+        'team': 'team', 'surfaces': 'surfaces', 'timeline': 'timeline',
+        'cover': 'cover'
+      };
+      Object.entries(map).forEach(([id, key]) => {
+        const el = document.getElementById('f-' + id);
+        if (!el) return;
+        el.addEventListener('input', () => { draft[key] = el.value; });
+        el.addEventListener('blur', () => {
+          if (key === 't') {
+            document.querySelector('.admin-main h1').textContent = draft.t || 'Untitled';
+          }
+        });
+      });
+      // arrays
+      ['display', 'tags', 'chips'].forEach(key => {
+        const el = document.getElementById('f-' + key);
+        if (!el) return;
+        el.addEventListener('input', () => {
+          draft[key] = el.value.split(',').map(s => s.trim()).filter(Boolean);
+        });
+      });
+      // featured toggle
+      document.getElementById('f-featured').addEventListener('change', (e) => {
+        draft.featured = e.target.checked;
+      });
+      // actions
+      document.getElementById('saveBtn').addEventListener('click', commit);
+      document.getElementById('deleteBtn').addEventListener('click', deleteCurrent);
+    }
+
+    function renderSections() {
+      const root = document.getElementById('sectionsList');
+      root.innerHTML = (draft.sections || []).map((s, i) => sectionHTML(s, i)).join('');
+      root.querySelectorAll('.section-editor').forEach(el => {
+        const i = parseInt(el.dataset.idx, 10);
+        bindSection(el, i);
+      });
+      document.getElementById('addParagraph').onclick = () => {
+        draft.sections.push({ type: 'paragraph', heading: 'New section', body: '' });
+        renderSections();
+      };
+      document.getElementById('addList').onclick = () => {
+        draft.sections.push({ type: 'list', heading: 'New list', items: [''] });
+        renderSections();
+      };
+    }
+
+    function sectionHTML(s, i) {
+      if (s.type === 'list') {
+        return `
+          <div class="section-editor" data-idx="${i}">
+            <div class="se-head">
+              <select data-act="type">
+                <option value="paragraph" ${s.type === 'paragraph' ? 'selected' : ''}>Paragraph</option>
+                <option value="list" ${s.type === 'list' ? 'selected' : ''}>List</option>
+              </select>
+              <input data-act="heading" value="${attr(s.heading)}" placeholder="Section heading" />
+              <button class="icon-btn" data-act="up" title="Move up">↑</button>
+              <button class="icon-btn" data-act="down" title="Move down">↓</button>
+              <button class="icon-btn" data-act="delete" title="Delete">✕</button>
+            </div>
+            <div class="list-rows">
+              ${(s.items || []).map((item, j) => `
+                <div class="list-row">
+                  <input data-act="item" data-idx="${j}" value="${attr(item)}" />
+                  <button data-act="remove-item" data-idx="${j}">−</button>
+                </div>`).join('')}
+            </div>
+            <button class="add-row" data-act="add-item">+ Add bullet</button>
+          </div>`;
+      }
+      return `
+        <div class="section-editor" data-idx="${i}">
+          <div class="se-head">
+            <select data-act="type">
+              <option value="paragraph" ${s.type === 'paragraph' ? 'selected' : ''}>Paragraph</option>
+              <option value="list" ${s.type === 'list' ? 'selected' : ''}>List</option>
+            </select>
+            <input data-act="heading" value="${attr(s.heading)}" placeholder="Section heading" />
+            <button class="icon-btn" data-act="up" title="Move up">↑</button>
+            <button class="icon-btn" data-act="down" title="Move down">↓</button>
+            <button class="icon-btn" data-act="delete" title="Delete">✕</button>
+          </div>
+          <textarea data-act="body">${escapeHtml(s.body || '')}</textarea>
+        </div>`;
+    }
+
+    function bindSection(el, i) {
+      el.querySelector('[data-act="heading"]').addEventListener('input', e => { draft.sections[i].heading = e.target.value; });
+      el.querySelector('[data-act="type"]').addEventListener('change', e => {
+        const newType = e.target.value;
+        if (newType === 'list' && draft.sections[i].type === 'paragraph') {
+          draft.sections[i] = { type: 'list', heading: draft.sections[i].heading, items: draft.sections[i].body ? [draft.sections[i].body] : [''] };
+        } else if (newType === 'paragraph' && draft.sections[i].type === 'list') {
+          draft.sections[i] = { type: 'paragraph', heading: draft.sections[i].heading, body: (draft.sections[i].items || []).join(' ') };
+        }
+        renderSections();
+      });
+      el.querySelector('[data-act="up"]').addEventListener('click', () => {
+        if (i === 0) return;
+        [draft.sections[i-1], draft.sections[i]] = [draft.sections[i], draft.sections[i-1]];
+        renderSections();
+      });
+      el.querySelector('[data-act="down"]').addEventListener('click', () => {
+        if (i >= draft.sections.length - 1) return;
+        [draft.sections[i+1], draft.sections[i]] = [draft.sections[i], draft.sections[i+1]];
+        renderSections();
+      });
+      el.querySelector('[data-act="delete"]').addEventListener('click', () => {
+        if (!confirm('Delete this section?')) return;
+        draft.sections.splice(i, 1);
+        renderSections();
+      });
+      const body = el.querySelector('[data-act="body"]');
+      if (body) body.addEventListener('input', e => { draft.sections[i].body = e.target.value; });
+      el.querySelectorAll('[data-act="item"]').forEach(input => {
+        input.addEventListener('input', e => {
+          const j = parseInt(input.dataset.idx, 10);
+          draft.sections[i].items[j] = e.target.value;
+        });
+      });
+      el.querySelectorAll('[data-act="remove-item"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const j = parseInt(btn.dataset.idx, 10);
+          draft.sections[i].items.splice(j, 1);
+          renderSections();
+        });
+      });
+      const addItem = el.querySelector('[data-act="add-item"]');
+      if (addItem) addItem.addEventListener('click', () => {
+        draft.sections[i].items.push('');
+        renderSections();
+      });
+    }
+
+    /* ===== Cover image ===== */
+    function bindCover() {
+      const slot = document.getElementById('coverSlot');
+      const input = document.getElementById('coverInput');
+      const remove = document.getElementById('coverRemove');
+      slot.addEventListener('click', (e) => {
+        if (e.target.closest('button.remove-btn')) return;
+        input.click();
+      });
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await ProjectStore.fileToCompressedDataURL(file, 1600, 0.82);
+          draft.coverImage = url;
+          renderMain();
+        } catch (err) {
+          toast('Image upload failed: ' + err.message);
+        }
+      });
+      // drag and drop
+      ['dragenter', 'dragover'].forEach(ev => slot.addEventListener(ev, e => { e.preventDefault(); slot.classList.add('dragover'); }));
+      ['dragleave', 'drop'].forEach(ev => slot.addEventListener(ev, e => { e.preventDefault(); slot.classList.remove('dragover'); }));
+      slot.addEventListener('drop', async e => {
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        try {
+          const url = await ProjectStore.fileToCompressedDataURL(file, 1600, 0.82);
+          draft.coverImage = url;
+          renderMain();
+        } catch (err) { toast('Failed: ' + err.message); }
+      });
+      if (remove) remove.addEventListener('click', (e) => {
+        e.stopPropagation();
+        draft.coverImage = '';
+        renderMain();
+      });
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      draft.gallery = draft.gallery || [];
+      const tiles = draft.gallery.map((src, i) => `
+        <div class="gallery-tile">
+          <img src="${src}" alt="" />
+          <button class="remove-btn" data-idx="${i}" title="Remove">✕</button>
+        </div>`).join('');
+      grid.innerHTML = tiles + `
+        <div class="gallery-tile add" id="galleryAdd">+ Add image</div>`;
+      grid.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          draft.gallery.splice(parseInt(btn.dataset.idx, 10), 1);
+          renderGallery();
+        });
+      });
+      const add = document.getElementById('galleryAdd');
+      const input = document.getElementById('galleryInput');
+      add.addEventListener('click', () => input.click());
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await ProjectStore.fileToCompressedDataURL(file, 1600, 0.82);
+          draft.gallery.push(url);
+          input.value = '';
+          renderGallery();
+        } catch (err) { toast('Failed: ' + err.message); }
+      };
+    }
+
+    /* ===== Commit ===== */
+    function commit() {
+      // ensure slug-safe id
+      if (!draft.id) draft.id = 'project-' + Date.now();
+      const result = ProjectStore.upsert(draft);
+      if (!result.ok) {
+        toast('Save failed — ' + result.error);
+        return;
+      }
+      projects = ProjectStore.load();
+      renderSidebar();
+      toast('Saved. ✓');
+      const status = document.getElementById('statusLine');
+      if (status) status.textContent = 'Last saved ' + new Date().toLocaleTimeString();
+    }
+
+    function deleteCurrent() {
+      if (!confirm('Delete "' + draft.t + '"? This cannot be undone (you can still Reset to defaults).')) return;
+      ProjectStore.remove(draft.id);
+      projects = ProjectStore.load();
+      activeId = projects[0]?.id || null;
+      draft = activeId ? JSON.parse(JSON.stringify(projects.find(p => p.id === activeId))) : null;
+      renderSidebar();
+      renderMain();
+      toast('Project deleted.');
+    }
+
+    /* ===== Toolbar ===== */
+    document.getElementById('addBtn').addEventListener('click', () => {
+      const fresh = ProjectStore.blank();
+      ProjectStore.upsert(fresh);
+      projects = ProjectStore.load();
+      selectProject(fresh.id);
+      toast('New project added.');
+    });
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      ProjectStore.exportJSON();
+      toast('Exported to JSON.');
+    });
+    document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+    document.getElementById('importFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      try {
+        await ProjectStore.importJSON(f);
+        projects = ProjectStore.load();
+        activeId = projects[0]?.id || null;
+        selectProject(activeId);
+        toast('Imported successfully.');
+      } catch (err) { toast('Import failed: ' + err.message); }
+    });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (!confirm('Reset everything to the original seed data? Your custom projects and images will be lost.')) return;
+      ProjectStore.reset();
+      projects = ProjectStore.load();
+      activeId = projects[0]?.id || null;
+      selectProject(activeId);
+      toast('Reset to defaults.');
+    });
+
+    /* ===== Utils ===== */
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+    function attr(s) { return escapeHtml(s); }
+
+    /* ===== Init ===== */
+    if (activeId) selectProject(activeId);
+    else renderMain();
+    renderSidebar();
+  </script>
+</body>
+</html>

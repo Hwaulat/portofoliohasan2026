@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CMS — Hasan Waulat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { padding-top: 100px; }
+  .cms-wrap { max-width: 1100px; margin: 0 auto; padding: 0 36px 80px; }
+  .cms-head { padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
+  .cms-head h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: clamp(40px, 5vw, 72px); margin: 12px 0 8px; letter-spacing: -0.01em; }
+  .cms-head h1 em { color: var(--accent); font-style: italic; }
+  .cms-head p { color: var(--muted); font-size: 16px; margin: 0; max-width: 56ch; }
+  .cms-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 40px; }
+  @media (max-width: 720px) { .cms-cards { grid-template-columns: 1fr; } .cms-wrap { padding: 0 20px 60px; } }
+  .cms-card {
+    border: 1px solid var(--border); background: var(--card); border-radius: 6px;
+    padding: 28px; display: flex; flex-direction: column; gap: 14px;
+    transition: all 200ms ease; text-decoration: none; color: inherit;
+    position: relative; overflow: hidden;
+  }
+  .cms-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 320ms cubic-bezier(.22,.61,.36,1); }
+  .cms-card:hover { transform: translateY(-3px); border-color: var(--fg); }
+  .cms-card:hover::before { transform: scaleY(1); }
+  .cms-card .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cms-card h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
+  .cms-card p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; }
+  .cms-card .bullets { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 0; padding: 14px 0 0; border-top: 1px dashed var(--border); }
+  .cms-card .bullets li { list-style: none; font-size: 13px; color: var(--muted); display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
+  .cms-card .bullets li::before { content: '↳'; color: var(--accent); }
+  .cms-card .arrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--accent); margin-top: auto; padding-top: 8px; }
+
+  .qsection { padding-top: 28px; border-top: 1px solid var(--border); }
+  .qsection h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+  .quick-row { display: flex; flex-wrap: wrap; gap: 10px; }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+      <div class="mark">h</div>
+      <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— CMS</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html">Live Site</a>
+      <a href="site.html">Site Content</a>
+      <a href="projects.html">Projects</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn btn-primary" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">View live site →</a>
+    </div>
+  </nav>
+
+  <div class="cms-wrap">
+    <header class="cms-head">
+      <span class="eyebrow">Content Management System</span>
+      <h1>Edit your <em>entire site</em> from one place.</h1>
+      <p>Every visible block on your personal branding page can be edited here. Changes save instantly to your browser and update the live page in real-time.</p>
+    </header>
+
+    <div class="cms-cards">
+      <a class="cms-card" href="site.html">
+        <span class="label">CMS · Section 01</span>
+        <h3>Site Content</h3>
+        <p>Hero, About, Skills, Services, Process, Experience, Testimonials, Customers, Contact — every text block, image, and link on the home page.</p>
+        <ul class="bullets">
+          <li>Header buttons (CV path, WhatsApp number)</li>
+          <li>Hero headline, eyebrow, photo, trust strip</li>
+          <li>Metrics, About bio, "Now" card</li>
+          <li>3 skill pillars + end-to-end flow strip</li>
+          <li>Services, Process, Experience timeline</li>
+          <li>Customer logos, Testimonials, Contact info</li>
+        </ul>
+        <span class="arrow">Edit site content →</span>
+      </a>
+
+      <a class="cms-card" href="projects.html">
+        <span class="label">CMS · Section 02</span>
+        <h3>Projects &amp; Case Studies</h3>
+        <p>The 32 projects shown on the home archive and the full <code>/projects/</code> page. Edit cards, upload cover images, manage detail-page content section by section.</p>
+        <ul class="bullets">
+          <li>Card title, description, year, chips</li>
+          <li>Cover image upload (auto-compressed)</li>
+          <li>Detail page: headline, lead, role, team</li>
+          <li>Content sections (paragraphs &amp; lists)</li>
+          <li>Project gallery upload</li>
+          <li>Feature/unfeature on home archive</li>
+        </ul>
+        <span class="arrow">Edit projects →</span>
+      </a>
+    </div>
+
+    <section class="qsection">
+      <h4>Quick actions</h4>
+      <div class="quick-row">
+        <button class="btn" id="exportAll">Export everything (JSON)</button>
+        <button class="btn" id="importAll">Import from JSON</button>
+        <input type="file" id="importFile" accept="application/json" multiple style="display:none" />
+        <button class="btn" id="resetAll" style="border-color:#d54545; color:#d54545;">Reset all to defaults</button>
+        <a class="btn" href="../Hasan%20Waulat%20-%20Personal%20Branding.html" target="_blank">Open live site →</a>
+      </div>
+      <p style="font-size: 12px; color: var(--muted); margin-top: 16px; max-width: 64ch;">All CMS data is stored in your browser's local storage. To move to another device, export to JSON, then import on the new device. The "Export everything" button bundles both site content and projects into one file.</p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:999px;font-size:13px;z-index:100;opacity:0;transition:opacity 220ms ease, transform 220ms ease;pointer-events:none;"></div>
+
+  <script src="site-store.js"></script>
+  <script src="../projects/store.js"></script>
+  <script>
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    function setTheme(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem('theme', t); }catch(e){} themeBtn.innerHTML = t === 'dark' ? sun : moon; }
+    const saved = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; }})();
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    const toastEl = document.getElementById('toast');
+    let tt;
+    function toast(m) { toastEl.textContent = m; toastEl.style.opacity = '1'; toastEl.style.transform = 'translate(-50%,-8px)'; clearTimeout(tt); tt = setTimeout(()=>{ toastEl.style.opacity='0'; toastEl.style.transform='translateX(-50%)'; }, 2200); }
+
+    document.getElementById('exportAll').addEventListener('click', () => {
+      const bundle = { site: SiteStore.load(), projects: ProjectStore.load(), exportedAt: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'hasan-cms-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      setTimeout(()=>URL.revokeObjectURL(url), 500);
+      toast('Exported everything.');
+    });
+    document.getElementById('importAll').addEventListener('click', () => document.getElementById('importFile').click());
+    document.getElementById('importFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      try {
+        const text = await f.text();
+        const data = JSON.parse(text);
+        if (data.site) SiteStore.save(data.site);
+        if (data.projects) localStorage.setItem('hw_projects_v1', JSON.stringify(data.projects));
+        toast('Imported.');
+      } catch (err) { toast('Import failed: ' + err.message); }
+    });
+    document.getElementById('resetAll').addEventListener('click', () => {
+      if (!confirm('Reset BOTH site content AND projects to defaults? Your custom edits will be lost.')) return;
+      SiteStore.reset();
+      ProjectStore.reset();
+      toast('Reset to defaults.');
+    });
+  </script>
+</body>
+</html>

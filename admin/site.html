@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Site Content · CMS — Hasan Waulat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  .admin-shell { padding-top: 80px; display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .admin-side {
+    border-right: 1px solid var(--border);
+    padding: 24px 16px; background: color-mix(in oklab, var(--paper) 60%, var(--bg));
+    overflow-y: auto; max-height: calc(100vh - 80px); position: sticky; top: 80px;
+  }
+  .admin-main { padding: 28px 36px 100px; overflow-y: auto; max-width: 960px; }
+  .side-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .side-head h2 { font-family: 'Montserrat', system-ui, sans-serif; font-size: 22px; margin: 0; font-weight: 600; }
+  .toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .toolbar .btn { width: 100%; justify-content: center; font-size: 12px; padding: 8px 10px; }
+  .navlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 3px; }
+  .navlist li {
+    cursor: pointer; padding: 9px 12px; border-radius: 4px; border: 1px solid transparent;
+    display: flex; align-items: center; gap: 10px; font-size: 13px;
+    transition: all 160ms ease; user-select: none;
+  }
+  .navlist li:hover { border-color: var(--border); }
+  .navlist li.active { background: var(--fg); color: var(--bg); }
+  .navlist li .num { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--accent); min-width: 18px; letter-spacing: 0.1em; }
+  .navlist li.active .num { color: var(--bg); }
+
+  .admin-main h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .admin-main .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .admin-main .lede { color: var(--muted); margin: 0 0 22px; max-width: 60ch; }
+  .status { font-size: 13px; color: var(--accent); min-height: 18px; margin-bottom: 18px; }
+
+  .panel { border: 1px solid var(--border); background: var(--card); border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
+  .panel-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .panel-head h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 17px; margin: 0; letter-spacing: -0.005em; }
+  .panel-head .hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .panel-head .actions-inline { display: flex; gap: 6px; }
+  .panel-body { padding: 18px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .full { grid-column: 1 / -1; }
+
+  .fld { display: flex; flex-direction: column; gap: 6px; }
+  .fld label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .fld input, .fld textarea, .fld select {
+    background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: 4px;
+    padding: 9px 12px; font: inherit; font-size: 14px; outline: none; transition: border-color 160ms ease;
+  }
+  .fld input:focus, .fld textarea:focus, .fld select:focus { border-color: var(--accent); }
+  .fld textarea { min-height: 80px; resize: vertical; font-family: inherit; }
+  .fld .help { font-size: 11px; color: var(--muted); }
+
+  .row-item {
+    border: 1px solid var(--border); border-radius: 4px; padding: 14px;
+    background: var(--bg); margin-bottom: 10px;
+  }
+  .row-item .ri-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .row-item .ri-head strong { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; flex: 1; }
+  .row-item .ri-head button { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
+  .row-item .ri-head button:hover { color: var(--fg); border-color: var(--fg); }
+  .add-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px;
+    border: 1px dashed var(--border); border-radius: 4px; cursor: pointer; background: transparent;
+    color: var(--accent); font-size: 12px; font-family: inherit;
+  }
+  .add-btn:hover { border-color: var(--accent); }
+
+  .list-rows { display: flex; flex-direction: column; gap: 6px; }
+  .list-row { display: flex; gap: 6px; }
+  .list-row input { flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); color: var(--fg); font: inherit; font-size: 13px; }
+  .list-row button { padding: 6px 10px; background: transparent; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; color: var(--muted); font-size: 12px; }
+  .list-row button:hover { color: var(--fg); border-color: var(--fg); }
+
+  .toggle { display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid var(--border); border-radius: 4px; background: var(--bg); }
+  .toggle input { width: 16px; height: 16px; accent-color: var(--accent); margin-top: 2px; }
+  .toggle .body { flex: 1; }
+  .toggle label { font-size: 13px; cursor: pointer; }
+  .toggle .desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .image-slot {
+    border: 2px dashed var(--border); border-radius: 6px; padding: 24px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    cursor: pointer; min-height: 140px; justify-content: center; position: relative;
+    transition: all 160ms ease;
+  }
+  .image-slot.has-image { padding: 0; border-style: solid; min-height: auto; }
+  .image-slot img { max-width: 100%; max-height: 200px; display: block; border-radius: 4px; }
+  .image-slot input[type=file] { display: none; }
+  .image-slot .placeholder { color: var(--muted); font-size: 13px; }
+  .image-slot:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .image-slot .remove-btn { position: absolute; top: 8px; right: 8px; width: 26px; height: 26px; border-radius: 999px; background: var(--fg); color: var(--bg); border: 0; cursor: pointer; opacity: 0; transition: opacity 160ms ease; }
+  .image-slot.has-image:hover .remove-btn { opacity: 1; }
+
+  .actions {
+    position: sticky; bottom: 0; padding: 18px 0 12px;
+    display: flex; gap: 10px; justify-content: flex-end; align-items: center;
+    background: linear-gradient(to top, var(--bg) 70%, transparent); z-index: 5; flex-wrap: wrap;
+    margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border);
+  }
+  .actions .save-note { margin-right: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; }
+
+  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 12px 18px; border-radius: 999px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }
+  .toast.show { opacity: 1; transform: translate(-50%, -8px); }
+
+  @media (max-width: 900px) {
+    .admin-shell { grid-template-columns: 1fr; }
+    .admin-side { position: static; max-height: none; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .admin-main { padding: 24px 20px 100px; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+      <div class="mark">h</div>
+      <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— Site CMS</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">CMS Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html" target="_blank">Live Site</a>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn btn-primary" href="../Hasan%20Waulat%20-%20Personal%20Branding.html" target="_blank">Preview live →</a>
+    </div>
+  </nav>
+
+  <div class="admin-shell">
+    <aside class="admin-side">
+      <div class="side-head"><h2>Sections</h2></div>
+      <div class="toolbar">
+        <button class="btn btn-primary" id="saveBtn">Save changes</button>
+        <button class="btn" id="exportBtn">Export JSON</button>
+        <button class="btn" id="importBtn">Import JSON</button>
+        <input type="file" id="importFile" accept="application/json" style="display:none" />
+        <button class="btn" id="resetBtn" style="border-color:#d54545; color:#d54545;">Reset section</button>
+      </div>
+      <ul class="navlist" id="navlist"></ul>
+    </aside>
+
+    <main class="admin-main">
+      <div id="mainContent"></div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="site-store.js"></script>
+  <script src="editor-render.js"></script>
+  <script>
+    /* ===== Theme ===== */
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    function setTheme(t){ root.setAttribute('data-theme', t); try{ localStorage.setItem('theme', t); }catch(e){} themeBtn.innerHTML = t === 'dark' ? sun : moon; }
+    const saved = (()=>{ try { return localStorage.getItem('theme'); } catch(e){ return null; }})();
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+
+    /* ===== App ===== */
+    const SECTIONS = [
+      { id: 'header', num: '00', label: 'Header & buttons' },
+      { id: 'hero', num: '01', label: 'Hero' },
+      { id: 'metrics', num: '02', label: 'Metrics bar' },
+      { id: 'about', num: '03', label: 'About' },
+      { id: 'customers', num: '04', label: 'Customers (logo marquee)' },
+      { id: 'skills', num: '05', label: 'Skills & capabilities' },
+      { id: 'services', num: '06', label: 'Services' },
+      { id: 'process', num: '07', label: 'Process' },
+      { id: 'experience', num: '08', label: 'Experience timeline' },
+      { id: 'testimonials', num: '09', label: 'Testimonials' },
+      { id: 'contact', num: '10', label: 'Contact' },
+      { id: 'footer', num: '11', label: 'Footer' }
+    ];
+    let data = SiteStore.load();
+    let active = location.hash ? location.hash.slice(1) : 'hero';
+    if (!SECTIONS.find(s => s.id === active)) active = 'hero';
+
+    function renderNav() {
+      const list = document.getElementById('navlist');
+      list.innerHTML = SECTIONS.map(s => `<li data-id="${s.id}" class="${s.id === active ? 'active' : ''}"><span class="num">${s.num}</span><span>${s.label}</span></li>`).join('');
+      list.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => { active = li.dataset.id; location.hash = '#' + active; renderNav(); renderMain(); });
+      });
+    }
+
+    function renderMain() {
+      const root = document.getElementById('mainContent');
+      const meta = SECTIONS.find(s => s.id === active);
+      // editor-render.js exposes renderEditor(active, data, onChange)
+      root.innerHTML = '';
+      const head = document.createElement('div');
+      head.innerHTML = `<div class="crumbs">Section · ${meta.num}</div><h1>${meta.label}</h1>`;
+      root.appendChild(head);
+      const status = document.createElement('div');
+      status.className = 'status'; status.id = 'statusLine';
+      root.appendChild(status);
+      const editor = document.createElement('div');
+      root.appendChild(editor);
+      window.renderEditor(active, data, editor, () => { autosave(); });
+
+      const actions = document.createElement('div');
+      actions.className = 'actions';
+      actions.innerHTML = `
+        <span class="save-note" id="saveNote">Auto-saved on change</span>
+        <a class="btn" href="../Hasan%20Waulat%20-%20Personal%20Branding.html#${active}" target="_blank">Preview ${meta.label} →</a>
+        <button class="btn btn-primary" id="saveBtn2">Save & preview</button>
+      `;
+      root.appendChild(actions);
+      document.getElementById('saveBtn2').addEventListener('click', () => {
+        commit();
+        window.open('../Hasan%20Waulat%20-%20Personal%20Branding.html#' + active, '_blank');
+      });
+    }
+
+    /* ===== Save/commit ===== */
+    let autosaveTimer;
+    function autosave() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(commit, 350);
+    }
+    function commit() {
+      const result = SiteStore.save(data);
+      if (!result.ok) { toast('Save failed: ' + result.error); return; }
+      const note = document.getElementById('saveNote');
+      if (note) note.textContent = 'Saved ' + new Date().toLocaleTimeString();
+    }
+    document.getElementById('saveBtn').addEventListener('click', () => { commit(); toast('Saved ✓'); });
+    document.getElementById('exportBtn').addEventListener('click', () => { SiteStore.exportJSON(); toast('Exported.'); });
+    document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+    document.getElementById('importFile').addEventListener('change', async (e) => {
+      const f = e.target.files[0]; if (!f) return;
+      try { await SiteStore.importJSON(f); data = SiteStore.load(); renderMain(); toast('Imported.'); }
+      catch (err) { toast('Import failed: ' + err.message); }
+    });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (!confirm('Reset "' + SECTIONS.find(s => s.id === active).label + '" to its default content?')) return;
+      data[active] = JSON.parse(JSON.stringify(SiteStore.DEFAULT[active]));
+      SiteStore.save(data);
+      renderMain();
+      toast('Section reset.');
+    });
+
+    /* ===== Toast ===== */
+    const toastEl = document.getElementById('toast');
+    let toastTimer;
+    function toast(m) { toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(()=>toastEl.classList.remove('show'), 2200); }
+
+    /* ===== Init ===== */
+    renderNav();
+    renderMain();
+  </script>
+</body>
+</html>
