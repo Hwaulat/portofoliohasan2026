@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "personal-branding",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/static-server.js", ".", "5510"],
+      "port": 5510,
+      "autoPort": false
+    }
+  ]
+}
