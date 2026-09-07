@@ -32,6 +32,11 @@
     text-align: center; padding: 30px;
     letter-spacing: -0.02em;
   }
+  .detail .hero-img-real {
+    width: 100%; height: auto; display: block;
+    border-radius: 6px; border: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
   .detail .info-grid { display: grid; grid-template-columns: 280px 1fr; gap: 60px; margin-bottom: 60px; padding-top: 36px; border-top: 1px solid var(--border); }
   .detail .info-grid .info { display: flex; flex-direction: column; gap: 18px; }
   .detail .info-grid .info .row { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
@@ -177,7 +182,7 @@
         : '<div class="tile">Screen 01 · Coming soon</div><div class="tile">Screen 02 · Coming soon</div><div class="tile">Screen 03 · Coming soon</div><div class="tile">Screen 04 · Coming soon</div>';
 
       const heroVisual = p.coverImage
-        ? `<div class="hero-img" style="background-image:url('${p.coverImage}'); background-size:cover; background-position:center;"></div>`
+        ? `<img class="hero-img-real" src="${p.coverImage}" alt="${escapeHtml(p.t)}" />`
         : '<div class="hero-img">' + escapeHtml(p.cover || p.t) + '</div>';
 
       document.getElementById('detailRoot').innerHTML = `
