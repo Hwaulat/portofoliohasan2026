@@ -63,6 +63,18 @@
   }
   .cs-block.impact h3 { border-bottom: none; color: var(--accent); padding-bottom: 0; margin-bottom: 16px; }
   
+  .cs-image {
+    width: 100%; height: auto; display: block;
+    border-radius: 6px; border: 1px solid var(--border); margin-top: 16px;
+  }
+  @media (min-width: 901px) {
+    .cs-block.full-bleed .cs-image {
+      width: calc(100% + 340px);
+      max-width: none;
+      margin-left: -340px;
+    }
+  }
+
   .cs-block.highlight {
     border-left: 4px solid var(--accent);
     padding-left: 24px; margin-left: -28px;
@@ -173,7 +185,7 @@
       if (!src.startsWith('data:image') && !src.startsWith('http') && !src.startsWith('/')) {
         return renderCSBlock(title, src);
       }
-      return `<div class="cs-block"><h3>${title}</h3><img src="${src}" alt="${title}" style="width:100%; height:auto; border-radius:6px; border:1px solid var(--border); margin-top: 16px; display:block;" /></div>`;
+      return `<div class="cs-block full-bleed"><h3>${title}</h3><img src="${src}" alt="${title}" class="cs-image" /></div>`;
     }
 
     function render() {
