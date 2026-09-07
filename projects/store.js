@@ -315,11 +315,21 @@
       cover: 'New Project',
       coverImage: '',
       featured: false,
-      sections: [
-        { type: 'paragraph', heading: 'The brief', body: '' },
-        { type: 'list', heading: 'What I owned', items: [''] },
-        { type: 'paragraph', heading: 'Outcome', body: '' }
-      ],
+      sections: [],
+      cs_summary: '',
+      cs_overview: '',
+      cs_problem: '',
+      cs_scope: '',
+      cs_research: '',
+      cs_ideation: '',
+      cs_design_system: '',
+      cs_ui_design: '',
+      cs_prototype: '',
+      cs_validation: '',
+      cs_handoff: '',
+      cs_impact: '',
+      cs_reflection: '',
+      cs_credit: '',
       gallery: []
     };
   }

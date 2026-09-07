@@ -42,6 +42,26 @@
   .detail .body ul { padding: 0; margin: 0 0 24px; list-style: none; max-width: 62ch; }
   .detail .body ul li { padding: 10px 0 10px 22px; border-bottom: 1px dashed var(--border); position: relative; font-size: 15px; }
   .detail .body ul li::before { content: '↳'; position: absolute; left: 0; color: var(--accent); }
+  
+  .cs-block { margin-bottom: 48px; }
+  .cs-block h3 { color: var(--fg); padding-bottom: 12px; margin-bottom: 16px; font-size: 24px; border-bottom: 1px solid var(--border); }
+  .cs-block p { font-size: 17px; line-height: 1.7; color: color-mix(in oklab, var(--fg) 90%, transparent); margin: 0 0 16px; max-width: 65ch; }
+  .cs-block ul { margin: 0 0 24px; padding-left: 0; list-style: none; max-width: 65ch; }
+  .cs-block ul li { padding: 10px 0 10px 22px; border-bottom: 1px dashed var(--border); position: relative; font-size: 16px; line-height: 1.6; }
+  .cs-block ul li::before { content: '↳'; position: absolute; left: 0; color: var(--accent); }
+  .cs-block strong { font-weight: 600; color: var(--fg); }
+  
+  .cs-block.impact {
+    background: color-mix(in oklab, var(--accent) 8%, transparent);
+    border-radius: 8px; padding: 32px;
+    border: 1px solid color-mix(in oklab, var(--accent) 20%, transparent);
+  }
+  .cs-block.impact h3 { border-bottom: none; color: var(--accent); padding-bottom: 0; margin-bottom: 16px; }
+  
+  .cs-block.highlight {
+    border-left: 4px solid var(--accent);
+    padding-left: 24px; margin-left: -28px;
+  }
   .detail .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 40px 0; }
   .detail .gallery .tile {
     aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; display: grid; place-items: center;
@@ -114,11 +134,40 @@
       return '<h3>' + heading + '</h3><p>' + escapeHtml(s.body || '') + '</p>';
     }
 
+    function renderMarkdown(text) {
+      if (!text) return '';
+      let lines = escapeHtml(text.trim()).split('\n');
+      let out = '';
+      let inList = false;
+      for(let line of lines) {
+        line = line.trim();
+        line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        if (line.startsWith('- ')) {
+          if (!inList) { out += '<ul>'; inList = true; }
+          out += '<li>' + line.substring(2) + '</li>';
+        } else {
+          if (inList) { out += '</ul>'; inList = false; }
+          if (line) {
+            out += '<p>' + line + '</p>';
+          }
+        }
+      }
+      if (inList) out += '</ul>';
+      return out;
+    }
+
+    function renderCSBlock(title, content, type) {
+      if (!content || !content.trim()) return '';
+      let cls = 'cs-block';
+      if (type) cls += ' ' + type;
+      return `<div class="${cls}"><h3>${title}</h3>${renderMarkdown(content)}</div>`;
+    }
+
     function render() {
       const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
       const p = ProjectStore.get(id);
       if (!p) {
-        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
+        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: Montserrat, system-ui, sans-serif; font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
         return;
       }
       document.title = p.t + ' — Hasan Waulat';
@@ -146,6 +195,21 @@
             <div class="row"><span class="k">Timeline</span><span class="v">${escapeHtml(p.timeline || '')}</span></div>
           </aside>
           <div class="body">
+            ${renderCSBlock('TL;DR', p.cs_summary, 'highlight')}
+            ${renderCSBlock('Project Overview', p.cs_overview)}
+            ${renderCSBlock('Problem Statement', p.cs_problem)}
+            ${renderCSBlock('Scope of Work', p.cs_scope)}
+            ${renderCSBlock('Research & Discovery', p.cs_research)}
+            ${renderCSBlock('Define & Ideation', p.cs_ideation)}
+            ${renderCSBlock('Design System', p.cs_design_system)}
+            ${renderCSBlock('UI/Visual Design', p.cs_ui_design)}
+            ${renderCSBlock('Prototype & Interaksi', p.cs_prototype)}
+            ${renderCSBlock('Validasi & Iterasi', p.cs_validation)}
+            ${renderCSBlock('Development Handoff', p.cs_handoff)}
+            ${renderCSBlock('Hasil & Dampak', p.cs_impact, 'impact')}
+            ${renderCSBlock('Pembelajaran & Refleksi', p.cs_reflection)}
+            ${renderCSBlock('Lampiran & Credit', p.cs_credit)}
+            
             ${(p.sections || []).map(renderSectionBlock).join('')}
             <div class="gallery">${galleryHTML}</div>
             <div class="next-cta">

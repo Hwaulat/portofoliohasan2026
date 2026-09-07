@@ -338,7 +338,29 @@
         </div>
 
         <div class="panel">
-          <div class="panel-head"><h3>Content sections</h3><span class="hint">Add as many as you need — paragraphs or bullet lists</span></div>
+          <div class="panel-head"><h3>Case Study Details</h3><span class="hint">Structured points for detailed case studies (Markdown allowed)</span></div>
+          <div class="panel-body">
+            <div style="display: grid; gap: 16px;">
+              <div class="fld"><label>Ringkasan Project (TL;DR)</label><textarea id="f-cs_summary">${escapeHtml(draft.cs_summary)}</textarea><span class="help">Singkat: apa masalahnya, apa solusinya, apa hasilnya</span></div>
+              <div class="fld"><label>Project Overview</label><textarea id="f-cs_overview">${escapeHtml(draft.cs_overview)}</textarea></div>
+              <div class="fld"><label>Latar Belakang & Problem Statement</label><textarea id="f-cs_problem">${escapeHtml(draft.cs_problem)}</textarea></div>
+              <div class="fld"><label>Scope of Work & Peran Kamu</label><textarea id="f-cs_scope">${escapeHtml(draft.cs_scope)}</textarea></div>
+              <div class="fld"><label>Research & Discovery</label><textarea id="f-cs_research">${escapeHtml(draft.cs_research)}</textarea></div>
+              <div class="fld"><label>Define & Ideation</label><textarea id="f-cs_ideation">${escapeHtml(draft.cs_ideation)}</textarea></div>
+              <div class="fld"><label>Design System</label><textarea id="f-cs_design_system">${escapeHtml(draft.cs_design_system)}</textarea></div>
+              <div class="fld"><label>UI Design / Visual Design</label><textarea id="f-cs_ui_design">${escapeHtml(draft.cs_ui_design)}</textarea></div>
+              <div class="fld"><label>Prototype & Interaksi</label><textarea id="f-cs_prototype">${escapeHtml(draft.cs_prototype)}</textarea></div>
+              <div class="fld"><label>Validasi & Iterasi</label><textarea id="f-cs_validation">${escapeHtml(draft.cs_validation)}</textarea></div>
+              <div class="fld"><label>Development Handoff</label><textarea id="f-cs_handoff">${escapeHtml(draft.cs_handoff)}</textarea></div>
+              <div class="fld"><label>Hasil & Dampak (Results & Impact)</label><textarea id="f-cs_impact">${escapeHtml(draft.cs_impact)}</textarea></div>
+              <div class="fld"><label>Pembelajaran & Refleksi</label><textarea id="f-cs_reflection">${escapeHtml(draft.cs_reflection)}</textarea></div>
+              <div class="fld"><label>Lampiran & Credit</label><textarea id="f-cs_credit">${escapeHtml(draft.cs_credit)}</textarea></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Other Content sections</h3><span class="hint">Add any additional paragraphs or bullet lists</span></div>
           <div class="panel-body">
             <div id="sectionsList"></div>
             <button class="add-row" id="addParagraph">+ Add paragraph section</button>
@@ -377,7 +399,21 @@
         'headline': 'headline', 'lead': 'lead',
         'client': 'client', 'industry': 'industry', 'role': 'role',
         'team': 'team', 'surfaces': 'surfaces', 'timeline': 'timeline',
-        'cover': 'cover'
+        'cover': 'cover',
+        'cs_summary': 'cs_summary',
+        'cs_overview': 'cs_overview',
+        'cs_problem': 'cs_problem',
+        'cs_scope': 'cs_scope',
+        'cs_research': 'cs_research',
+        'cs_ideation': 'cs_ideation',
+        'cs_design_system': 'cs_design_system',
+        'cs_ui_design': 'cs_ui_design',
+        'cs_prototype': 'cs_prototype',
+        'cs_validation': 'cs_validation',
+        'cs_handoff': 'cs_handoff',
+        'cs_impact': 'cs_impact',
+        'cs_reflection': 'cs_reflection',
+        'cs_credit': 'cs_credit'
       };
       Object.entries(map).forEach(([id, key]) => {
         const el = document.getElementById('f-' + id);
