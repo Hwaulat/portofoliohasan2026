@@ -391,7 +391,20 @@
               <div class="fld"><label>Scope of Work & Peran Kamu</label><textarea id="f-cs_scope">${escapeHtml(draft.cs_scope)}</textarea></div>
               <div class="fld"><label>Research & Discovery</label><textarea id="f-cs_research">${escapeHtml(draft.cs_research)}</textarea></div>
               <div class="fld"><label>Define & Ideation</label><textarea id="f-cs_ideation">${escapeHtml(draft.cs_ideation)}</textarea></div>
-              <div class="fld"><label>Design System</label><textarea id="f-cs_design_system">${escapeHtml(draft.cs_design_system)}</textarea></div>
+              <div class="fld">
+                <label>Design System</label>
+                <div class="image-slot ${draft.cs_design_system ? 'has-image' : ''}" id="dsSlot" style="margin-top:6px; min-height: 120px;">
+                  ${draft.cs_design_system ?
+                    `<button class="remove-btn" id="dsRemove" title="Remove">✕</button>
+                     <img src="${draft.cs_design_system}" alt="" />` :
+                    `<div class="placeholder">
+                       <strong>Click or drop a design system image here</strong>
+                       <small>JPG, PNG · High-definition (auto-resized to max 2560px)</small>
+                     </div>`
+                  }
+                  <input type="file" id="dsInput" accept="image/*" />
+                </div>
+              </div>
               <div class="fld"><label>UI Design / Visual Design</label><textarea id="f-cs_ui_design">${escapeHtml(draft.cs_ui_design)}</textarea></div>
               <div class="fld"><label>Prototype & Interaksi</label><textarea id="f-cs_prototype">${escapeHtml(draft.cs_prototype)}</textarea></div>
               <div class="fld"><label>Validasi & Iterasi</label><textarea id="f-cs_validation">${escapeHtml(draft.cs_validation)}</textarea></div>
@@ -434,6 +447,7 @@
       renderSections();
       renderGallery();
       bindCover();
+      bindDesignSystem();
     }
 
     /* ===== Bindings ===== */
@@ -450,7 +464,6 @@
         'cs_scope': 'cs_scope',
         'cs_research': 'cs_research',
         'cs_ideation': 'cs_ideation',
-        'cs_design_system': 'cs_design_system',
         'cs_ui_design': 'cs_ui_design',
         'cs_prototype': 'cs_prototype',
         'cs_validation': 'cs_validation',
@@ -626,6 +639,46 @@
       if (remove) remove.addEventListener('click', (e) => {
         e.stopPropagation();
         draft.coverImage = '';
+        renderMain();
+      });
+    }
+
+    /* ===== Design System Image ===== */
+    function bindDesignSystem() {
+      const slot = document.getElementById('dsSlot');
+      const input = document.getElementById('dsInput');
+      const remove = document.getElementById('dsRemove');
+      if (!slot) return;
+      slot.addEventListener('click', (e) => {
+        if (e.target.closest('button.remove-btn')) return;
+        input.click();
+      });
+      input.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+          const url = await ProjectStore.fileToCompressedDataURL(file, 2560, 0.9);
+          draft.cs_design_system = url;
+          renderMain();
+        } catch (err) {
+          toast('Image upload failed: ' + err.message);
+        }
+      });
+      // drag and drop
+      ['dragenter', 'dragover'].forEach(ev => slot.addEventListener(ev, e => { e.preventDefault(); slot.classList.add('dragover'); }));
+      ['dragleave', 'drop'].forEach(ev => slot.addEventListener(ev, e => { e.preventDefault(); slot.classList.remove('dragover'); }));
+      slot.addEventListener('drop', async e => {
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        try {
+          const url = await ProjectStore.fileToCompressedDataURL(file, 2560, 0.9);
+          draft.cs_design_system = url;
+          renderMain();
+        } catch (err) { toast('Failed: ' + err.message); }
+      });
+      if (remove) remove.addEventListener('click', (e) => {
+        e.stopPropagation();
+        draft.cs_design_system = '';
         renderMain();
       });
     }

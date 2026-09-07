@@ -168,6 +168,14 @@
       return `<div class="${cls}"><h3>${title}</h3>${renderMarkdown(content)}</div>`;
     }
 
+    function renderCSImageBlock(title, src) {
+      if (!src || !src.trim()) return '';
+      if (!src.startsWith('data:image') && !src.startsWith('http') && !src.startsWith('/')) {
+        return renderCSBlock(title, src);
+      }
+      return `<div class="cs-block"><h3>${title}</h3><img src="${src}" alt="${title}" style="width:100%; height:auto; border-radius:6px; border:1px solid var(--border); margin-top: 16px; display:block;" /></div>`;
+    }
+
     function render() {
       const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
       const p = ProjectStore.get(id);
@@ -206,7 +214,7 @@
             ${renderCSBlock('Scope of Work', p.cs_scope)}
             ${renderCSBlock('Research & Discovery', p.cs_research)}
             ${renderCSBlock('Define & Ideation', p.cs_ideation)}
-            ${renderCSBlock('Design System', p.cs_design_system)}
+            ${renderCSImageBlock('Design System', p.cs_design_system)}
             ${renderCSBlock('UI/Visual Design', p.cs_ui_design)}
             ${renderCSBlock('Prototype & Interaksi', p.cs_prototype)}
             ${renderCSBlock('Validasi & Iterasi', p.cs_validation)}
