@@ -234,12 +234,14 @@
     }
 
     /* ===== Sidebar ===== */
+    let draggedId = null;
+
     function renderSidebar() {
       const list = document.getElementById('sidelist');
       document.getElementById('countLabel').textContent = projects.length;
       list.innerHTML = projects.map(p => `
-        <li data-id="${p.id}" class="${p.id === activeId ? 'active' : ''}">
-          <span class="num">${p.n || ''}</span>
+        <li data-id="${p.id}" class="${p.id === activeId ? 'active' : ''}" draggable="true">
+          <span class="num" style="cursor: grab;" title="Drag to reorder">≡</span>
           <div class="body">
             <div class="title">${escapeHtml(p.t)}</div>
             <div class="meta">${escapeHtml(p.c)}</div>
@@ -247,8 +249,50 @@
           ${p.featured ? '<span class="star">★</span>' : ''}
         </li>
       `).join('');
+      
       list.querySelectorAll('li').forEach(li => {
         li.addEventListener('click', () => selectProject(li.dataset.id));
+        
+        // Drag events for reordering
+        li.addEventListener('dragstart', (e) => {
+          draggedId = li.dataset.id;
+          e.dataTransfer.effectAllowed = 'move';
+          li.style.opacity = '0.4';
+        });
+        
+        li.addEventListener('dragend', () => {
+          li.style.opacity = '1';
+          list.querySelectorAll('li').forEach(x => x.style.borderTop = '');
+        });
+        
+        li.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+        });
+        
+        li.addEventListener('dragenter', (e) => {
+          if (li.dataset.id !== draggedId) {
+            li.style.borderTop = '2px solid var(--accent)';
+          }
+        });
+        
+        li.addEventListener('dragleave', () => {
+          li.style.borderTop = '';
+        });
+        
+        li.addEventListener('drop', (e) => {
+          e.preventDefault();
+          li.style.borderTop = '';
+          const targetId = li.dataset.id;
+          if (draggedId && draggedId !== targetId) {
+            const oldIdx = projects.findIndex(p => p.id === draggedId);
+            const newIdx = projects.findIndex(p => p.id === targetId);
+            const item = projects.splice(oldIdx, 1)[0];
+            projects.splice(newIdx, 0, item);
+            ProjectStore.reorder(projects.map(p => p.id));
+            renderSidebar();
+          }
+        });
       });
     }
 

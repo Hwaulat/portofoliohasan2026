@@ -211,7 +211,7 @@
     const list = load();
     const idx = list.findIndex(p => p.id === item.id);
     if (idx >= 0) list[idx] = item;
-    else list.push(item);
+    else list.unshift(item);
     return save(list);
   }
 
