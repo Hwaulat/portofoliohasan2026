@@ -328,7 +328,7 @@
               <div class="fld"><label>Title</label><input id="f-t" value="${attr(draft.t)}" /></div>
               <div class="fld"><label>Year</label><input id="f-y" value="${attr(draft.y)}" /></div>
               <div class="fld"><label>Client / Industry (card meta)</label><input id="f-c" value="${attr(draft.c)}" placeholder="e.g. PT. Ragdalion · Government" /></div>
-              <div class="fld"><label>Card number</label><input id="f-n" value="${attr(draft.n)}" placeholder="01" /></div>
+              <div class="fld"><label>Card number (Auto-numbered)</label><input id="f-n" value="${attr(draft.n)}" disabled placeholder="01" /></div>
               <div class="fld full"><label>Short description (card)</label><textarea id="f-d">${escapeHtml(draft.d)}</textarea></div>
               <div class="fld"><label>Display chips (comma-separated)</label><input id="f-display" value="${attr((draft.display||[]).join(', '))}" placeholder="Mobile, Web, Government" /><span class="help">Visible as chips on the card. e.g. Mobile, Web Admin, iPad</span></div>
               <div class="fld"><label>Filter tags (comma-separated)</label><input id="f-tags" value="${attr((draft.tags||[]).join(', '))}" placeholder="mobile, web, government" /><span class="help">Lowercase slugs for filtering. Match the filter buttons: mobile, web, ipad, design-system, government, hr-tech, edu-tech</span></div>

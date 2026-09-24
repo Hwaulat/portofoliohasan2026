@@ -189,6 +189,9 @@
 
   function save(list) {
     try {
+      list.forEach((p, idx) => {
+        p.n = String(idx + 1).padStart(2, '0');
+      });
       localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
       window.dispatchEvent(new CustomEvent('hw-projects-changed'));
       return { ok: true };
@@ -289,8 +292,7 @@
 
   /* ---------- Helpers for views ---------- */
   function featured() {
-    return load().filter(p => p.featured)
-      .sort((a, b) => (a.featuredOrder || 99) - (b.featuredOrder || 99));
+    return load().filter(p => p.featured);
   }
 
   function blank() {
