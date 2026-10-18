@@ -10,13 +10,13 @@
 <title>CMS — Hasan Waulat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css" />
 <style>
   body { padding-top: 100px; }
   .cms-wrap { max-width: 1100px; margin: 0 auto; padding: 0 36px 80px; }
   .cms-head { padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
-  .cms-head h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: clamp(40px, 5vw, 72px); margin: 12px 0 8px; letter-spacing: -0.01em; }
+  .cms-head h1 { font-family: var(--font-sans); font-weight: 600; font-size: clamp(40px, 5vw, 72px); margin: 12px 0 8px; letter-spacing: -0.01em; }
   .cms-head h1 em { color: var(--accent); font-style: italic; }
   .cms-head p { color: var(--muted); font-size: 16px; margin: 0; max-width: 56ch; }
   .cms-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 40px; }
@@ -30,8 +30,8 @@
   .cms-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: scaleY(0); transform-origin: top; transition: transform 320ms cubic-bezier(.22,.61,.36,1); }
   .cms-card:hover { transform: translateY(-3px); border-color: var(--fg); }
   .cms-card:hover::before { transform: scaleY(1); }
-  .cms-card .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
-  .cms-card h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
+  .cms-card .label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .cms-card h3 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
   .cms-card p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; }
   .cms-card .bullets { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 0; padding: 14px 0 0; border-top: 1px dashed var(--border); }
   .cms-card .bullets li { list-style: none; font-size: 13px; color: var(--muted); display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
@@ -39,7 +39,7 @@
   .cms-card .arrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--accent); margin-top: auto; padding-top: 8px; }
 
   .qsection { padding-top: 28px; border-top: 1px solid var(--border); }
-  .qsection h4 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+  .qsection h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
   .quick-row { display: flex; flex-wrap: wrap; gap: 10px; }
 </style>
 </head>

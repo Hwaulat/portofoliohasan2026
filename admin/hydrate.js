@@ -218,7 +218,7 @@
         if (track && pr.steps) {
           track.innerHTML = pr.steps.map(s => `<div class="process-step"><div class="n">${esc(s.n)}</div><div class="week">${esc(s.week)}</div><h4>${esc(s.title)}</h4><p>${s.desc || ''}</p></div>`).join('');
         }
-        const note = sec.querySelector('p[style*="JetBrains"]');
+        const note = sec.querySelector('p[style*="Geist Mono"], p[style*="JetBrains"]');
         if (note && pr.note) note.textContent = pr.note;
       }
     }

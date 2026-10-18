@@ -7,7 +7,7 @@
 <meta name="description" content="The complete archive of 32 shipped projects across fintech, government, HR-tech, and logistics." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css" />
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="../supabase-config.js"></script>
@@ -17,11 +17,11 @@
   .projects-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; padding-bottom: 60px; border-bottom: 1px solid var(--border); }
   .projects-head h1 { font-size: clamp(48px, 6.4vw, 96px); margin: 18px 0 0; max-width: 14ch; }
   .projects-head .stats { display: flex; gap: 36px; flex-wrap: wrap; padding-bottom: 8px; }
-  .projects-head .stats div .v { font-family: 'Montserrat', system-ui, sans-serif; font-size: 36px; color: var(--accent); line-height: 1; }
+  .projects-head .stats div .v { font-family: var(--font-sans); font-size: 36px; color: var(--accent); line-height: 1; }
   .projects-head .stats div .l { font-size: 12px; color: var(--muted); margin-top: 6px; }
   .filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 28px 0; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
   .filter {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
     padding: 8px 14px; border: 1px solid var(--border); border-radius: 999px; background: transparent; color: var(--fg); cursor: pointer;
     transition: all 200ms ease;
   }
@@ -43,23 +43,23 @@
       radial-gradient(80% 60% at 30% 30%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
       repeating-linear-gradient(45deg, transparent 0 14px, color-mix(in oklab, var(--fg) 4%, transparent) 14px 15px);
     display: grid; place-items: center;
-    font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: clamp(28px, 3vw, 44px);
+    font-family: var(--font-sans); font-style: italic; font-size: clamp(28px, 3vw, 44px);
     color: color-mix(in oklab, var(--fg) 80%, transparent);
     text-align: center; padding: 16px;
     letter-spacing: -0.01em;
   }
   .pcard .cover .idx {
     position: absolute; top: 12px; left: 12px;
-    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    font-family: var(--font-mono); font-size: 10px;
     background: var(--fg); color: var(--bg); padding: 3px 8px; border-radius: 999px; letter-spacing: 0.1em;
   }
   .pcard .body { padding: 18px 18px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-  .pcard .body .meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
-  .pcard .body h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.18; letter-spacing: -0.005em; margin: 4px 0 4px; }
+  .pcard .body .meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+  .pcard .body h3 { font-family: var(--font-sans); font-weight: 600; font-size: 22px; line-height: 1.18; letter-spacing: -0.005em; margin: 4px 0 4px; }
   .pcard .body p { color: var(--muted); font-size: 13px; line-height: 1.55; margin: 0; }
   .pcard .body .chips { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; margin-top: auto; border-top: 1px dashed var(--border); }
   .pcard .body .chips span {
-    font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+    font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
     padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px;
   }
   .pcard .body .more { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); margin-top: 8px; }

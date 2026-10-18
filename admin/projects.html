@@ -11,7 +11,7 @@
 <meta name="description" content="Edit project cards and detail pages." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css" />
 <style>
   html, body { height: 100%; }
@@ -27,8 +27,8 @@
   }
   .admin-main { padding: 28px 36px 80px; overflow-y: auto; max-width: 980px; }
   .side-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .side-head h2 { font-family: 'Montserrat', system-ui, sans-serif; font-size: 22px; margin: 0; font-weight: 600; }
-  .side-head .count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; }
+  .side-head h2 { font-family: var(--font-sans); font-size: 22px; margin: 0; font-weight: 600; }
+  .side-head .count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.12em; }
   .toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
   .toolbar .btn { width: 100%; justify-content: center; }
   .toolbar-row { display: flex; gap: 8px; }
@@ -50,7 +50,7 @@
   .sidelist li:hover { border-color: var(--fg); }
   .sidelist li.active { background: var(--fg); color: var(--bg); border-color: var(--fg); }
   .sidelist li.active .meta { color: color-mix(in oklab, var(--bg) 60%, transparent); }
-  .sidelist li .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.12em; min-width: 22px; }
+  .sidelist li .num { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.12em; min-width: 22px; }
   .sidelist li.active .num { color: var(--bg); }
   .sidelist li .body { flex: 1; min-width: 0; }
   .sidelist li .title { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -58,21 +58,21 @@
   .sidelist li .star { color: var(--accent); font-size: 11px; }
   .sidelist li.active .star { color: #ffd86b; }
 
-  .admin-main h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; letter-spacing: -0.01em; margin: 0 0 6px; }
-  .admin-main .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .admin-main h1 { font-family: var(--font-sans); font-weight: 600; font-size: 36px; letter-spacing: -0.01em; margin: 0 0 6px; }
+  .admin-main .crumbs { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
   .admin-main .status { font-size: 13px; color: var(--accent); margin-bottom: 24px; min-height: 18px; }
 
   .panel { border: 1px solid var(--border); background: var(--card); border-radius: 6px; margin-bottom: 18px; }
   .panel-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .panel-head h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 18px; margin: 0; letter-spacing: -0.005em; }
-  .panel-head .hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .panel-head h3 { font-family: var(--font-sans); font-weight: 600; font-size: 18px; margin: 0; letter-spacing: -0.005em; }
+  .panel-head .hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
   .panel-body { padding: 20px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
   .grid-2 .full, .grid-3 .full { grid-column: 1 / -1; }
 
   .fld { display: flex; flex-direction: column; gap: 6px; }
-  .fld label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .fld label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .fld input, .fld textarea, .fld select {
     background: var(--bg); color: var(--fg);
     border: 1px solid var(--border); border-radius: 4px;
@@ -102,7 +102,7 @@
   .image-slot img { max-width: 100%; max-height: 240px; display: block; border-radius: 4px; }
   .image-slot input[type=file] { display: none; }
   .image-slot .placeholder { color: var(--muted); font-size: 13px; }
-  .image-slot .placeholder small { display: block; margin-top: 4px; font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; }
+  .image-slot .placeholder small { display: block; margin-top: 4px; font-size: 11px; font-family: var(--font-mono); letter-spacing: 0.06em; }
   .image-slot .remove-btn {
     position: absolute; top: 8px; right: 8px; z-index: 2;
     width: 26px; height: 26px; border-radius: 999px; background: var(--fg); color: var(--bg); border: 0;
@@ -142,7 +142,7 @@
     border: 2px dashed var(--border); border-radius: 6px; padding: 60px 24px; text-align: center;
     color: var(--muted);
   }
-  .empty h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; color: var(--fg); margin: 0 0 8px; }
+  .empty h3 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; color: var(--fg); margin: 0 0 8px; }
 
   /* dialogs */
   .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 12px 18px; border-radius: 999px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }

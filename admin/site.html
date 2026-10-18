@@ -10,7 +10,7 @@
 <title>Site Content · CMS — Hasan Waulat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css" />
 <style>
   body { display: flex; flex-direction: column; min-height: 100vh; }
@@ -22,7 +22,7 @@
   }
   .admin-main { padding: 28px 36px 100px; overflow-y: auto; max-width: 960px; }
   .side-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .side-head h2 { font-family: 'Montserrat', system-ui, sans-serif; font-size: 22px; margin: 0; font-weight: 600; }
+  .side-head h2 { font-family: var(--font-sans); font-size: 22px; margin: 0; font-weight: 600; }
   .toolbar { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
   .toolbar .btn { width: 100%; justify-content: center; font-size: 12px; padding: 8px 10px; }
   .navlist { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 3px; }
@@ -33,18 +33,18 @@
   }
   .navlist li:hover { border-color: var(--border); }
   .navlist li.active { background: var(--fg); color: var(--bg); }
-  .navlist li .num { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--accent); min-width: 18px; letter-spacing: 0.1em; }
+  .navlist li .num { font-family: var(--font-mono); font-size: 9px; color: var(--accent); min-width: 18px; letter-spacing: 0.1em; }
   .navlist li.active .num { color: var(--bg); }
 
-  .admin-main h1 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 36px; margin: 0 0 8px; letter-spacing: -0.01em; }
-  .admin-main .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .admin-main h1 { font-family: var(--font-sans); font-weight: 600; font-size: 36px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .admin-main .crumbs { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
   .admin-main .lede { color: var(--muted); margin: 0 0 22px; max-width: 60ch; }
   .status { font-size: 13px; color: var(--accent); min-height: 18px; margin-bottom: 18px; }
 
   .panel { border: 1px solid var(--border); background: var(--card); border-radius: 6px; margin-bottom: 16px; overflow: hidden; }
   .panel-head { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .panel-head h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 17px; margin: 0; letter-spacing: -0.005em; }
-  .panel-head .hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .panel-head h3 { font-family: var(--font-sans); font-weight: 600; font-size: 17px; margin: 0; letter-spacing: -0.005em; }
+  .panel-head .hint { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
   .panel-head .actions-inline { display: flex; gap: 6px; }
   .panel-body { padding: 18px; }
 
@@ -53,7 +53,7 @@
   .full { grid-column: 1 / -1; }
 
   .fld { display: flex; flex-direction: column; gap: 6px; }
-  .fld label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .fld label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
   .fld input, .fld textarea, .fld select {
     background: var(--bg); color: var(--fg); border: 1px solid var(--border); border-radius: 4px;
     padding: 9px 12px; font: inherit; font-size: 14px; outline: none; transition: border-color 160ms ease;
@@ -67,7 +67,7 @@
     background: var(--bg); margin-bottom: 10px;
   }
   .row-item .ri-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .row-item .ri-head strong { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; flex: 1; }
+  .row-item .ri-head strong { font-family: var(--font-mono); font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; flex: 1; }
   .row-item .ri-head button { width: 28px; height: 28px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; }
   .row-item .ri-head button:hover { color: var(--fg); border-color: var(--fg); }
   .add-btn {
@@ -109,7 +109,7 @@
     background: linear-gradient(to top, var(--bg) 70%, transparent); z-index: 5; flex-wrap: wrap;
     margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border);
   }
-  .actions .save-note { margin-right: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.12em; }
+  .actions .save-note { margin-right: auto; font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; }
 
   .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 12px 18px; border-radius: 999px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }
   .toast.show { opacity: 1; transform: translate(-50%, -8px); }

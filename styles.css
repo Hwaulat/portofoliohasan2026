@@ -1,5 +1,7 @@
 /* ====== Theme tokens ====== */
 :root {
+  --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Roboto Mono, Menlo, monospace;
   --bg: #FAFAF7;
   --fg: #1A1A18;
   --muted: #6B6B66;
@@ -24,10 +26,11 @@ html[data-theme="dark"] {
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+button, input, select, textarea { font-family: inherit; }
 html {
   background: var(--bg);
   color: var(--fg);
-  font-family: 'Geist', 'Söhne', system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -43,16 +46,15 @@ body {
 
 /* ====== Type ====== */
 .display {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.02;
-  
 }
 .display-italic { font-style: italic;  }
-.mono { font-family: 'JetBrains Mono', 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.02em; text-transform: uppercase; }
+.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.02em; text-transform: uppercase; }
 .eyebrow {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.18em;
@@ -91,7 +93,7 @@ a { color: inherit; text-decoration: none; }
   width: 28px; height: 28px; border-radius: 999px;
   background: var(--fg); color: var(--bg);
   display: grid; place-items: center;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: 16px;
+  font-family: var(--font-sans); font-style: italic; font-size: 16px;
 }
 .nav-links { display: flex; gap: 28px; font-size: 13px; color: var(--muted); }
 .nav-links a { transition: color 200ms ease; position: relative; }
@@ -195,7 +197,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-visual .label {
   position: absolute; left: 18px; bottom: 18px;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--muted);
   z-index: 3;
   background: color-mix(in oklab, var(--bg) 80%, transparent);
@@ -204,7 +206,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-visual .corner {
   position: absolute; top: 18px; right: 18px;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: 90px; line-height: 1;
+  font-family: var(--font-sans); font-style: italic; font-size: 90px; line-height: 1;
   color: var(--accent); opacity: 0.55;
   z-index: 3;
 }
@@ -222,7 +224,7 @@ a { color: inherit; text-decoration: none; }
 .scroll-cue {
   margin-top: 80px;
   display: inline-flex; align-items: center; gap: 12px;
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--muted);
 }
 .scroll-cue .arrow { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
@@ -244,7 +246,7 @@ a { color: inherit; text-decoration: none; }
   gap: 40px;
 }
 .metric .num {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(40px, 5.6vw, 72px);
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -283,16 +285,16 @@ a { color: inherit; text-decoration: none; }
   border-radius: 4px; padding: 28px;
 }
 .now-card .title {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--muted);
   display: flex; align-items: center; justify-content: space-between;
   border-bottom: 1px dashed var(--border); padding-bottom: 14px; margin-bottom: 14px;
 }
 .now-card .row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent); align-items: baseline; }
 .now-card .row:last-child { border-bottom: 0; }
-.now-card .row .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.12em; }
+.now-card .row .k { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.12em; }
 .now-card .row .v { font-size: 14px; }
-.now-card .row .v em { color: var(--accent); font-style: italic; font-family: 'Montserrat', system-ui, sans-serif; }
+.now-card .row .v em { color: var(--accent); font-style: italic; font-family: var(--font-sans); }
 
 @media (max-width: 900px) {
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -316,16 +318,16 @@ a { color: inherit; text-decoration: none; }
 }
 .service:hover { border-color: var(--fg); }
 .service:hover::before { transform: scaleX(1); }
-.service .num { font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: 56px; color: var(--accent); line-height: 1; }
-.service h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 24px; margin: 28px 0 12px; letter-spacing: -0.01em; line-height: 1.15; }
+.service .num { font-family: var(--font-sans); font-style: italic; font-size: 56px; color: var(--accent); line-height: 1; }
+.service h3 { font-family: var(--font-sans); font-weight: 600; font-size: 24px; margin: 28px 0 12px; letter-spacing: -0.01em; line-height: 1.15; }
 .service p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0 0 22px; }
 .service ul { list-style: none; padding: 0; margin: 0 0 22px; border-top: 1px dashed var(--border); }
 .service ul li {
   padding: 10px 0; border-bottom: 1px dashed var(--border);
   font-size: 13px; display: grid; grid-template-columns: 14px 1fr; gap: 12px; align-items: baseline;
 }
-.service ul li::before { content: '+'; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-.service .tools { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+.service ul li::before { content: '+'; color: var(--accent); font-family: var(--font-mono); }
+.service .tools { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
 @media (max-width: 900px) {
   .services-list { grid-template-columns: 1fr; }
 }
@@ -351,7 +353,7 @@ a { color: inherit; text-decoration: none; }
 .pillar:last-child { border-right: 0; }
 .pillar:hover { background: var(--accent-soft); }
 .pillar .role-tag {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--accent);
   display: inline-flex; align-items: center; gap: 8px;
@@ -361,7 +363,7 @@ a { color: inherit; text-decoration: none; }
 }
 .pillar .role-tag .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); }
 .pillar h3 {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600;
   font-size: 26px;
   line-height: 1.15;
@@ -394,7 +396,7 @@ a { color: inherit; text-decoration: none; }
 .pillar .skills-list li::before {
   content: '↳';
   color: var(--accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
 }
 .pillar .stack {
   margin-top: auto;
@@ -403,7 +405,7 @@ a { color: inherit; text-decoration: none; }
   display: flex; flex-wrap: wrap; gap: 6px;
 }
 .pillar .stack span {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 4px 10px;
   border: 1px solid var(--border);
@@ -433,12 +435,12 @@ a { color: inherit; text-decoration: none; }
 .e2e .step:last-child { border-right: 0; }
 .e2e .step:hover { background: var(--accent-soft); }
 .e2e .step .num {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 10px; color: var(--muted); letter-spacing: 0.16em;
   margin-bottom: 8px;
 }
 .e2e .step .label {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   letter-spacing: -0.005em;
   margin-bottom: 6px;
@@ -446,7 +448,7 @@ a { color: inherit; text-decoration: none; }
 .e2e .step .role {
   font-size: 11px;
   color: var(--accent);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -509,7 +511,7 @@ a { color: inherit; text-decoration: none; }
 .work-cover .scrim {
   position: absolute; inset: 0;
   display: grid; place-items: center;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic;
+  font-family: var(--font-sans); font-style: italic;
   font-size: clamp(48px, 6vw, 96px);
   color: color-mix(in oklab, var(--fg) 80%, transparent);
   letter-spacing: -0.02em;
@@ -521,20 +523,20 @@ a { color: inherit; text-decoration: none; }
 }
 .work-cover .index {
   position: absolute; top: 16px; left: 16px;
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--bg);
+  font-family: var(--font-mono); font-size: 11px; color: var(--bg);
   background: var(--fg); padding: 4px 10px; border-radius: 999px;
   letter-spacing: 0.1em;
 }
 .work-meta { padding: 24px 24px 28px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
 .work-meta .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .work-meta .tags span {
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
   padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted);
 }
-.work-meta h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 26px; line-height: 1.1; margin: 4px 0; letter-spacing: -0.01em; }
+.work-meta h3 { font-family: var(--font-sans); font-weight: 600; font-size: 26px; line-height: 1.1; margin: 4px 0; letter-spacing: -0.01em; }
 .work-meta p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; }
 .work-meta .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding-top: 16px; border-top: 1px dashed var(--border); margin-top: auto; }
-.work-meta .stats div .v { font-family: 'Montserrat', system-ui, sans-serif; font-size: 22px; color: var(--accent); }
+.work-meta .stats div .v { font-family: var(--font-sans); font-size: 22px; color: var(--accent); }
 .work-meta .stats div .l { font-size: 11px; color: var(--muted); }
 .work-meta .more { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--accent); }
 .work-meta .more .arrow { transition: transform 220ms ease; }
@@ -568,8 +570,8 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid var(--border); background: var(--card);
   padding: 24px 28px; border-radius: 4px;
 }
-.tl-card .when { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-.tl-card h4 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 22px; margin: 8px 0 4px; }
+.tl-card .when { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.tl-card h4 { font-family: var(--font-sans); font-weight: 600; font-size: 22px; margin: 8px 0 4px; }
 .tl-card .org { color: var(--accent); font-size: 13px; margin-bottom: 14px; }
 .tl-card p { color: var(--muted); font-size: 14px; margin: 0 0 8px; line-height: 1.55; }
 .tl-card ul { padding: 0; list-style: none; margin: 12px 0 0; }
@@ -596,9 +598,9 @@ a { color: inherit; text-decoration: none; }
 }
 .process-step:last-child { border-right: 0; }
 .process-step:hover { background: var(--accent-soft); }
-.process-step .n { font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: 40px; color: var(--accent); line-height: 1; }
-.process-step .week { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 10px; }
-.process-step h4 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 22px; margin: 6px 0 10px; }
+.process-step .n { font-family: var(--font-sans); font-style: italic; font-size: 40px; color: var(--accent); line-height: 1; }
+.process-step .week { font-family: var(--font-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; margin-top: 10px; }
+.process-step h4 { font-family: var(--font-sans); font-weight: 600; font-size: 22px; margin: 6px 0 10px; }
 .process-step p { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0; }
 @media (max-width: 900px) { .process-track { grid-template-columns: 1fr; } .process-step { border-right: 0; border-bottom: 1px solid var(--border); } }
 
@@ -611,7 +613,7 @@ a { color: inherit; text-decoration: none; }
 .logos div {
   padding: 28px 16px; text-align: center;
   border-right: 1px solid var(--border);
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: 18px;
+  font-family: var(--font-sans); font-style: italic; font-size: 18px;
   color: var(--muted); transition: color 200ms ease;
 }
 .logos div:last-child { border-right: 0; }
@@ -630,7 +632,7 @@ a { color: inherit; text-decoration: none; }
 }
 .marquee-track {
   display: flex; gap: 60px; white-space: nowrap; animation: scroll-x 50s linear infinite;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic;
+  font-family: var(--font-sans); font-style: italic;
   font-size: clamp(48px, 6vw, 84px);
   letter-spacing: -0.02em;
 }
@@ -660,7 +662,7 @@ a { color: inherit; text-decoration: none; }
 .customers:hover .logo-track { animation-play-state: paused; }
 .logo-item {
   display: inline-flex; align-items: center; gap: 14px;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: clamp(28px, 3.2vw, 42px);
+  font-family: var(--font-sans); font-style: italic; font-size: clamp(28px, 3.2vw, 42px);
   color: var(--muted);
   letter-spacing: -0.01em;
   transition: color 220ms ease, transform 220ms ease;
@@ -671,7 +673,7 @@ a { color: inherit; text-decoration: none; }
   display: grid; place-items: center;
   background: color-mix(in oklab, var(--accent) 14%, transparent);
   color: var(--accent);
-  font-family: 'JetBrains Mono', monospace; font-size: 14px; font-style: normal;
+  font-family: var(--font-mono); font-size: 14px; font-style: normal;
   border: 1px solid color-mix(in oklab, var(--accent) 28%, transparent);
 }
 .logo-item .sep {
@@ -704,12 +706,12 @@ a { color: inherit; text-decoration: none; }
 .archive-card:hover::before { transform: scaleY(1); }
 .archive-card .top {
   display: flex; align-items: center; justify-content: space-between;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--muted);
 }
 .archive-card .top .num { color: var(--accent); }
 .archive-card h4 {
-  font-family: 'Montserrat', system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-weight: 600; font-size: 20px; line-height: 1.2;
   letter-spacing: -0.005em;
   margin: 4px 0 2px;
@@ -723,7 +725,7 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px dashed var(--border);
 }
 .archive-card .chips span {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em;
   text-transform: uppercase; color: var(--muted);
   padding: 3px 8px; border: 1px solid var(--border); border-radius: 999px;
 }
@@ -737,14 +739,14 @@ a { color: inherit; text-decoration: none; }
   padding: 28px; border-radius: 4px; display: flex; flex-direction: column; gap: 18px;
 }
 .t-card .quote {
-  font-family: 'Montserrat', system-ui, sans-serif; font-size: 20px; line-height: 1.35; letter-spacing: -0.01em;
+  font-family: var(--font-sans); font-size: 20px; line-height: 1.35; letter-spacing: -0.01em;
 }
 .t-card .quote::before { content: '“'; font-size: 56px; color: var(--accent); display: block; line-height: 0.6; margin-bottom: 8px; }
 .t-card .who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
 .t-card .who .avatar {
   width: 36px; height: 36px; border-radius: 999px; background: var(--accent-soft);
   color: var(--accent); display: grid; place-items: center;
-  font-family: 'Montserrat', system-ui, sans-serif; font-style: italic;
+  font-family: var(--font-sans); font-style: italic;
 }
 .t-card .who .meta .n { font-size: 14px; }
 .t-card .who .meta .r { font-size: 12px; color: var(--muted); }
@@ -766,7 +768,7 @@ a { color: inherit; text-decoration: none; }
 .form .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .field.full { grid-column: 1 / -1; }
-.field label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.field label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 .field input, .field select, .field textarea {
   background: transparent; color: var(--fg);
   border: 0; border-bottom: 1px solid var(--border);
@@ -782,16 +784,16 @@ a { color: inherit; text-decoration: none; }
 /* ====== Footer ====== */
 footer.foot { border-top: 1px solid var(--border); padding: 60px 0 30px; }
 .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; }
-.foot h5 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.foot h5 { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
 .foot ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
 .foot ul a { color: var(--fg); }
 .foot ul a:hover { color: var(--accent); }
-.foot .brand .word { font-family: 'Montserrat', system-ui, sans-serif; font-size: 36px; letter-spacing: -0.01em; }
+.foot .brand .word { font-family: var(--font-sans); font-size: 36px; letter-spacing: -0.01em; }
 .foot .brand .tag { color: var(--muted); margin-top: 12px; max-width: 320px; font-size: 14px; }
 .foot-bottom {
   display: flex; align-items: center; justify-content: space-between;
   margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--border);
-  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.06em;
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em;
 }
 @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr; gap: 32px; } .foot-bottom { flex-direction: column; gap: 12px; align-items: flex-start; } }
 

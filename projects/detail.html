@@ -6,7 +6,7 @@
 <title>Project Detail — Hasan Waulat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300..700;1,300..700&family=Geist:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css" />
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script defer src="../supabase-config.js"></script>
@@ -16,7 +16,7 @@
   .detail .back { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 24px; }
   .detail .back:hover { color: var(--fg); }
   .detail .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
-  .detail .meta-row span { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+  .detail .meta-row span { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 10px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
   .detail h1 { font-size: clamp(40px, 5.4vw, 80px); margin: 8px 0 22px; max-width: 18ch; }
   .detail h1 .accent { color: var(--accent); font-style: italic; }
   .detail .lead { color: var(--muted); font-size: 18px; max-width: 60ch; line-height: 1.55; margin-bottom: 36px; }
@@ -26,7 +26,7 @@
       radial-gradient(80% 60% at 30% 30%, color-mix(in oklab, var(--accent) 22%, transparent), transparent 70%),
       repeating-linear-gradient(45deg, transparent 0 16px, color-mix(in oklab, var(--fg) 4%, transparent) 16px 17px);
     display: grid; place-items: center;
-    font-family: 'Montserrat', system-ui, sans-serif; font-style: italic; font-size: clamp(48px, 7vw, 120px);
+    font-family: var(--font-sans); font-style: italic; font-size: clamp(48px, 7vw, 120px);
     color: color-mix(in oklab, var(--fg) 80%, transparent);
     margin-bottom: 60px;
     text-align: center; padding: 30px;
@@ -40,10 +40,10 @@
   .detail .info-grid { display: grid; grid-template-columns: 280px 1fr; gap: 60px; margin-bottom: 60px; padding-top: 36px; border-top: 1px solid var(--border); }
   .detail .info-grid .info { display: flex; flex-direction: column; gap: 18px; }
   .detail .info-grid .info .row { display: flex; flex-direction: column; gap: 4px; padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
-  .detail .info-grid .info .row .k { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+  .detail .info-grid .info .row .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
   .detail .info-grid .info .row .v { font-size: 14px; }
   .detail .body p { font-size: 16px; line-height: 1.7; max-width: 62ch; margin: 0 0 18px; }
-  .detail .body h3 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 36px 0 12px; }
+  .detail .body h3 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; letter-spacing: -0.01em; margin: 36px 0 12px; }
   .detail .body ul { padding: 0; margin: 0 0 24px; list-style: none; max-width: 62ch; }
   .detail .body ul li { padding: 10px 0 10px 22px; border-bottom: 1px dashed var(--border); position: relative; font-size: 15px; }
   .detail .body ul li::before { content: '↳'; position: absolute; left: 0; color: var(--accent); }
@@ -83,13 +83,13 @@
   .detail .gallery .tile {
     aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; display: grid; place-items: center;
     background: var(--paper);
-    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
   }
   .detail .next-cta {
     margin-top: 60px; padding: 36px; border: 1px solid var(--border); border-radius: 4px; background: var(--card);
     display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
   }
-  .detail .next-cta h4 { font-family: 'Montserrat', system-ui, sans-serif; font-weight: 600; font-size: 28px; margin: 0; max-width: 22ch; letter-spacing: -0.01em; }
+  .detail .next-cta h4 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; margin: 0; max-width: 22ch; letter-spacing: -0.01em; }
   @media (max-width: 900px) { .detail .info-grid { grid-template-columns: 1fr; gap: 30px; } .detail .gallery { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -192,7 +192,7 @@
       const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
       const p = ProjectStore.get(id);
       if (!p) {
-        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: Montserrat, system-ui, sans-serif; font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
+        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: var(--font-sans); font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
         return;
       }
       document.title = p.t + ' — Hasan Waulat';

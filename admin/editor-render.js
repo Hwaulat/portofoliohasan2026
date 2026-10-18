@@ -169,7 +169,7 @@
       slot.innerHTML = `<button class="remove-btn">✕</button><img src="${esc(d.photo)}" alt="" />`;
       slot.querySelector('.remove-btn').addEventListener('click', e => { e.stopPropagation(); d.photo = ''; change(); root.replaceChild(hero(d, change), root.lastChild); /* re-render this panel only would be cleaner; full hero re-render is acceptable */ });
     } else {
-      slot.innerHTML = `<div class="placeholder"><strong>Click or drop a portrait image</strong><br/><small style="color:var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 10px;">JPG/PNG · auto-resized to 1200px wide</small></div>`;
+      slot.innerHTML = `<div class="placeholder"><strong>Click or drop a portrait image</strong><br/><small style="color:var(--muted); font-family: 'Geist Mono', monospace; font-size: 10px;">JPG/PNG · auto-resized to 1200px wide</small></div>`;
     }
     const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*'; slot.appendChild(input);
     slot.addEventListener('click', e => { if (!e.target.closest('button')) input.click(); });
@@ -310,7 +310,7 @@
         const listWrap = document.createElement('div'); listWrap.style.marginTop = '-8px';
         listWrap.appendChild(stringListEditor(pl.items, onChange));
         inner.appendChild(listWrap);
-        const stackLabel = document.createElement('div'); stackLabel.style.cssText = 'font-family: JetBrains Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
+        const stackLabel = document.createElement('div'); stackLabel.style.cssText = 'font-family: Geist Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
         stackLabel.textContent = 'Tool chips (comma-separated)';
         inner.appendChild(stackLabel);
         const stackInput = document.createElement('input');
@@ -360,7 +360,7 @@
         inner.appendChild(g);
         inner.appendChild(field('Title', textareaInput(c.title, val => { c.title = val; onChange(); }, 60)));
         inner.appendChild(field('Description', textareaInput(c.desc, val => { c.desc = val; onChange(); }, 70)));
-        const listLabel = document.createElement('div'); listLabel.style.cssText = 'font-family: JetBrains Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
+        const listLabel = document.createElement('div'); listLabel.style.cssText = 'font-family: Geist Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
         listLabel.textContent = 'Deliverable items';
         inner.appendChild(listLabel);
         inner.appendChild(stringListEditor(c.items, onChange));
@@ -424,7 +424,7 @@
         descFld.style.gridColumn = '1 / -1';
         g.appendChild(descFld);
         inner.appendChild(g);
-        const bLabel = document.createElement('div'); bLabel.style.cssText = 'font-family: JetBrains Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
+        const bLabel = document.createElement('div'); bLabel.style.cssText = 'font-family: Geist Mono, monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px;';
         bLabel.textContent = 'Key wins (bullet list — optional)';
         inner.appendChild(bLabel);
         inner.appendChild(stringListEditor(it.bullets, onChange));

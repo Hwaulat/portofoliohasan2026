@@ -83,13 +83,13 @@
 
     overlay.innerHTML =
       '<form id="cms-gate-form" style="width:100%;max-width:360px;">' +
-        '<div style="font-family:\'JetBrains Mono\',ui-monospace,monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9A9AE6;margin-bottom:14px;">Restricted &middot; CMS</div>' +
-        '<h1 style="font-family:\'Montserrat\',system-ui,sans-serif;font-weight:600;font-size:28px;line-height:1.15;margin:0 0 8px;">Admin login</h1>' +
+        '<div style="font-family:\'Geist Mono\',ui-monospace,monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9A9AE6;margin-bottom:14px;">Restricted &middot; CMS</div>' +
+        '<h1 style="font-family:\'Geist\',system-ui,sans-serif;font-weight:600;font-size:28px;line-height:1.15;margin:0 0 8px;">Admin login</h1>' +
         '<p style="color:#A8A8A2;font-size:14px;line-height:1.5;margin:0 0 22px;">Sign in to manage site content. Changes sync to every device.</p>' +
-        '<label style="display:block;font-family:\'JetBrains Mono\',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A8A2;margin-bottom:6px;">Email</label>' +
+        '<label style="display:block;font-family:\'Geist Mono\',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A8A2;margin-bottom:6px;">Email</label>' +
         '<input id="cms-gate-email" type="email" autocomplete="username" value="' + ADMIN_EMAIL + '" ' +
           'style="width:100%;box-sizing:border-box;background:transparent;color:#F5F5F0;border:0;border-bottom:1px solid #2A2A26;padding:10px 0;font:inherit;font-size:15px;outline:none;margin-bottom:18px;" />' +
-        '<label style="display:block;font-family:\'JetBrains Mono\',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A8A2;margin-bottom:6px;">Password</label>' +
+        '<label style="display:block;font-family:\'Geist Mono\',ui-monospace,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#A8A8A2;margin-bottom:6px;">Password</label>' +
         '<input id="cms-gate-input" type="password" autocomplete="current-password" placeholder="Password" ' +
           'style="width:100%;box-sizing:border-box;background:transparent;color:#F5F5F0;border:0;border-bottom:1px solid #2A2A26;padding:10px 0;font:inherit;font-size:15px;outline:none;" />' +
         '<div id="cms-gate-err" style="color:#d9534f;font-size:12px;min-height:16px;margin-top:8px;"></div>' +
