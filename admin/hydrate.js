@@ -4,7 +4,7 @@
    default content (which matches the static markup) is applied
    as a no-op overlay.
 
-   Loaded by Hasan Waulat - Personal Branding.html.
+   Loaded by index.html.
    ============================================================ */
 (function () {
   'use strict';

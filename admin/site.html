@@ -125,20 +125,20 @@
 <body>
 
   <nav class="nav">
-    <a class="nav-brand" href="../Hasan%20Waulat%20-%20Personal%20Branding.html">
+    <a class="nav-brand" href="../">
       <div class="mark">h</div>
       <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— Site CMS</span></span>
     </a>
     <div class="nav-links">
       <a href="index.html">CMS Home</a>
       <a href="projects.html">Projects</a>
-      <a href="../Hasan%20Waulat%20-%20Personal%20Branding.html" target="_blank">Live Site</a>
+      <a href="../" target="_blank">Live Site</a>
     </div>
     <div class="nav-actions">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a class="btn btn-primary" href="../Hasan%20Waulat%20-%20Personal%20Branding.html" target="_blank">Preview live →</a>
+      <a class="btn btn-primary" href="../" target="_blank">Preview live →</a>
     </div>
   </nav>
 
@@ -221,13 +221,13 @@
       actions.className = 'actions';
       actions.innerHTML = `
         <span class="save-note" id="saveNote">Auto-saved on change</span>
-        <a class="btn" href="../Hasan%20Waulat%20-%20Personal%20Branding.html#${active}" target="_blank">Preview ${meta.label} →</a>
+        <a class="btn" href="../#${active}" target="_blank">Preview ${meta.label} →</a>
         <button class="btn btn-primary" id="saveBtn2">Save & preview</button>
       `;
       root.appendChild(actions);
       document.getElementById('saveBtn2').addEventListener('click', () => {
         commit();
-        window.open('../Hasan%20Waulat%20-%20Personal%20Branding.html#' + active, '_blank');
+        window.open('../#' + active, '_blank');
       });
     }
 
