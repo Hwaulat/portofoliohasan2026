@@ -258,7 +258,16 @@
     });
   }
 
-  function fileToCompressedDataURL(file, maxWidth = 1200, quality = 0.85) {
+  function fileToCompressedDataURL(file, maxWidth, quality) {
+    maxWidth = maxWidth || 1200;
+    quality  = quality  || 0.85;
+
+    // Try server upload first (stores file locally, returns path)
+    if (window.ImageUpload) {
+      return window.ImageUpload.upload(file, maxWidth, quality);
+    }
+
+    // Fallback: old base64 approach
     return new Promise((resolve, reject) => {
       if (!file) return reject(new Error('No file'));
       const reader = new FileReader();

@@ -235,8 +235,18 @@
   function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
   /* ---------- Image utilities ---------- */
-  // Resize/compress an uploaded image File → returns dataURL (jpeg, max 1600px wide)
-  function fileToCompressedDataURL(file, maxWidth = 1600, quality = 0.82) {
+  // Upload an image File to the server → returns path (e.g. "uploads/cover-abc.jpg")
+  // Falls back to base64 data URL if the upload server is unavailable.
+  function fileToCompressedDataURL(file, maxWidth, quality) {
+    maxWidth = maxWidth || 1600;
+    quality  = quality  || 0.82;
+
+    // Try server upload first (stores file locally, returns path)
+    if (window.ImageUpload) {
+      return window.ImageUpload.upload(file, maxWidth, quality);
+    }
+
+    // Fallback: old base64 approach (should not happen if image-upload.js is loaded)
     return new Promise((resolve, reject) => {
       if (!file) return reject(new Error('No file'));
       const reader = new FileReader();
@@ -262,6 +272,7 @@
       reader.readAsDataURL(file);
     });
   }
+
 
   /* ---------- Export / import ---------- */
   function exportJSON() {

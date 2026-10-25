@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "Portfolio website",
   "scripts": {
-    "dev": "live-server"
+    "dev": "node server.js"
   },
   "devDependencies": {
     "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "multer": "^2.5.0"
   }
 }
