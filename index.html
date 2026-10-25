@@ -23,7 +23,7 @@
       <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— UI/UX Designer</span></span>
     </div>
     <div class="nav-links">
-      <a href="#work">Work</a>
+      <a href="#archive">Work</a>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#services">Services</a>
@@ -63,7 +63,7 @@
           </h1>
           <p class="hero-sub reveal">UI/UX Designer with <strong>32 shipped products</strong> across fintech, logistics, government, and HR‑tech. I help teams ship interfaces that users actually finish — and businesses that actually grow.</p>
           <div class="hero-cta reveal">
-            <a class="btn btn-primary" href="#work">See selected work
+            <a class="btn btn-primary" href="#archive">See selected work
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
             <a class="btn" href="projects/index.html">All Projects (32)
@@ -168,9 +168,19 @@
         <h2 class="display reveal">A list of every product I've <span class="accent display-italic">put hands on.</span></h2>
         <p class="desc reveal">Selected, contract, freelance — every shipped project across two years of design work. Click any card for the case study.</p>
       </div>
-      <div class="archive-grid" id="homeArchiveGrid"></div>
-      <div style="margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
-        <p id="homeArchiveCount" style="font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); margin: 0; letter-spacing: 0.06em;">Showing 12 of 32</p>
+      <div class="archive-filters reveal" id="archiveFilters">
+        <button class="archive-filter active" data-filter="all">All · <span id="archiveFilterAllCount">34</span></button>
+        <button class="archive-filter" data-filter="mobile">Mobile</button>
+        <button class="archive-filter" data-filter="web">Web</button>
+        <button class="archive-filter" data-filter="ipad">iPad</button>
+        <button class="archive-filter" data-filter="design-system">Design System</button>
+        <button class="archive-filter" data-filter="government">Government</button>
+        <button class="archive-filter" data-filter="hr-tech">HR-Tech</button>
+        <button class="archive-filter" data-filter="edu-tech">Edu-Tech</button>
+      </div>
+      <div class="archive-grid-v2" id="homeArchiveGrid"></div>
+      <div style="margin-top: 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+        <p id="homeArchiveCount" style="font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); margin: 0; letter-spacing: 0.06em;">Showing 9 of 32</p>
         <a class="btn btn-primary" href="projects/index.html">View all 32 projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </section>
@@ -286,113 +296,6 @@
       </div>
     </section>
 
-    <!-- ========== SELECTED WORK (horizontal scroll) ========== -->
-    <section class="section" id="work">
-      <div class="head">
-        <span class="eyebrow reveal">Selected Work</span>
-        <h2 class="display reveal">Five projects. Four industries. <span class="accent display-italic">One throughline:</span> products that ship.</h2>
-      </div>
-      <div class="work-rail-wrap">
-        <div class="rail-controls">
-          <button class="icon-btn" id="railPrev" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="icon-btn" id="railNext" aria-label="Next"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
-        </div>
-        <div class="work-rail" id="workRail">
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">01 · Featured</div><div class="scrim">LPPOM<br/>Digital</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Mobile</span><span>Web Admin</span><span>iPad</span><span>Government</span></div>
-              <h3>Digitizing halal certification for 270M Indonesians.</h3>
-              <p>An integrated platform spanning mobile (for businesses), web admin (for auditors), and iPad (on-site inspections). A multi-month bureaucratic process turned into a transparent, trackable workflow.</p>
-              <div class="stats">
-                <div><div class="v">3</div><div class="l">platforms in parallel</div></div>
-                <div><div class="v">4mo</div><div class="l">to first delivery</div></div>
-                <div><div class="v">1</div><div class="l">unified design system</div></div>
-              </div>
-              <a class="more" href="#">Read the full case study <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">02</div><div class="scrim">Docs<br/>API</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Web</span><span>Developer Experience</span><span>Sep 2025</span></div>
-              <h3>A docs site developers don't curse at.</h3>
-              <p>API documentation portal designed for partners and integrators. Endpoint-first, searchable, with copy-paste examples that just work. Co-designed with engineering so every sample reflects real implementation.</p>
-              <div class="stats">
-                <div><div class="v">12</div><div class="l">endpoints documented</div></div>
-                <div><div class="v">∞</div><div class="l">searchable reference</div></div>
-                <div><div class="v">Live</div><div class="l">request playground</div></div>
-              </div>
-              <a class="more" href="#">Read the case study <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">03</div><div class="scrim">Attendance<br/>System</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Mobile</span><span>Web Admin</span><span>HR-Tech</span></div>
-              <h3>Replacing fingerprint scanners with a phone in your pocket.</h3>
-              <p>HR attendance combining facial recognition, GPS verification, QR check-in, and payroll integration. Real-time visibility for HR — without the surveillance creep — and a tool employees actually don't mind opening.</p>
-              <div class="stats">
-                <div><div class="v">5</div><div class="l">attendance methods</div></div>
-                <div><div class="v">RT</div><div class="l">analytics dashboard</div></div>
-                <div><div class="v">→</div><div class="l">payroll integration</div></div>
-              </div>
-              <a class="more" href="#">Read the case study <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">04</div><div class="scrim">Logistics<br/>Co.</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Web</span><span>Marketing</span><span>Sep – Oct 2024</span></div>
-              <h3>A logistics website that closes deals before sales calls do.</h3>
-              <p>Company profile designed not as a brochure but as a sales tool. Information architecture built around the questions B2B prospects actually ask. Every CTA engineered to move serious buyers toward a meeting.</p>
-              <div class="stats">
-                <div><div class="v">8</div><div class="l">service pages</div></div>
-                <div><div class="v">↗</div><div class="l">lead-gen forms</div></div>
-                <div><div class="v">B2B</div><div class="l">partner showcase</div></div>
-              </div>
-              <a class="more" href="#">Read the case study <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">05</div><div class="scrim">JDIH<br/>Kemenkeu</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Mobile</span><span>Government</span><span>Feb – Mar 2024</span></div>
-              <h3>Making Indonesian financial law actually findable.</h3>
-              <p>The Ministry of Finance's official database of every regulation, decree, and law. Redesigned from the search experience up — treating legal pros and curious citizens as equally important users.</p>
-              <div class="stats">
-                <div><div class="v">↑</div><div class="l">search architecture</div></div>
-                <div><div class="v">≡</div><div class="l">document hierarchy</div></div>
-                <div><div class="v">A11Y</div><div class="l">accessibility pass</div></div>
-              </div>
-              <a class="more" href="#">Read the case study <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-          <article class="work-card">
-            <div class="work-cover"><div class="index">+27</div><div class="scrim">All Work →</div></div>
-            <div class="work-meta">
-              <div class="tags"><span>Archive</span></div>
-              <h3>And 27 more, across four industries.</h3>
-              <p>From edu-tech onboarding to fintech dashboards. The full archive of shipped work — case studies, prototypes, side experiments.</p>
-              <div class="stats">
-                <div><div class="v">32</div><div class="l">total projects</div></div>
-                <div><div class="v">4</div><div class="l">industries</div></div>
-                <div><div class="v">2yr+</div><div class="l">in production</div></div>
-              </div>
-              <a class="more" href="#">See all 32 projects <span class="arrow">→</span></a>
-            </div>
-          </article>
-
-        </div>
-        <div class="rail-progress"><div class="fill" id="railFill"></div></div>
-      </div>
-    </section>
 
     <!-- ========== PROCESS ========== -->
     <section class="section" id="process">
@@ -410,97 +313,276 @@
       <p style="font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 24px; letter-spacing: 0.06em;">Timelines flex with scope · This is a typical 6-week engagement.</p>
     </section>
 
-    <!-- ========== EXPERIENCE TIMELINE ========== -->
+    <!-- ========== EXPERIENCE TIMELINE — Road Map ========== -->
     <section class="section" id="experience">
       <div class="head">
         <span class="eyebrow reveal">Experience</span>
         <h2 class="display reveal">Two years. Four companies. <span class="accent display-italic">One discipline.</span></h2>
       </div>
-      <div class="timeline">
-        <div class="tl-item is-now reveal">
-          <div class="node"></div>
-          <div class="tl-card">
-            <div class="when">Jun 2025 – Dec 2025 · South Cikarang · Now</div>
+
+      <div class="roadmap reveal">
+        <!-- SVG winding 3D road with map elements -->
+        <svg class="road-svg" viewBox="0 0 1000 2400" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- Drop shadow for the road -->
+            <filter id="roadGlow" x="-20%" y="-10%" width="140%" height="120%">
+              <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#000000" flood-opacity="0.35"/>
+            </filter>
+            <!-- River gradient -->
+            <linearGradient id="riverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="#0284C7" stop-opacity="0.12"/>
+            </linearGradient>
+            <!-- Road asphalt gradient -->
+            <linearGradient id="asphaltGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#2D313A"/>
+              <stop offset="50%" stop-color="#23262E"/>
+              <stop offset="100%" stop-color="#2D313A"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background map stylized river -->
+          <path class="map-river" d="M 880 0 C 820 200, 950 400, 850 650 S 720 900, 800 1200 S 920 1500, 840 1800 S 700 2100, 780 2400" stroke="url(#riverGrad)" stroke-width="48" stroke-linecap="round"/>
+
+          <!-- Background secondary street grids -->
+          <g class="map-grid" opacity="0.12" stroke="currentColor" stroke-width="1.5">
+            <line x1="80" y1="300" x2="360" y2="300" stroke-dasharray="6 6"/>
+            <line x1="640" y1="260" x2="920" y2="260" stroke-dasharray="6 6"/>
+            <line x1="120" y1="920" x2="300" y2="920" stroke-dasharray="6 6"/>
+            <line x1="680" y1="960" x2="940" y2="960" stroke-dasharray="6 6"/>
+            <line x1="100" y1="1600" x2="320" y2="1600" stroke-dasharray="6 6"/>
+            <line x1="680" y1="1620" x2="920" y2="1620" stroke-dasharray="6 6"/>
+          </g>
+
+          <!-- Map landmarks / badges (like reference screenshot) -->
+          <g class="map-icons" opacity="0.6">
+            <!-- Landmark [Bus] at top right -->
+            <g transform="translate(860, 320)">
+              <circle cx="16" cy="16" r="16" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="16" y="21" text-anchor="middle" font-size="12" fill="var(--muted)">🚏</text>
+            </g>
+            <!-- Landmark [Cafe] at upper left -->
+            <g transform="translate(140, 680)">
+              <circle cx="16" cy="16" r="16" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="16" y="21" text-anchor="middle" font-size="12" fill="var(--muted)">☕</text>
+            </g>
+            <!-- Landmark [P - Parking] at mid right -->
+            <g transform="translate(860, 980)">
+              <rect x="0" y="0" width="30" height="30" rx="6" fill="#0284C7" opacity="0.8"/>
+              <text x="15" y="21" text-anchor="middle" font-family="'Geist', sans-serif" font-weight="700" font-size="15" fill="#fff">P</text>
+            </g>
+            <!-- Landmark [Park/Tree] at mid left -->
+            <g transform="translate(150, 1340)">
+              <circle cx="16" cy="16" r="16" fill="#10B981" opacity="0.25"/>
+              <text x="16" y="21" text-anchor="middle" font-size="12" fill="#10B981">🌳</text>
+            </g>
+            <!-- Landmark [Trophy] at lower right -->
+            <g transform="translate(860, 1660)">
+              <circle cx="16" cy="16" r="16" fill="#F59E0B" opacity="0.25"/>
+              <text x="16" y="21" text-anchor="middle" font-size="13" fill="#F59E0B">🏆</text>
+            </g>
+          </g>
+
+          <!-- 3D Road Base Layer 1: Soft Blurred Ground Shadow -->
+          <path class="road-path-shadow" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="#000000" stroke-width="64" stroke-linecap="round" filter="url(#roadGlow)"/>
+
+          <!-- 3D Road Layer 2: Extruded 3D Curb (shifted down 8px) -->
+          <path class="road-path-extrusion" transform="translate(0, 8)" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke-width="56" stroke-linecap="round"/>
+
+          <!-- 3D Road Layer 3: Outer Kerb Trim Borders -->
+          <path class="road-path-kerb" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke-width="48" stroke-linecap="round"/>
+
+          <!-- 3D Road Layer 4: Asphalt Surface -->
+          <path class="road-path-asphalt" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="url(#asphaltGrad)" stroke-width="42" stroke-linecap="round"/>
+
+          <!-- 3D Road Layer 5: Center Dashed Lane Divider -->
+          <path class="road-path-dashes" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="16 14" stroke-linecap="round" opacity="0.95"/>
+        </svg>
+
+        <!-- Milestone 1: Origin / Oldest (Red Pin) -->
+        <div class="road-milestone ms-1 reveal" data-side="right" style="--pin-color: #EF4444; --pin-start: #FF5A5F; --pin-end: #C81E1E;">
+          <div class="road-pin" title="Origin: Binar Academy">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF5A5F"/><stop offset="100%" stop-color="#C81E1E"/></linearGradient>
+                <linearGradient id="pGl1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh1)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr1)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">1</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl1)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-card-badge origin">Origin</div>
+            <div class="road-when">Aug 2022 – Jan 2023 · Online</div>
+            <h4>UI/UX Research &amp; Design</h4>
+            <div class="road-org">Binar Academy · Kampus Merdeka</div>
+            <p>Where it started. Six-month government-funded independent study. Research-first foundation.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 2: Eduwork (Orange Pin) -->
+        <div class="road-milestone ms-2 reveal" data-side="left" style="--pin-color: #F97316; --pin-start: #FB923C; --pin-end: #C2410C;">
+          <div class="road-pin" title="Eduwork">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FB923C"/><stop offset="100%" stop-color="#C2410C"/></linearGradient>
+                <linearGradient id="pGl2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh2)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr2)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">2</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl2)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-when">Dec 2023 – Mar 2024 · Remote, Yogyakarta</div>
+            <h4>UI/UX Designer (Internship)</h4>
+            <div class="road-org">Eduwork</div>
+            <p>Early-career foundation. Worked on edu-tech product flows, built stakeholder communication skills.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 3: Azura Labs (Green Pin) -->
+        <div class="road-milestone ms-3 reveal" data-side="right" style="--pin-color: #10B981; --pin-start: #34D399; --pin-end: #047857;">
+          <div class="road-pin" title="Azura Labs">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh3" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#047857"/></linearGradient>
+                <linearGradient id="pGl3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh3)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr3)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">3</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl3)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-when">May – Jul 2024 · Remote, Semarang</div>
+            <h4>UI/UX Designer (Internship)</h4>
+            <div class="road-org">Azura Labs</div>
+            <p>Short-form internship contributing to product design exercises and agile team workflows.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 4: Digimarly (Sky Blue Pin) -->
+        <div class="road-milestone ms-4 reveal" data-side="left" style="--pin-color: #0EA5E9; --pin-start: #38BDF8; --pin-end: #0369A1;">
+          <div class="road-pin" title="Digimarly">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh4" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#38BDF8"/><stop offset="100%" stop-color="#0369A1"/></linearGradient>
+                <linearGradient id="pGl4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh4)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr4)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">4</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl4)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-when">May – Nov 2024 · Remote</div>
+            <h4>UI/UX Designer (Internship)</h4>
+            <div class="road-org">Digimarly</div>
+            <p>Parallel internship focused on digital marketing &amp; client web projects. Fast-turnaround design with tight feedback loops.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 5: PT. Ragdalion Revolusi Industry - Internship (Purple Pin) -->
+        <div class="road-milestone ms-5 reveal" data-side="right" style="--pin-color: #8B5CF6; --pin-start: #A78BFA; --pin-end: #6D28D9;">
+          <div class="road-pin" title="PT. Ragdalion Revolusi Industry · Internship">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh5" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#6D28D9"/></linearGradient>
+                <linearGradient id="pGl5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh5)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr5)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">5</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl5)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-when">May – Nov 2024 · Onsite, South Cikarang</div>
+            <h4>UI/UX Designer (Internship)</h4>
+            <div class="road-org">PT. Ragdalion Revolusi Industry</div>
+            <p>Onboarding into industry-grade product workflows. Contributed to multiple shipped enterprise products.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 6: PT. Ragdalion Revolusi Industry - Freelance (Pink/Rose Pin) -->
+        <div class="road-milestone ms-6 reveal" data-side="left" style="--pin-color: #F43F5E; --pin-start: #FB7185; --pin-end: #BE123C;">
+          <div class="road-pin" title="PT. Ragdalion Revolusi Industry · Freelance">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh6" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FB7185"/><stop offset="100%" stop-color="#BE123C"/></linearGradient>
+                <linearGradient id="pGl6" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh6)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr6)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">6</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl6)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-when">Dec 2024 – Mar 2025 · Remote</div>
+            <h4>UI/UX Designer (Freelance)</h4>
+            <div class="road-org">PT. Ragdalion Revolusi Industry</div>
+            <p>Continued partnership post-internship on bespoke product engagements. Async work with distributed teams across Cikarang and remote.</p>
+          </div>
+        </div>
+
+        <!-- Milestone 7: PT. Ragdalion Revolusi Industry - Contract / Now (Gold/Amber Pin) -->
+        <div class="road-milestone ms-7 reveal" data-side="right" style="--pin-color: #F59E0B; --pin-start: #FBBF24; --pin-end: #B45309;">
+          <div class="road-pin" title="Current: PT. Ragdalion Revolusi Industry">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh7" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FBBF24"/><stop offset="100%" stop-color="#B45309"/></linearGradient>
+                <linearGradient id="pGl7" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh7)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr7)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">7</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl7)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-card-badge">Now</div>
+            <div class="road-when">Jun 2025 – Dec 2025 · South Cikarang</div>
             <h4>UI/UX Designer (Contract)</h4>
-            <div class="org">PT. Ragdalion Revolusi Industry</div>
-            <p>Leading design on enterprise-grade products including the LPPOM Digital Platform. Owning end-to-end from research through developer handoff, partnering directly with frontend, backend, and PM teams.</p>
+            <div class="road-org">PT. Ragdalion Revolusi Industry</div>
+            <p>Leading design on enterprise-grade products including the LPPOM Digital Platform. End-to-end ownership from research through developer handoff.</p>
             <ul>
-              <li>Shipped LPPOM Digital Platform across 3 surfaces in 4 months</li>
-              <li>Established cross-platform design system from scratch</li>
-              <li>Reduced design-to-engineering handoff friction with structured handoff docs</li>
+              <li>Shipped LPPOM Digital Platform across 3 surfaces</li>
+              <li>Cross-platform design system from scratch</li>
+              <li>Structured handoff docs for engineering</li>
             </ul>
           </div>
-          <div class="tl-spacer"></div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-spacer"></div>
-          <div class="tl-card">
-            <div class="when">Dec 2024 – Mar 2025 · Remote</div>
-            <h4>UI/UX Designer (Freelance)</h4>
-            <div class="org">PT. Ragdalion Revolusi Industry</div>
-            <p>Continued partnership post-internship on bespoke product engagements. Worked async with distributed teams across Cikarang and remote.</p>
-          </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-card">
-            <div class="when">May – Nov 2024 · Onsite, South Cikarang</div>
-            <h4>UI/UX Designer (Internship)</h4>
-            <div class="org">PT. Ragdalion Revolusi Industry</div>
-            <p>Onboarding into industry-grade product workflows. Contributed to multiple shipped products and proved out the partnership that led to ongoing freelance and contract roles.</p>
-          </div>
-          <div class="tl-spacer"></div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-spacer"></div>
-          <div class="tl-card">
-            <div class="when">May – Nov 2024 · Remote</div>
-            <h4>UI/UX Designer (Internship)</h4>
-            <div class="org">Digimarly</div>
-            <p>Parallel internship focused on digital marketing &amp; client web projects. Sharpened skills in fast-turnaround design under client constraints.</p>
-          </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-card">
-            <div class="when">May – Jul 2024 · Remote, Semarang</div>
-            <h4>UI/UX Designer (Internship)</h4>
-            <div class="org">Azura Labs</div>
-            <p>Short-form internship contributing to product design exercises and team workflows.</p>
-          </div>
-          <div class="tl-spacer"></div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-spacer"></div>
-          <div class="tl-card">
-            <div class="when">Dec 2023 – Mar 2024 · Remote, Yogyakarta</div>
-            <h4>UI/UX Designer (Internship)</h4>
-            <div class="org">Eduwork</div>
-            <p>Early-career foundation. Worked on edu-tech product flows, built familiarity with stakeholder communication.</p>
-          </div>
-        </div>
-
-        <div class="tl-item reveal">
-          <div class="node"></div>
-          <div class="tl-card">
-            <div class="when">Aug 2022 – Jan 2023 · Online</div>
-            <h4>UI/UX Research &amp; Design</h4>
-            <div class="org">Binar Academy · Studi Independen Kampus Merdeka</div>
-            <p>Where it started. Six-month government-funded independent study. Built the research-first design foundation that still shapes my work today.</p>
-          </div>
-          <div class="tl-spacer"></div>
         </div>
       </div>
 
-      <div style="margin-top: 40px; text-align: center;">
+      <div style="margin-top: 48px; text-align: center;">
         <a class="btn" href="https://drive.google.com/file/d/1z3ZXqqScqQe3mPOZh3JIGwjSTldfOkRo/view?usp=sharing" download>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
           Want the full PDF? Download CV
@@ -690,16 +772,7 @@
       bar.style.width = (max ? (h.scrollTop / max) * 100 : 0) + '%';
     }, { passive: true });
 
-    /* ====== Work rail horizontal scroll ====== */
-    const rail = document.getElementById('workRail');
-    const fill = document.getElementById('railFill');
-    document.getElementById('railNext').addEventListener('click', () => rail.scrollBy({ left: rail.clientWidth * 0.7, behavior: 'smooth' }));
-    document.getElementById('railPrev').addEventListener('click', () => rail.scrollBy({ left: -rail.clientWidth * 0.7, behavior: 'smooth' }));
-    rail.addEventListener('scroll', () => {
-      const max = rail.scrollWidth - rail.clientWidth;
-      const p = max ? rail.scrollLeft / max : 0;
-      fill.style.width = (12 + p * 88) + '%';
-    }, { passive: true });
+
 
     /* ====== Form — submits to FormSubmit.co via AJAX ====== */
     window.__sentForm = async function(e) {
@@ -737,32 +810,79 @@
   <script src="admin/hydrate.js"></script>
   <script src="projects/store.js"></script>
   <script>
-    /* ===== Home archive — dynamic from CMS store ===== */
+    /* ===== Home archive — dynamic from CMS store (v2 card design) ===== */
     (function() {
-      function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
+      function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'": '&#39;' }[c])); }
+
+      const HOME_LIMIT = 9;
+      let currentFilter = 'all';
+
+      function getDisplay(p) { return (p.display && p.display[0]) || 'Project'; }
+
       function render() {
         const grid = document.getElementById('homeArchiveGrid');
         if (!grid) return;
         const all = ProjectStore.load();
-        const featured = all.filter(p => p.featured);
-        // If no project is flagged featured, fall back to the first 12.
-        const items = featured.length ? featured : all.slice(0, 12);
+
+        // Update "All · N" count
+        const allCountEl = document.getElementById('archiveFilterAllCount');
+        if (allCountEl) allCountEl.textContent = all.length;
+
+        // Filter
+        const filtered = currentFilter === 'all' ? all : all.filter(p => (p.tags || []).includes(currentFilter));
+
+        // Limit to 9 on home
+        const items = filtered.slice(0, HOME_LIMIT);
+
         grid.innerHTML = items.map(p => {
-          const coverBg = p.coverImage
-            ? `style="background-image:url(${JSON.stringify(p.coverImage)}); background-size:cover; background-position:center;"`
-            : '';
+          const hasCover = p.coverImage && p.coverImage.length > 10;
+          const coverContent = hasCover
+            ? `<img src="${escapeHtml(p.coverImage)}" alt="${escapeHtml(p.t)}" class="av2-cover-img" />`
+            : `<span class="av2-cover-text">${escapeHtml(p.cover || p.t)}</span>`;
+
+          const tagsHtml = (p.display || []).map(d => `<span>${escapeHtml(d)}</span>`).join('');
+
           return `
-            <a class="archive-card reveal in" href="projects/detail.html?id=${encodeURIComponent(p.id)}" ${coverBg}>
-              <div class="top"><span class="num">${escapeHtml(p.n || '')}</span><span>${escapeHtml(p.y || '')}</span></div>
-              <h4>${escapeHtml(p.t)}</h4>
-              <div class="meta">${escapeHtml(p.c || '')}</div>
-              <div class="chips">${(p.chips || p.display || []).slice(0,3).map(t => '<span>' + escapeHtml(t) + '</span>').join('')}</div>
+            <a class="av2-card reveal in" href="projects/detail.html?id=${encodeURIComponent(p.id)}">
+              <div class="av2-cover">
+                <div class="av2-badge">#${escapeHtml(p.n || '')}</div>
+                ${coverContent}
+              </div>
+              <div class="av2-body">
+                <div class="av2-meta">
+                  <span>${escapeHtml(p.y || '')}</span>
+                  <span>${escapeHtml(getDisplay(p))}</span>
+                </div>
+                <h4>${escapeHtml(p.t)}</h4>
+                <p class="av2-desc">${escapeHtml(p.d || '')}</p>
+                <div class="av2-tags">${tagsHtml}</div>
+                <span class="av2-link">View case study →</span>
+              </div>
             </a>`;
         }).join('');
+
         // Update counter line
         const counter = document.getElementById('homeArchiveCount');
         if (counter) counter.textContent = 'Showing ' + items.length + ' of ' + all.length;
+
+        // Update "View all" button count
+        const viewAllBtn = grid.parentElement.querySelector('.btn-primary');
+        if (viewAllBtn) viewAllBtn.innerHTML = `View all ${all.length} projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
       }
+
+      // Filter click handler
+      const filtersWrap = document.getElementById('archiveFilters');
+      if (filtersWrap) {
+        filtersWrap.addEventListener('click', (e) => {
+          const btn = e.target.closest('.archive-filter');
+          if (!btn) return;
+          filtersWrap.querySelectorAll('.archive-filter').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          render();
+        });
+      }
+
       render();
       window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
       window.addEventListener('hw-projects-changed', render);
