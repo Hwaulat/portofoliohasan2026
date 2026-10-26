@@ -15,8 +15,8 @@
     return;
   }
   global.cmsClient = lib.createClient(
-    'https://pvcesehkurtaztsulvnq.supabase.co',
-    'sb_publishable_JUA-eaFj3NkgckCy7kxvWQ_jQoWBWr5',
+    'https://wsefjoshztfxqojnazwo.supabase.co',
+    'sb_publishable_ntUeHiNrpgw8ig5FWEACNQ_AhojaRuq',
     { auth: { persistSession: true, autoRefreshToken: true } }
   );
 })(window);
