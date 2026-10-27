@@ -127,13 +127,108 @@
   .add-row { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--accent); cursor: pointer; padding: 6px 10px; border: 1px dashed var(--border); border-radius: 4px; background: transparent; margin-top: 6px; }
   .add-row:hover { border-color: var(--accent); }
 
-  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .gallery-tile { position: relative; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; background: var(--paper); display: grid; place-items: center; }
-  .gallery-tile img { width: 100%; height: 100%; object-fit: cover; }
-  .gallery-tile.add { cursor: pointer; color: var(--muted); font-size: 12px; }
-  .gallery-tile.add:hover { background: var(--accent-soft); color: var(--accent); }
-  .gallery-tile .remove-btn { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; border-radius: 999px; background: var(--fg); color: var(--bg); border: 0; cursor: pointer; display: grid; place-items: center; opacity: 0; transition: opacity 160ms ease; font-size: 11px; }
+  /* Gallery Dropzone & Multi-upload */
+  .gallery-dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    padding: 24px 20px;
+    text-align: center;
+    background: var(--paper);
+    cursor: pointer;
+    transition: all 180ms ease;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted);
+  }
+  .gallery-dropzone:hover, .gallery-dropzone.dragover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .gallery-dropzone.dragover {
+    transform: scale(1.008);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .gallery-dropzone svg {
+    color: var(--accent);
+    transition: transform 200ms ease;
+  }
+  .gallery-dropzone:hover svg, .gallery-dropzone.dragover svg {
+    transform: translateY(-3px) scale(1.08);
+  }
+  .gallery-dropzone-text {
+    font-size: 13.5px;
+    color: var(--fg);
+  }
+  .gallery-dropzone-text .browse-link {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .gallery-dropzone-sub {
+    font-size: 11.5px;
+    color: var(--muted);
+  }
+
+  /* Gallery Progress Bar */
+  .gallery-progress {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+  }
+  .gallery-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .gallery-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 220ms ease;
+  }
+  .gallery-progress-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .gallery-spinner {
+    width: 12px;
+    height: 12px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 700ms linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .gallery-grid.dragover { outline: 2px dashed var(--accent); outline-offset: 4px; border-radius: 8px; }
+  .gallery-tile { position: relative; aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--paper); display: grid; place-items: center; cursor: grab; user-select: none; transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease; }
+  .gallery-tile:active { cursor: grabbing; }
+  .gallery-tile.dragging { opacity: 0.35; transform: scale(0.95); border: 2px dashed var(--accent); }
+  .gallery-tile.drag-over { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); transform: scale(1.02); }
+  .gallery-tile img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .gallery-tile .tile-num { position: absolute; bottom: 6px; left: 6px; font-size: 10px; font-family: var(--font-mono); background: rgba(0,0,0,0.68); color: #fff; padding: 2px 6px; border-radius: 3px; pointer-events: none; backdrop-filter: blur(4px); }
+  .gallery-tile.add { cursor: pointer; color: var(--muted); font-size: 12px; border: 2px dashed var(--border); display: flex; flex-direction: column; gap: 4px; }
+  .gallery-tile.add:hover, .gallery-tile.add.dragover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+  .gallery-tile .remove-btn { position: absolute; top: 6px; right: 6px; width: 26px; height: 26px; border-radius: 999px; background: rgba(0,0,0,0.72); color: #fff; border: 0; cursor: pointer; display: grid; place-items: center; opacity: 0; transition: opacity 160ms ease, background 160ms ease, transform 160ms ease; font-size: 11px; z-index: 2; }
   .gallery-tile:hover .remove-btn { opacity: 1; }
+  .gallery-tile .remove-btn:hover { background: #d54545; transform: scale(1.1); }
 
   .actions { display: flex; gap: 10px; padding: 18px 0 0; position: sticky; bottom: 0; background: linear-gradient(to top, var(--bg) 80%, transparent); padding-bottom: 12px; z-index: 5; flex-wrap: wrap; }
   .actions .right { margin-left: auto; display: flex; gap: 10px; }
@@ -426,12 +521,42 @@
           </div>
         </div>
 
-        <div class="panel">
-          <div class="panel-head"><h3>Gallery</h3><span class="hint">Screen captures shown on the detail page</span></div>
+        <div class="panel" id="galleryPanel">
+          <div class="panel-head">
+            <h3>Gallery</h3>
+            <span class="hint" id="galleryCountHint">Screen captures shown on the detail page</span>
+          </div>
           <div class="panel-body">
+            <!-- Dropzone Banner -->
+            <div class="gallery-dropzone" id="galleryDropzone">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+              <div class="gallery-dropzone-text">
+                <strong>Drag &amp; drop multiple images here</strong>, or <span class="browse-link">browse files</span>
+              </div>
+              <span class="gallery-dropzone-sub">PNG, JPG, WEBP · Select or drop multiple files simultaneously</span>
+            </div>
+
+            <!-- Upload progress bar (hidden by default) -->
+            <div class="gallery-progress" id="galleryProgress" style="display: none;">
+              <div class="gallery-progress-bar"><div class="gallery-progress-fill" id="galleryProgressFill"></div></div>
+              <span class="gallery-progress-text" id="galleryProgressText">
+                <span class="gallery-spinner"></span>
+                <span>Uploading...</span>
+              </span>
+            </div>
+
+            <!-- Gallery Tiles Grid -->
             <div class="gallery-grid" id="galleryGrid"></div>
-            <input type="file" id="galleryInput" accept="image/*" style="display:none" />
-            <p class="help" style="margin-top: 12px; color: var(--muted); font-size: 12px;">Click any tile to remove it. Click "+ Add image" to add new ones.</p>
+            <input type="file" id="galleryInput" accept="image/*" multiple style="display:none" />
+            
+            <p class="help" style="margin-top: 14px; color: var(--muted); font-size: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+              <span>💡 Drag tiles to reorder. Hover over a tile and click ✕ to delete.</span>
+              <span id="galleryTotalCount">0 images</span>
+            </p>
           </div>
         </div>
 
@@ -684,35 +809,222 @@
       });
     }
 
+    let draggedGalleryIdx = null;
+
     function renderGallery() {
       const grid = document.getElementById('galleryGrid');
-      draft.gallery = draft.gallery || [];
-      const tiles = draft.gallery.map((src, i) => `
-        <div class="gallery-tile">
-          <img src="${src}" alt="" />
-          <button class="remove-btn" data-idx="${i}" title="Remove">✕</button>
-        </div>`).join('');
-      grid.innerHTML = tiles + `
-        <div class="gallery-tile add" id="galleryAdd">+ Add image</div>`;
-      grid.querySelectorAll('.remove-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          draft.gallery.splice(parseInt(btn.dataset.idx, 10), 1);
-          renderGallery();
-        });
-      });
-      const add = document.getElementById('galleryAdd');
+      const dropzone = document.getElementById('galleryDropzone');
       const input = document.getElementById('galleryInput');
-      add.addEventListener('click', () => input.click());
-      input.onchange = async (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-        try {
-          const url = await ProjectStore.fileToCompressedDataURL(file, 1600, 0.82);
-          draft.gallery.push(url);
-          input.value = '';
+      const totalCountEl = document.getElementById('galleryTotalCount');
+      const countHint = document.getElementById('galleryCountHint');
+
+      if (!grid) return;
+      draft.gallery = draft.gallery || [];
+
+      // Update counters
+      const countStr = draft.gallery.length === 1 ? '1 image' : `${draft.gallery.length} images`;
+      if (totalCountEl) totalCountEl.textContent = countStr;
+      if (countHint) countHint.textContent = draft.gallery.length ? `${countStr} · Screen captures on detail page` : 'Screen captures shown on the detail page';
+
+      // Build tiles
+      const tiles = draft.gallery.map((src, i) => `
+        <div class="gallery-tile" draggable="true" data-idx="${i}" title="Drag to reorder">
+          <img src="${src}" alt="Screen ${i + 1}" loading="lazy" />
+          <span class="tile-num">#${i + 1}</span>
+          <button class="remove-btn" data-idx="${i}" title="Delete image" type="button">✕</button>
+        </div>`).join('');
+
+      grid.innerHTML = tiles + `
+        <div class="gallery-tile add" id="galleryAdd" title="Click or drop images here">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span>+ Add images</span>
+        </div>`;
+
+      // Wire tile remove buttons
+      grid.querySelectorAll('.remove-btn').forEach(btn => {
+        btn.onclick = (e) => {
+          e.stopPropagation();
+          const idx = parseInt(btn.dataset.idx, 10);
+          draft.gallery.splice(idx, 1);
           renderGallery();
-        } catch (err) { toast('Failed: ' + err.message); }
+        };
+      });
+
+      // Wire tile drag-to-reorder
+      const tileEls = grid.querySelectorAll('.gallery-tile:not(.add)');
+      tileEls.forEach(tile => {
+        tile.ondragstart = (e) => {
+          draggedGalleryIdx = parseInt(tile.dataset.idx, 10);
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(draggedGalleryIdx));
+          tile.classList.add('dragging');
+        };
+        tile.ondragend = () => {
+          draggedGalleryIdx = null;
+          tile.classList.remove('dragging');
+          grid.querySelectorAll('.gallery-tile').forEach(t => t.classList.remove('drag-over'));
+        };
+        tile.ondragover = (e) => {
+          if (draggedGalleryIdx === null) return;
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          tile.classList.add('drag-over');
+        };
+        tile.ondragleave = () => {
+          tile.classList.remove('drag-over');
+        };
+        tile.ondrop = (e) => {
+          if (draggedGalleryIdx === null) return;
+          e.preventDefault();
+          e.stopPropagation();
+          tile.classList.remove('drag-over');
+          const targetIdx = parseInt(tile.dataset.idx, 10);
+          if (!isNaN(targetIdx) && targetIdx !== draggedGalleryIdx) {
+            const item = draft.gallery.splice(draggedGalleryIdx, 1)[0];
+            draft.gallery.splice(targetIdx, 0, item);
+            draggedGalleryIdx = null;
+            renderGallery();
+          }
+        };
+      });
+
+      // Upload handler for multiple files
+      async function uploadMultipleFiles(fileList) {
+        const files = Array.from(fileList || []).filter(f => f.type && f.type.startsWith('image/'));
+        if (!files.length) {
+          toast('Please choose image files (PNG, JPG, WEBP).');
+          return;
+        }
+
+        const progress = document.getElementById('galleryProgress');
+        const progressFill = document.getElementById('galleryProgressFill');
+        const progressText = document.getElementById('galleryProgressText');
+        const saveBtn = document.getElementById('saveBtn');
+
+        if (progress) progress.style.display = 'block';
+        if (saveBtn) saveBtn.disabled = true;
+
+        let success = 0;
+        let fail = 0;
+
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const pct = Math.round((i / files.length) * 100);
+          if (progressFill) progressFill.style.width = pct + '%';
+          if (progressText) {
+            progressText.innerHTML = `<span class="gallery-spinner"></span><span>Uploading ${i + 1} of ${files.length} (${file.name})...</span>`;
+          }
+
+          try {
+            const url = await ProjectStore.fileToCompressedDataURL(file, 1600, 0.82);
+            draft.gallery.push(url);
+            success++;
+            renderGallery();
+          } catch (err) {
+            console.error('Gallery image upload failed:', file.name, err);
+            fail++;
+          }
+        }
+
+        if (progressFill) progressFill.style.width = '100%';
+        if (progressText) {
+          progressText.innerHTML = `<span>✓ Completed: ${success} uploaded${fail ? `, ${fail} failed` : ''}</span>`;
+        }
+        setTimeout(() => {
+          if (progress) progress.style.display = 'none';
+          if (progressFill) progressFill.style.width = '0%';
+        }, 1800);
+
+        if (saveBtn) saveBtn.disabled = false;
+        toast(`✓ Uploaded ${success} image${success > 1 ? 's' : ''}${fail ? ` (${fail} failed)` : ''}`);
+      }
+
+      function isFileTransfer(e) {
+        return e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+      }
+
+      // Wire dropzone click & drag-and-drop
+      if (dropzone) {
+        dropzone.onclick = () => input.click();
+        dropzone.ondragenter = (e) => {
+          if (!isFileTransfer(e)) return;
+          e.preventDefault();
+          dropzone.classList.add('dragover');
+        };
+        dropzone.ondragover = (e) => {
+          if (!isFileTransfer(e)) return;
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'copy';
+          dropzone.classList.add('dragover');
+        };
+        dropzone.ondragleave = (e) => {
+          dropzone.classList.remove('dragover');
+        };
+        dropzone.ondrop = (e) => {
+          if (!isFileTransfer(e)) return;
+          e.preventDefault();
+          e.stopPropagation();
+          dropzone.classList.remove('dragover');
+          if (e.dataTransfer.files && e.dataTransfer.files.length) {
+            uploadMultipleFiles(e.dataTransfer.files);
+          }
+        };
+      }
+
+      // Wire grid as file drop target
+      grid.ondragover = (e) => {
+        if (!isFileTransfer(e)) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+        grid.classList.add('dragover');
       };
+      grid.ondragleave = (e) => {
+        if (e.relatedTarget && grid.contains(e.relatedTarget)) return;
+        grid.classList.remove('dragover');
+      };
+      grid.ondrop = (e) => {
+        if (!isFileTransfer(e)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        grid.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files.length) {
+          uploadMultipleFiles(e.dataTransfer.files);
+        }
+      };
+
+      // Wire "+ Add images" tile click & drop
+      const addTile = document.getElementById('galleryAdd');
+      if (addTile) {
+        addTile.onclick = () => input.click();
+        addTile.ondragover = (e) => {
+          if (!isFileTransfer(e)) return;
+          e.preventDefault();
+          addTile.classList.add('dragover');
+        };
+        addTile.ondragleave = () => addTile.classList.remove('dragover');
+        addTile.ondrop = (e) => {
+          if (!isFileTransfer(e)) return;
+          e.preventDefault();
+          e.stopPropagation();
+          addTile.classList.remove('dragover');
+          if (e.dataTransfer.files && e.dataTransfer.files.length) {
+            uploadMultipleFiles(e.dataTransfer.files);
+          }
+        };
+      }
+
+      // Wire input file picker
+      if (input) {
+        input.onchange = (e) => {
+          if (e.target.files && e.target.files.length) {
+            uploadMultipleFiles(e.target.files);
+            input.value = '';
+          }
+        };
+      }
     }
 
     /* ===== Commit ===== */
