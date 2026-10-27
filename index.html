@@ -322,7 +322,7 @@
 
       <div class="roadmap reveal">
         <!-- SVG winding 3D road with map elements -->
-        <svg class="road-svg" viewBox="0 0 1000 2400" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg class="road-svg" viewBox="0 0 1000 2750" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <!-- Drop shadow for the road -->
             <filter id="roadGlow" x="-20%" y="-10%" width="140%" height="120%">
@@ -342,7 +342,7 @@
           </defs>
 
           <!-- Background map stylized river -->
-          <path class="map-river" d="M 880 0 C 820 200, 950 400, 850 650 S 720 900, 800 1200 S 920 1500, 840 1800 S 700 2100, 780 2400" stroke="url(#riverGrad)" stroke-width="48" stroke-linecap="round"/>
+          <path class="map-river" d="M 880 0 C 820 200, 950 400, 850 650 S 720 900, 800 1200 S 920 1500, 840 1800 S 700 2100, 780 2400 S 860 2550, 780 2750" stroke="url(#riverGrad)" stroke-width="48" stroke-linecap="round"/>
 
           <!-- Background secondary street grids -->
           <g class="map-grid" opacity="0.12" stroke="currentColor" stroke-width="1.5">
@@ -352,6 +352,8 @@
             <line x1="680" y1="960" x2="940" y2="960" stroke-dasharray="6 6"/>
             <line x1="100" y1="1600" x2="320" y2="1600" stroke-dasharray="6 6"/>
             <line x1="680" y1="1620" x2="920" y2="1620" stroke-dasharray="6 6"/>
+            <line x1="100" y1="2300" x2="320" y2="2300" stroke-dasharray="6 6"/>
+            <line x1="680" y1="2320" x2="920" y2="2320" stroke-dasharray="6 6"/>
           </g>
 
           <!-- Map landmarks / badges (like reference screenshot) -->
@@ -381,22 +383,27 @@
               <circle cx="16" cy="16" r="16" fill="#F59E0B" opacity="0.25"/>
               <text x="16" y="21" text-anchor="middle" font-size="13" fill="#F59E0B">🏆</text>
             </g>
+            <!-- Landmark [Sparkle] at lower left for present summit -->
+            <g transform="translate(140, 2320)">
+              <circle cx="16" cy="16" r="16" fill="#10B981" opacity="0.25"/>
+              <text x="16" y="21" text-anchor="middle" font-size="13" fill="#10B981">✨</text>
+            </g>
           </g>
 
           <!-- 3D Road Base Layer 1: Soft Blurred Ground Shadow -->
-          <path class="road-path-shadow" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="#000000" stroke-width="64" stroke-linecap="round" filter="url(#roadGlow)"/>
+          <path class="road-path-shadow" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 320 1990, 320 2140 C 320 2290, 680 2320, 680 2470 C 680 2600, 500 2670, 500 2750" stroke="#000000" stroke-width="64" stroke-linecap="round" filter="url(#roadGlow)"/>
 
           <!-- 3D Road Layer 2: Extruded 3D Curb (shifted down 8px) -->
-          <path class="road-path-extrusion" transform="translate(0, 8)" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke-width="56" stroke-linecap="round"/>
+          <path class="road-path-extrusion" transform="translate(0, 8)" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 320 1990, 320 2140 C 320 2290, 680 2320, 680 2470 C 680 2600, 500 2670, 500 2750" stroke-width="56" stroke-linecap="round"/>
 
           <!-- 3D Road Layer 3: Outer Kerb Trim Borders -->
-          <path class="road-path-kerb" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke-width="48" stroke-linecap="round"/>
+          <path class="road-path-kerb" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 320 1990, 320 2140 C 320 2290, 680 2320, 680 2470 C 680 2600, 500 2670, 500 2750" stroke-width="48" stroke-linecap="round"/>
 
           <!-- 3D Road Layer 4: Asphalt Surface -->
-          <path class="road-path-asphalt" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="url(#asphaltGrad)" stroke-width="42" stroke-linecap="round"/>
+          <path class="road-path-asphalt" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 320 1990, 320 2140 C 320 2290, 680 2320, 680 2470 C 680 2600, 500 2670, 500 2750" stroke="url(#asphaltGrad)" stroke-width="42" stroke-linecap="round"/>
 
           <!-- 3D Road Layer 5: Center Dashed Lane Divider -->
-          <path class="road-path-dashes" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 340 1990, 340 2140 C 340 2270, 500 2330, 500 2400" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="16 14" stroke-linecap="round" opacity="0.95"/>
+          <path class="road-path-dashes" d="M 500 0 C 500 60, 420 100, 420 160 C 420 280, 680 340, 680 490 C 680 640, 320 670, 320 820 C 320 970, 680 1000, 680 1150 C 680 1300, 320 1330, 320 1480 C 320 1630, 680 1660, 680 1810 C 680 1960, 320 1990, 320 2140 C 320 2290, 680 2320, 680 2470 C 680 2600, 500 2670, 500 2750" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="16 14" stroke-linecap="round" opacity="0.95"/>
         </svg>
 
         <!-- Milestone 1: Origin / Oldest (Red Pin) -->
@@ -550,9 +557,9 @@
           </div>
         </div>
 
-        <!-- Milestone 7: PT. Ragdalion Revolusi Industry - Contract / Now (Gold/Amber Pin) -->
+        <!-- Milestone 7: PT. Ragdalion Revolusi Industry - Contract (Gold/Amber Pin) -->
         <div class="road-milestone ms-7 reveal" data-side="right" style="--pin-color: #F59E0B; --pin-start: #FBBF24; --pin-end: #B45309;">
-          <div class="road-pin" title="Current: PT. Ragdalion Revolusi Industry">
+          <div class="road-pin" title="PT. Ragdalion Revolusi Industry">
             <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
               <defs>
                 <radialGradient id="pSh7" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
@@ -568,7 +575,6 @@
           </div>
           <div class="road-connector"></div>
           <div class="road-card">
-            <div class="road-card-badge">Now</div>
             <div class="road-when">Jun 2025 – Dec 2025 · South Cikarang</div>
             <h4>UI/UX Designer (Contract)</h4>
             <div class="road-org">PT. Ragdalion Revolusi Industry</div>
@@ -577,6 +583,36 @@
               <li>Shipped LPPOM Digital Platform across 3 surfaces</li>
               <li>Cross-platform design system from scratch</li>
               <li>Structured handoff docs for engineering</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Milestone 8: PT. Ragdalion Revolusi Industry - Product Designer / Now (Emerald Green Pin) -->
+        <div class="road-milestone ms-8 reveal" data-side="left" style="--pin-color: #10B981; --pin-start: #34D399; --pin-end: #059669;">
+          <div class="road-pin" title="Current: PT. Ragdalion Revolusi Industry">
+            <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+              <defs>
+                <radialGradient id="pSh8" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                <linearGradient id="pGr8" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#059669"/></linearGradient>
+                <linearGradient id="pGl8" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+              </defs>
+              <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh8)"/>
+              <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr8)"/>
+              <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+              <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">8</text>
+              <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl8)"/>
+            </svg>
+          </div>
+          <div class="road-connector"></div>
+          <div class="road-card">
+            <div class="road-card-badge">Now</div>
+            <div class="road-when">Dec 2025 - Dec 2026 · South Cikarang · Now</div>
+            <h4>Product Designer</h4>
+            <div class="road-org">PT. Ragdalion Revolusi Industry</div>
+            <ul>
+              <li>Coordinated client meetings to gather business and user requirements, identifying pain points and opportunities for better design solutions.</li>
+              <li>Developed and engineered flexible design systems for manufacturing and general industries, ensuring scalability and usability.</li>
+              <li>Collaborated with developers to implement design concepts, optimizing quality, and managing project timelines for efficient execution.</li>
             </ul>
           </div>
         </div>
@@ -735,6 +771,7 @@
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    window._revealObserver = io;
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
     /* ====== Word stack stagger ====== */

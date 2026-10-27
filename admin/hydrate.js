@@ -230,20 +230,141 @@
       if (sec) {
         const eyebrow = sec.querySelector('.eyebrow'); if (eyebrow) eyebrow.textContent = ex.eyebrow;
         const h2 = sec.querySelector('.head h2'); if (h2 && ex.headline) h2.innerHTML = ex.headline.replace(/<em>(.*?)<\/em>/g, '<span class="accent display-italic">$1</span>');
-        const tl = sec.querySelector('.timeline');
-        if (tl && ex.items) {
-          tl.innerHTML = ex.items.map((it, i) => {
-            const odd = i % 2 === 0;
-            const card = `<div class="tl-card">
-              <div class="when">${esc(it.when)}</div>
-              <h4>${esc(it.title)}</h4>
-              <div class="org">${esc(it.org)}</div>
-              <p>${it.desc || ''}</p>
-              ${(it.bullets && it.bullets.length) ? `<ul>${it.bullets.map(b => `<li>${b}</li>`).join('')}</ul>` : ''}
-            </div>`;
-            const spacer = '<div class="tl-spacer"></div>';
-            return `<div class="tl-item${it.now ? ' is-now' : ''}"><div class="node"></div>${odd ? card + spacer : spacer + card}</div>`;
+        
+        const roadmap = sec.querySelector('.roadmap');
+        if (roadmap && ex.items && ex.items.length) {
+          const PIN_PALETTES = [
+            { color: '#EF4444', start: '#FF5A5F', end: '#C81E1E' }, // Red (Origin)
+            { color: '#F97316', start: '#FB923C', end: '#C2410C' }, // Orange
+            { color: '#10B981', start: '#34D399', end: '#047857' }, // Green
+            { color: '#0EA5E9', start: '#38BDF8', end: '#0369A1' }, // Sky Blue
+            { color: '#8B5CF6', start: '#A78BFA', end: '#6D28D9' }, // Purple
+            { color: '#F43F5E', start: '#FB7185', end: '#BE123C' }, // Rose
+            { color: '#F59E0B', start: '#FBBF24', end: '#B45309' }, // Amber
+            { color: '#10B981', start: '#34D399', end: '#059669' }, // Emerald / Now
+            { color: '#06B6D4', start: '#22D3EE', end: '#0891B2' }, // Cyan
+            { color: '#6366F1', start: '#818CF8', end: '#4338CA' }  // Indigo
+          ];
+
+          // Items in CMS are [Newest (most recent) ... Oldest].
+          // Road map displays [Oldest (Origin: 1) ... Newest (Now: N)]
+          const chronItems = ex.items.slice().reverse();
+          const totalCount = chronItems.length;
+          const totalHeight = 160 + (totalCount - 1) * 330 + 280;
+          roadmap.style.height = totalHeight + 'px';
+
+          // Update SVG curves to match item count
+          const roadSvg = roadmap.querySelector('.road-svg');
+          if (roadSvg) {
+            roadSvg.setAttribute('viewBox', `0 0 1000 ${totalHeight}`);
+
+            let dRoad = 'M 500 0';
+            for (let i = 0; i < totalCount; i++) {
+              const top = 160 + i * 330;
+              const prevTop = i === 0 ? 0 : 160 + (i - 1) * 330;
+              const px = (i % 2 === 0) ? (i === 0 ? 420 : 320) : 680;
+              const prevX = i === 0 ? 500 : ((i - 1) % 2 === 0 ? (i - 1 === 0 ? 420 : 320) : 680);
+              if (i === 0) {
+                dRoad += ' C 500 60, 420 100, 420 160';
+              } else {
+                dRoad += ` C ${prevX} ${prevTop + 150}, ${px} ${top - 150}, ${px} ${top}`;
+              }
+            }
+            const lastI = totalCount - 1;
+            const lastTop = 160 + lastI * 330;
+            const lastX = (lastI % 2 === 0) ? (lastI === 0 ? 420 : 320) : 680;
+            dRoad += ` C ${lastX} ${lastTop + 130}, 500 ${totalHeight - 80}, 500 ${totalHeight}`;
+
+            const roadPaths = roadSvg.querySelectorAll('.road-path-shadow, .road-path-extrusion, .road-path-kerb, .road-path-asphalt, .road-path-dashes');
+            roadPaths.forEach(p => p.setAttribute('d', dRoad));
+
+            const river = roadSvg.querySelector('.map-river');
+            if (river) {
+              let riverD = 'M 880 0 C 820 200, 950 400, 850 650 S 720 900, 800 1200 S 920 1500, 840 1800 S 700 2100, 780 2400';
+              if (totalHeight > 2400) {
+                riverD += ` S 860 ${Math.round(2400 + (totalHeight - 2400) * 0.45)}, 780 ${totalHeight}`;
+              }
+              river.setAttribute('d', riverD);
+            }
+          }
+
+          // Clear old milestone DOM elements
+          roadmap.querySelectorAll('.road-milestone').forEach(el => el.remove());
+
+          // Build dynamic milestones
+          const milestonesHtml = chronItems.map((it, idx) => {
+            const num = idx + 1;
+            const top = 160 + idx * 330;
+            const side = (idx % 2 === 0) ? 'right' : 'left';
+            const pinX = (idx % 2 === 0) ? (idx === 0 ? 42 : 32) : 68;
+            const pal = it.now
+              ? { color: '#10B981', start: '#34D399', end: '#059669' }
+              : (PIN_PALETTES[idx % PIN_PALETTES.length]);
+
+            const isOrigin = (idx === 0);
+            const badgeHtml = isOrigin
+              ? '<div class="road-card-badge origin">Origin</div>'
+              : (it.now ? '<div class="road-card-badge">Now</div>' : '');
+
+            const bulletsHtml = (it.bullets && it.bullets.length)
+              ? `<ul>${it.bullets.map(b => {
+                  const cleanB = String(b || '').replace(/^[•●\-\*]\s*/, '').trim();
+                  return cleanB ? `<li>${esc(cleanB)}</li>` : '';
+                }).filter(Boolean).join('')}</ul>`
+              : '';
+
+            const descHtml = it.desc ? `<p>${esc(it.desc)}</p>` : '';
+
+            return `
+              <div class="road-milestone ms-${num} reveal in" data-side="${side}" style="top: ${top}px; --pin-x: ${pinX}%; --pin-color: ${pal.color}; --pin-start: ${pal.start}; --pin-end: ${pal.end};">
+                <div class="road-pin" title="${isOrigin ? 'Origin: ' : (it.now ? 'Current: ' : '')}${esc(it.org)}">
+                  <svg class="pin-svg" viewBox="0 0 54 70" width="48" height="62" aria-hidden="true">
+                    <defs>
+                      <radialGradient id="pSh_dyn_${num}" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(0,0,0,0.55)"/><stop offset="100%" stop-color="rgba(0,0,0,0)"/></radialGradient>
+                      <linearGradient id="pGr_dyn_${num}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${pal.start}"/><stop offset="100%" stop-color="${pal.end}"/></linearGradient>
+                      <linearGradient id="pGl_dyn_${num}" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+                    </defs>
+                    <ellipse cx="27" cy="66" rx="14" ry="4" fill="url(#pSh_dyn_${num})"/>
+                    <path d="M27 64 C27 64 6 40 6 24 C6 12 15.5 3 27 3 C38.5 3 48 12 48 24 C48 40 27 64 27 64 Z" fill="url(#pGr_dyn_${num})"/>
+                    <circle cx="27" cy="24" r="13.5" fill="#FFFFFF"/>
+                    <text x="27" y="30" text-anchor="middle" font-family="'Geist', system-ui, sans-serif" font-weight="800" font-size="15" fill="#1C1D22">${num}</text>
+                    <path d="M14 16 C16 9 22 6 27 6 C24 8 20 12 19 16 Z" fill="url(#pGl_dyn_${num})"/>
+                  </svg>
+                </div>
+                <div class="road-connector"></div>
+                <div class="road-card">
+                  ${badgeHtml}
+                  <div class="road-when">${esc(it.when)}</div>
+                  <h4>${esc(it.title)}</h4>
+                  <div class="road-org">${esc(it.org)}</div>
+                  ${descHtml}
+                  ${bulletsHtml}
+                </div>
+              </div>
+            `;
           }).join('');
+
+          roadmap.insertAdjacentHTML('beforeend', milestonesHtml);
+
+          if (window._revealObserver) {
+            roadmap.querySelectorAll('.reveal').forEach(el => window._revealObserver.observe(el));
+          }
+        } else {
+          const tl = sec.querySelector('.timeline');
+          if (tl && ex.items) {
+            tl.innerHTML = ex.items.map((it, i) => {
+              const odd = i % 2 === 0;
+              const card = `<div class="tl-card">
+                <div class="when">${esc(it.when)}</div>
+                <h4>${esc(it.title)}</h4>
+                <div class="org">${esc(it.org)}</div>
+                <p>${it.desc || ''}</p>
+                ${(it.bullets && it.bullets.length) ? `<ul>${it.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}
+              </div>`;
+              const spacer = '<div class="tl-spacer"></div>';
+              return `<div class="tl-item${it.now ? ' is-now' : ''}"><div class="node"></div>${odd ? card + spacer : spacer + card}</div>`;
+            }).join('');
+          }
         }
       }
     }

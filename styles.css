@@ -555,7 +555,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   max-width: 1040px;
   margin: 36px auto 0;
-  height: 2400px;
+  height: 2750px;
 }
 
 /* SVG road background */
@@ -624,7 +624,10 @@ html[data-theme="dark"] .map-river {
 .ms-4 { top: 1150px; --pin-x: 68%; }
 .ms-5 { top: 1480px; --pin-x: 32%; }
 .ms-6 { top: 1810px; --pin-x: 68%; }
-.ms-7 { top: 2140px; --pin-x: 34%; }
+.ms-7 { top: 2140px; --pin-x: 32%; }
+.ms-8 { top: 2470px; --pin-x: 68%; }
+.ms-9 { top: 2800px; --pin-x: 32%; }
+.ms-10 { top: 3130px; --pin-x: 68%; }
 
 /* Map Pin Markers */
 .road-pin {
