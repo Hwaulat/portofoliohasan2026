@@ -79,18 +79,472 @@
     border-left: 4px solid var(--accent);
     padding-left: 24px; margin-left: -28px;
   }
-  .detail .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 40px 0; }
-  .detail .gallery .tile {
-    aspect-ratio: 4/3; border: 1px solid var(--border); border-radius: 4px; display: grid; place-items: center;
-    background: var(--paper);
-    font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase;
+  
+  /* ====== Title Row & Preview Design Button ====== */
+  .detail .title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 8px 0 22px;
+    flex-wrap: wrap;
   }
+  .detail .title-row h1 {
+    margin: 0;
+    max-width: 15ch;
+    line-height: 1.05;
+  }
+  .detail .title-action {
+    padding-top: 10px;
+    flex-shrink: 0;
+  }
+  .btn-preview-design {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 12px 24px;
+    font-size: 14.5px;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    border-radius: 999px;
+    background: var(--accent);
+    color: #ffffff !important;
+    border: 1px solid var(--accent);
+    box-shadow: 0 4px 18px -2px color-mix(in oklab, var(--accent) 45%, transparent);
+    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-preview-design:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -2px color-mix(in oklab, var(--accent) 60%, transparent);
+    filter: brightness(1.08);
+  }
+  .btn-preview-design svg {
+    transition: transform 180ms ease;
+  }
+  .btn-preview-design:hover svg {
+    transform: scale(1.12);
+  }
+
+  /* ====== Gallery Carousel ====== */
+  .gallery-carousel-block {
+    margin: 48px 0;
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.06);
+    transition: box-shadow 300ms ease, border-color 300ms ease;
+  }
+  .gallery-carousel-block.carousel-pulse {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .carousel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .carousel-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+  .carousel-title {
+    font-family: var(--font-sans);
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+  }
+  .carousel-nav-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .carousel-counter {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding: 6px 14px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+  .carousel-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--paper);
+    color: var(--fg);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+  .carousel-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-1px);
+  }
+
+  /* Carousel Stage */
+  .carousel-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/10;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    cursor: zoom-in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel-stage-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .carousel-stage-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: opacity 200ms ease, transform 300ms ease;
+    user-select: none;
+  }
+  .carousel-stage:hover .carousel-stage-img {
+    transform: scale(1.015);
+  }
+  .carousel-badge-screen {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.72);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    z-index: 2;
+  }
+  .carousel-zoom-hint {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.72);
+    color: #fff;
+    backdrop-filter: blur(8px);
+    opacity: 0.85;
+    transition: all 180ms ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .carousel-stage:hover .carousel-zoom-hint {
+    opacity: 1;
+    transform: scale(1.05);
+    background: var(--accent);
+  }
+  .carousel-stage-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 200ms ease;
+    z-index: 3;
+    opacity: 0;
+  }
+  .carousel-stage:hover .carousel-stage-arrow {
+    opacity: 0.9;
+  }
+  .carousel-stage-arrow:hover {
+    opacity: 1 !important;
+    background: var(--accent);
+    transform: translateY(-50%) scale(1.08);
+  }
+  .carousel-stage-arrow.prev { left: 14px; }
+  .carousel-stage-arrow.next { right: 14px; }
+
+  /* Thumbnails strip */
+  .carousel-thumbs {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: thin;
+  }
+  .carousel-thumb {
+    position: relative;
+    flex: 0 0 140px;
+    aspect-ratio: 16/10;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid var(--border);
+    background: var(--paper);
+    cursor: pointer;
+    transition: all 180ms ease;
+    opacity: 0.65;
+  }
+  .carousel-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    pointer-events: none;
+  }
+  .carousel-thumb .thumb-idx {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+  }
+  .carousel-thumb:hover {
+    opacity: 0.95;
+    border-color: var(--fg);
+    transform: translateY(-2px);
+  }
+  .carousel-thumb.active {
+    opacity: 1;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 30%, transparent);
+    transform: translateY(-2px);
+  }
+
+  /* ====== Lightbox Modal ====== */
+  .lightbox-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+  .lightbox-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+  .lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 10, 14, 0.94);
+    backdrop-filter: blur(20px);
+    cursor: pointer;
+  }
+  .lightbox-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 24px;
+    pointer-events: none;
+  }
+  .lightbox-content > * {
+    pointer-events: auto;
+  }
+  .lightbox-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 12px;
+  }
+  .lightbox-counter {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+  }
+  .lightbox-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lightbox-tool-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 180ms ease;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .lightbox-tool-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.08);
+  }
+  .lightbox-tool-btn.close:hover {
+    background: #d54545;
+    border-color: #d54545;
+  }
+
+  /* Lightbox Viewport */
+  .lightbox-viewport {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .lightbox-img-box {
+    max-width: 90vw;
+    max-height: 74vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 260ms cubic-bezier(.2, .9, .3, 1);
+  }
+  .lightbox-img-box.zoomed {
+    transform: scale(1.65);
+    cursor: grab;
+  }
+  .lightbox-img-box img {
+    max-width: 100%;
+    max-height: 74vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+    user-select: none;
+    transition: opacity 180ms ease;
+  }
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: all 180ms ease;
+    z-index: 10;
+  }
+  .lightbox-arrow:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .lightbox-arrow.prev { left: 12px; }
+  .lightbox-arrow.next { right: 12px; }
+
+  /* Lightbox Thumbnails */
+  .lightbox-footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+  }
+  .lightbox-thumbs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    max-width: 80vw;
+    padding: 6px 4px;
+  }
+  .lightbox-thumb {
+    width: 64px;
+    height: 42px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 160ms ease;
+    flex-shrink: 0;
+  }
+  .lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .lightbox-thumb:hover {
+    opacity: 0.85;
+    border-color: #fff;
+  }
+  .lightbox-thumb.active {
+    opacity: 1;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent);
+    transform: scale(1.05);
+  }
+
   .detail .next-cta {
     margin-top: 60px; padding: 36px; border: 1px solid var(--border); border-radius: 4px; background: var(--card);
     display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
   }
   .detail .next-cta h4 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; margin: 0; max-width: 22ch; letter-spacing: -0.01em; }
-  @media (max-width: 900px) { .detail .info-grid { grid-template-columns: 1fr; gap: 30px; } .detail .gallery { grid-template-columns: 1fr; } }
+  
+  @media (max-width: 900px) {
+    .detail .info-grid { grid-template-columns: 1fr; gap: 30px; }
+    .detail .title-row { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .detail .title-action { padding-top: 0; width: 100%; }
+    .btn-preview-design { width: 100%; justify-content: center; }
+    .gallery-carousel-block { padding: 20px 16px; margin: 32px 0; }
+    .carousel-stage { aspect-ratio: 4/3; }
+    .carousel-thumb { flex: 0 0 100px; }
+    .lightbox-arrow { width: 40px; height: 40px; }
+    .lightbox-img-box { max-width: 96vw; max-height: 65vh; }
+    .lightbox-img-box img { max-height: 65vh; }
+  }
 </style>
 </head>
 <body>
@@ -126,6 +580,49 @@
     <a class="back" href="index.html">← All projects</a>
     <div id="detailRoot">Loading…</div>
   </main>
+
+  <!-- Lightbox Modal for Pop-up Zoom -->
+  <div class="lightbox-modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-content">
+      <div class="lightbox-bar">
+        <div class="lightbox-counter" id="lightboxCounter">1 / 1</div>
+        <div class="lightbox-actions">
+          <button class="lightbox-tool-btn" id="lightboxZoomToggle" title="Toggle zoom (1x / 1.7x)" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+            </svg>
+          </button>
+          <a class="lightbox-tool-btn" id="lightboxOpenNew" href="#" target="_blank" rel="noopener" title="Open full resolution in new tab">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+          <button class="lightbox-tool-btn close" id="lightboxCloseBtn" title="Close (Esc)" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="lightbox-viewport" id="lightboxViewport">
+        <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous image" type="button">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <div class="lightbox-img-box" id="lightboxImgBox">
+          <img id="lightboxImg" src="" alt="Zoomed view" />
+        </div>
+        <button class="lightbox-arrow next" id="lightboxNext" aria-label="Next image" type="button">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+      <div class="lightbox-footer">
+        <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="store.js"></script>
   <script>
@@ -188,6 +685,10 @@
       return `<div class="cs-block full-bleed"><h3>${title}</h3><img src="${src}" alt="${title}" class="cs-image" /></div>`;
     }
 
+    let currentGalleryImages = [];
+    let carouselIdx = 0;
+    let lightboxIdx = 0;
+
     function render() {
       const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
       const p = ProjectStore.get(id);
@@ -197,17 +698,105 @@
       }
       document.title = p.t + ' — Hasan Waulat';
       const tags = (p.chips && p.chips.length ? p.chips : p.display || []);
-      const galleryHTML = (p.gallery && p.gallery.length)
-        ? p.gallery.map((src, i) => `<div class="tile" style="background-image:url('${src}'); background-size:cover; background-position:center;"><span style="display:none;">Screen ${i+1}</span></div>`).join('')
-        : '<div class="tile">Screen 01 · Coming soon</div><div class="tile">Screen 02 · Coming soon</div><div class="tile">Screen 03 · Coming soon</div><div class="tile">Screen 04 · Coming soon</div>';
+      
+      const galleryImages = (p.gallery && Array.isArray(p.gallery)) ? p.gallery.filter(Boolean) : [];
+      currentGalleryImages = galleryImages;
+      carouselIdx = 0;
+
+      let gallerySectionHTML = '';
+      if (galleryImages.length > 0) {
+        gallerySectionHTML = `
+          <section class="gallery-carousel-block" id="galleryCarousel">
+            <div class="carousel-head">
+              <div>
+                <span class="carousel-eyebrow">Visual Gallery</span>
+                <h3 class="carousel-title">Project Screens &amp; Flows</h3>
+              </div>
+              <div class="carousel-nav-group">
+                <span class="carousel-counter" id="carouselCounter">1 / ${galleryImages.length}</span>
+                <button class="carousel-btn" id="carouselPrevBtn" aria-label="Previous screen" type="button">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button class="carousel-btn" id="carouselNextBtn" aria-label="Next screen" type="button">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="carousel-stage" id="carouselStage" title="Click to zoom in">
+              <div class="carousel-stage-inner">
+                <img id="carouselMainImg" class="carousel-stage-img" src="${escapeHtml(galleryImages[0])}" alt="Project screen 1" />
+                <span class="carousel-badge-screen" id="carouselBadge">SCREEN 01</span>
+                <div class="carousel-zoom-hint">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+                  </svg>
+                  <span>Click to zoom</span>
+                </div>
+                <button class="carousel-stage-arrow prev" id="carouselStagePrev" aria-label="Previous image" type="button">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button class="carousel-stage-arrow next" id="carouselStageNext" aria-label="Next image" type="button">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="carousel-thumbs" id="carouselThumbs">
+              ${galleryImages.map((src, i) => `
+                <div class="carousel-thumb ${i === 0 ? 'active' : ''}" data-index="${i}">
+                  <img src="${escapeHtml(src)}" alt="Thumbnail ${i + 1}" loading="lazy" />
+                  <span class="thumb-idx">${String(i + 1).padStart(2, '0')}</span>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        `;
+      } else {
+        gallerySectionHTML = `
+          <section class="gallery-carousel-block" id="galleryCarousel">
+            <div class="carousel-head">
+              <div>
+                <span class="carousel-eyebrow">Visual Gallery</span>
+                <h3 class="carousel-title">Project Screens &amp; Flows</h3>
+              </div>
+            </div>
+            <div style="padding: 40px 20px; text-align: center; color: var(--muted); background: var(--paper); border: 1px dashed var(--border); border-radius: 8px;">
+              <p style="margin: 0; font-size: 14.5px;">No preview screens uploaded yet. Upload screens via CMS to preview in carousel.</p>
+            </div>
+          </section>
+        `;
+      }
 
       const heroVisual = p.coverImage
         ? `<img class="hero-img-real" src="${p.coverImage}" alt="${escapeHtml(p.t)}" />`
         : '<div class="hero-img">' + escapeHtml(p.cover || p.t) + '</div>';
 
+      const hasPreviewUrl = !!(p.previewUrl && p.previewUrl.trim());
+      const previewHref = hasPreviewUrl ? escapeHtml(p.previewUrl.trim()) : '#galleryCarousel';
+      const previewTarget = hasPreviewUrl ? 'target="_blank" rel="noopener"' : '';
+
       document.getElementById('detailRoot').innerHTML = `
         <div class="meta-row">${tags.map(t => '<span>' + escapeHtml(t) + '</span>').join('')}<span>${escapeHtml(p.y || '')}</span></div>
-        <h1 class="display">${escapeHtml(p.headline || p.t)}</h1>
+        <div class="title-row">
+          <h1 class="display">${escapeHtml(p.headline || p.t)}</h1>
+          <div class="title-action">
+            <a class="btn-preview-design" id="btnPreviewDesign" href="${previewHref}" ${previewTarget}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <span>Preview Design</span>
+              ${hasPreviewUrl ? `
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.8; margin-left:-2px;">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              ` : ''}
+            </a>
+          </div>
+        </div>
         <p class="lead">${escapeHtml(p.lead || p.d || '')}</p>
         ${heroVisual}
         <div class="info-grid">
@@ -236,7 +825,7 @@
             ${renderCSBlock('Lampiran & Credit', p.cs_credit)}
             
             ${(p.sections || []).map(renderSectionBlock).join('')}
-            <div class="gallery">${galleryHTML}</div>
+            ${gallerySectionHTML}
             <div class="next-cta">
               <h4>Want a project like this for your team?</h4>
               <div style="display:flex; gap:10px;">
@@ -247,7 +836,214 @@
           </div>
         </div>
       `;
+
+      initInteractions(p, galleryImages);
     }
+
+    function initInteractions(p, galleryImages) {
+      // Smooth scroll on btnPreviewDesign if not external URL
+      const btnPreview = document.getElementById('btnPreviewDesign');
+      if (btnPreview && (!p.previewUrl || !p.previewUrl.trim())) {
+        btnPreview.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.getElementById('galleryCarousel');
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            target.classList.add('carousel-pulse');
+            setTimeout(() => target.classList.remove('carousel-pulse'), 1400);
+          }
+        });
+      }
+
+      if (!galleryImages || galleryImages.length === 0) return;
+
+      const mainImg = document.getElementById('carouselMainImg');
+      const counterEl = document.getElementById('carouselCounter');
+      const badgeEl = document.getElementById('carouselBadge');
+      const thumbsContainer = document.getElementById('carouselThumbs');
+      const thumbEls = thumbsContainer ? thumbsContainer.querySelectorAll('.carousel-thumb') : [];
+      const stageEl = document.getElementById('carouselStage');
+
+      function updateCarousel(idx) {
+        if (idx < 0) idx = galleryImages.length - 1;
+        if (idx >= galleryImages.length) idx = 0;
+        carouselIdx = idx;
+
+        if (mainImg) {
+          mainImg.style.opacity = '0.35';
+          setTimeout(() => {
+            mainImg.src = galleryImages[carouselIdx];
+            mainImg.style.opacity = '1';
+          }, 100);
+        }
+        if (counterEl) {
+          counterEl.textContent = (carouselIdx + 1) + ' / ' + galleryImages.length;
+        }
+        if (badgeEl) {
+          badgeEl.textContent = 'SCREEN ' + String(carouselIdx + 1).padStart(2, '0');
+        }
+        thumbEls.forEach((th, i) => {
+          th.classList.toggle('active', i === carouselIdx);
+          if (i === carouselIdx) {
+            th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      }
+
+      const prevBtn = document.getElementById('carouselPrevBtn');
+      const nextBtn = document.getElementById('carouselNextBtn');
+      const stagePrev = document.getElementById('carouselStagePrev');
+      const stageNext = document.getElementById('carouselStageNext');
+
+      if (prevBtn) prevBtn.addEventListener('click', () => updateCarousel(carouselIdx - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => updateCarousel(carouselIdx + 1));
+      if (stagePrev) {
+        stagePrev.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateCarousel(carouselIdx - 1);
+        });
+      }
+      if (stageNext) {
+        stageNext.addEventListener('click', (e) => {
+          e.stopPropagation();
+          updateCarousel(carouselIdx + 1);
+        });
+      }
+
+      thumbEls.forEach((th) => {
+        th.addEventListener('click', () => {
+          const idx = parseInt(th.getAttribute('data-index'), 10);
+          if (!isNaN(idx)) updateCarousel(idx);
+        });
+      });
+
+      // Click stage to open Lightbox
+      if (stageEl) {
+        stageEl.addEventListener('click', () => {
+          openLightbox(carouselIdx);
+        });
+      }
+
+      // Touch swipe gestures on stage
+      let touchStartX = 0;
+      let touchEndX = 0;
+      if (stageEl) {
+        stageEl.addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        stageEl.addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          const diff = touchEndX - touchStartX;
+          if (Math.abs(diff) > 45) {
+            if (diff < 0) updateCarousel(carouselIdx + 1);
+            else updateCarousel(carouselIdx - 1);
+          }
+        }, { passive: true });
+      }
+
+      // Lightbox footer thumbs initialization
+      const lbThumbs = document.getElementById('lightboxThumbs');
+      if (lbThumbs) {
+        lbThumbs.innerHTML = galleryImages.map((src, i) => `
+          <div class="lightbox-thumb ${i === carouselIdx ? 'active' : ''}" data-index="${i}">
+            <img src="${escapeHtml(src)}" alt="Thumb ${i + 1}" />
+          </div>
+        `).join('');
+        lbThumbs.querySelectorAll('.lightbox-thumb').forEach(th => {
+          th.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const idx = parseInt(th.getAttribute('data-index'), 10);
+            if (!isNaN(idx)) setLightboxSlide(idx);
+          });
+        });
+      }
+    }
+
+    // Lightbox Modal Controls
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxImgBox = document.getElementById('lightboxImgBox');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const lightboxOpenNew = document.getElementById('lightboxOpenNew');
+    const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    const lightboxZoomToggle = document.getElementById('lightboxZoomToggle');
+
+    function openLightbox(idx) {
+      if (!currentGalleryImages || currentGalleryImages.length === 0) return;
+      lightboxIdx = idx;
+      lightboxModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      setLightboxSlide(lightboxIdx);
+    }
+
+    function closeLightbox() {
+      if (!lightboxModal) return;
+      lightboxModal.classList.remove('active');
+      document.body.style.overflow = '';
+      if (lightboxImgBox) lightboxImgBox.classList.remove('zoomed');
+    }
+
+    function setLightboxSlide(idx) {
+      if (!currentGalleryImages || currentGalleryImages.length === 0) return;
+      if (idx < 0) idx = currentGalleryImages.length - 1;
+      if (idx >= currentGalleryImages.length) idx = 0;
+      lightboxIdx = idx;
+
+      if (lightboxImg) {
+        lightboxImg.style.opacity = '0.35';
+        setTimeout(() => {
+          lightboxImg.src = currentGalleryImages[lightboxIdx];
+          lightboxImg.style.opacity = '1';
+        }, 80);
+      }
+      if (lightboxCounter) {
+        lightboxCounter.textContent = (lightboxIdx + 1) + ' / ' + currentGalleryImages.length;
+      }
+      if (lightboxOpenNew) {
+        lightboxOpenNew.href = currentGalleryImages[lightboxIdx];
+      }
+      if (lightboxImgBox) {
+        lightboxImgBox.classList.remove('zoomed');
+      }
+
+      // Update lightbox thumbnails
+      const lbThumbs = document.getElementById('lightboxThumbs');
+      if (lbThumbs) {
+        lbThumbs.querySelectorAll('.lightbox-thumb').forEach((th, i) => {
+          th.classList.toggle('active', i === lightboxIdx);
+          if (i === lightboxIdx) {
+            th.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          }
+        });
+      }
+    }
+
+    if (lightboxCloseBtn) lightboxCloseBtn.addEventListener('click', closeLightbox);
+    if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+    if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); setLightboxSlide(lightboxIdx - 1); });
+    if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); setLightboxSlide(lightboxIdx + 1); });
+    if (lightboxZoomToggle) {
+      lightboxZoomToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (lightboxImgBox) lightboxImgBox.classList.toggle('zoomed');
+      });
+    }
+    if (lightboxImgBox) {
+      lightboxImgBox.addEventListener('click', () => {
+        lightboxImgBox.classList.toggle('zoomed');
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (!lightboxModal || !lightboxModal.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') setLightboxSlide(lightboxIdx - 1);
+      else if (e.key === 'ArrowRight') setLightboxSlide(lightboxIdx + 1);
+    });
+
     render();
     window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
     window.addEventListener('hw-projects-changed', render);

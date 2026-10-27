@@ -343,6 +343,7 @@
       cs_impact: '',
       cs_reflection: '',
       cs_credit: '',
+      previewUrl: '',
       gallery: []
     };
   }

@@ -140,10 +140,75 @@
     themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
 
     const grid = document.getElementById('allGrid');
+    let currentFilter = 'all';
+
+    const KNOWN_TAG_LABELS = {
+      'mobile': 'Mobile',
+      'web': 'Web',
+      'ipad': 'iPad',
+      'design-system': 'Design System',
+      'government': 'Government',
+      'hr-tech': 'HR-Tech',
+      'edu-tech': 'Edu-Tech',
+      'mms': 'MMS',
+      'b2b': 'B2B',
+      'pos': 'POS',
+      'erp': 'ERP',
+      'api': 'API',
+      'cms': 'CMS',
+      'crm': 'CRM',
+      'ai': 'AI',
+      'iot': 'IoT',
+      'saas': 'SaaS',
+      'fintech': 'Fintech'
+    };
+
+    function formatTagLabel(slug) {
+      if (KNOWN_TAG_LABELS[slug]) return KNOWN_TAG_LABELS[slug];
+      if (slug.length <= 4 && !slug.includes('-')) return slug.toUpperCase();
+      return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+
+    function getDynamicFilters(allProjects) {
+      const BASE_TAGS = ['mobile', 'web', 'ipad', 'design-system', 'government', 'hr-tech', 'edu-tech'];
+      const tagMap = new Map();
+      BASE_TAGS.forEach(slug => {
+        tagMap.set(slug, { slug, label: formatTagLabel(slug) });
+      });
+      (allProjects || []).forEach(p => {
+        (p.tags || []).forEach(t => {
+          const slug = String(t || '').trim().toLowerCase();
+          if (slug && !tagMap.has(slug)) {
+            tagMap.set(slug, { slug, label: formatTagLabel(slug) });
+          }
+        });
+      });
+      return Array.from(tagMap.values());
+    }
+
+    function renderFiltersUI(all) {
+      const filtersEl = document.getElementById('filters');
+      if (!filtersEl) return;
+      const list = getDynamicFilters(all);
+      if (currentFilter !== 'all' && !list.some(f => f.slug === currentFilter)) {
+        currentFilter = 'all';
+      }
+      filtersEl.innerHTML = `
+        <button class="filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All · ${all.length}</button>
+        ${list.map(f => `
+          <button class="filter ${currentFilter === f.slug ? 'active' : ''}" data-filter="${escapeHtml(f.slug)}">${escapeHtml(f.label)}</button>
+        `).join('')}
+      `;
+    }
+
     function getDisplay(p) { return (p.display && p.display[0]) || 'Project'; }
+
     function render(filter) {
+      if (filter) currentFilter = filter;
       const all = ProjectStore.load();
-      const items = filter === 'all' ? all : all.filter(p => (p.tags||[]).includes(filter));
+      renderFiltersUI(all);
+
+      const items = currentFilter === 'all' ? all : all.filter(p => (p.tags||[]).includes(currentFilter));
       grid.innerHTML = items.map(p => {
         const coverInner = p.coverImage
           ? `<img src="${p.coverImage}" alt="${escapeHtml(p.t)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
@@ -162,29 +227,21 @@
             <span class="more">View case study →</span>
           </div>
         </a>`;
-      }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted);">No projects match "${filter}".</div>`;
+      }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted);">No projects match "${currentFilter}".</div>`;
     }
     function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
-    render('all');
-
-    /* Update filter counts */
-    function updateCounts() {
-      const all = ProjectStore.load();
-      const allBtn = document.querySelector('[data-filter="all"]');
-      if (allBtn) allBtn.textContent = 'All · ' + all.length;
-    }
-    updateCounts();
 
     document.getElementById('filters').addEventListener('click', (e) => {
       const btn = e.target.closest('.filter'); if (!btn) return;
-      document.querySelectorAll('.filter').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      render(btn.dataset.filter);
+      currentFilter = btn.dataset.filter;
+      render();
     });
 
+    render('all');
+
     /* React to admin saves in another tab */
-    window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') { render('all'); updateCounts(); } });
-    window.addEventListener('hw-projects-changed', () => { render('all'); updateCounts(); });
+    window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
+    window.addEventListener('hw-projects-changed', () => render());
 
     /* ===== Scroll bar ===== */
     const bar = document.getElementById('scrollBar');

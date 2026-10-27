@@ -240,8 +240,64 @@
   .empty h3 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; color: var(--fg); margin: 0 0 8px; }
 
   /* dialogs */
-  .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 12px 18px; border-radius: 999px; font-size: 13px; z-index: 100; opacity: 0; transition: opacity 220ms ease, transform 220ms ease; pointer-events: none; }
-  .toast.show { opacity: 1; transform: translate(-50%, -8px); }
+  /* Tag Selector Pills in CMS */
+  .tag-picker-wrap {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tag-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .tag-picker-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .tag-pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    font-size: 11.5px;
+    font-family: var(--font-mono);
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    cursor: pointer;
+    transition: all 160ms ease;
+    user-select: none;
+    line-height: 1.2;
+  }
+  .tag-pill-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .tag-pill-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 2px 8px -2px color-mix(in oklab, var(--accent) 50%, transparent);
+  }
+  .tag-pill-btn .tag-pill-icon {
+    font-size: 11px;
+    opacity: 0.85;
+  }
 
   @media (max-width: 900px) {
     .admin-shell { grid-template-columns: 1fr; }
@@ -427,7 +483,18 @@
               <div class="fld"><label>Card number (Auto-numbered)</label><input id="f-n" value="${attr(draft.n)}" disabled placeholder="01" /></div>
               <div class="fld full"><label>Short description (card)</label><textarea id="f-d">${escapeHtml(draft.d)}</textarea></div>
               <div class="fld"><label>Display chips (comma-separated)</label><input id="f-display" value="${attr((draft.display||[]).join(', '))}" placeholder="Mobile, Web, Government" /><span class="help">Visible as chips on the card. e.g. Mobile, Web Admin, iPad</span></div>
-              <div class="fld"><label>Filter tags (comma-separated)</label><input id="f-tags" value="${attr((draft.tags||[]).join(', '))}" placeholder="mobile, web, government" /><span class="help">Lowercase slugs for filtering. Match the filter buttons: mobile, web, ipad, design-system, government, hr-tech, edu-tech</span></div>
+              <div class="fld full">
+                <label>Filter tags (comma-separated)</label>
+                <input id="f-tags" value="${attr((draft.tags||[]).join(', '))}" placeholder="mobile, web, government" />
+                <div class="tag-picker-wrap">
+                  <div class="tag-picker-header">
+                    <span>Pilih Filter Tag yang Tersedia (klik untuk pilih / batal):</span>
+                    <span style="font-size: 10px; opacity: 0.85;">Tag baru otomatis jadi tablist filter</span>
+                  </div>
+                  <div class="tag-picker-list" id="tagPickerList"></div>
+                </div>
+                <span class="help">Tag yang diisi di sini akan otomatis muncul sebagai tombol filter tablist di Home &amp; All Projects. Jika tag sudah ada, Anda cukup mengkliknya di atas tanpa mengetik ulang.</span>
+              </div>
               <div class="fld full"><label>Card mini-chips (comma-separated)</label><input id="f-chips" value="${attr((draft.chips||[]).join(', '))}" placeholder="Featured, Multi-surface" /></div>
             </div>
             <div style="margin-top: 14px;" class="toggle">
@@ -473,6 +540,7 @@
               <div class="fld"><label>Team</label><input id="f-team" value="${attr(draft.team)}" /></div>
               <div class="fld"><label>Surfaces</label><input id="f-surfaces" value="${attr(draft.surfaces)}" /></div>
               <div class="fld"><label>Timeline</label><input id="f-timeline" value="${attr(draft.timeline)}" /></div>
+              <div class="fld full"><label>Preview Design URL (Figma / Prototype - optional)</label><input id="f-previewUrl" value="${attr(draft.previewUrl)}" placeholder="https://www.figma.com/proto/... (leave empty to scroll to gallery carousel)" /><span class="help">If provided, the "Preview Design" button opens this link in a new tab. If empty, it smoothly scrolls to the Design Gallery Carousel on the detail page.</span></div>
             </div>
           </div>
         </div>
@@ -570,10 +638,63 @@
         </div>
       `;
       bindForm();
+      renderTagPicker();
       renderSections();
       renderGallery();
       bindCover();
       bindDesignSystem();
+    }
+
+    /* ===== Tag Picker (Filter tags) ===== */
+    function getAllUniqueFilterTags() {
+      const BASE_TAGS = ['mobile', 'web', 'ipad', 'design-system', 'government', 'hr-tech', 'edu-tech'];
+      const set = new Set(BASE_TAGS);
+      (projects || []).forEach(p => {
+        (p.tags || []).forEach(t => {
+          const s = String(t || '').trim().toLowerCase();
+          if (s) set.add(s);
+        });
+      });
+      if (draft && draft.tags) {
+        (draft.tags || []).forEach(t => {
+          const s = String(t || '').trim().toLowerCase();
+          if (s) set.add(s);
+        });
+      }
+      return Array.from(set);
+    }
+
+    function renderTagPicker() {
+      const listEl = document.getElementById('tagPickerList');
+      if (!listEl) return;
+      const allTags = getAllUniqueFilterTags();
+      const currentTags = (draft && draft.tags ? draft.tags : []).map(t => String(t || '').trim().toLowerCase()).filter(Boolean);
+
+      listEl.innerHTML = allTags.map(tag => {
+        const isSelected = currentTags.includes(tag);
+        return `
+          <button type="button" class="tag-pill-btn ${isSelected ? 'active' : ''}" data-tag="${escapeHtml(tag)}" title="${isSelected ? 'Klik untuk menghapus tag ini' : 'Klik untuk menambahkan tag ini'}">
+            <span class="tag-pill-icon">${isSelected ? '✓' : '+'}</span>
+            <span>${escapeHtml(tag)}</span>
+          </button>
+        `;
+      }).join('');
+
+      listEl.querySelectorAll('.tag-pill-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tag = btn.getAttribute('data-tag');
+          let cur = (draft.tags || []).map(t => String(t || '').trim().toLowerCase()).filter(Boolean);
+          if (cur.includes(tag)) {
+            cur = cur.filter(t => t !== tag);
+          } else {
+            cur.push(tag);
+          }
+          draft.tags = cur;
+          const inputEl = document.getElementById('f-tags');
+          if (inputEl) inputEl.value = cur.join(', ');
+          renderTagPicker();
+        });
+      });
     }
 
     /* ===== Bindings ===== */
@@ -596,7 +717,8 @@
         'cs_handoff': 'cs_handoff',
         'cs_impact': 'cs_impact',
         'cs_reflection': 'cs_reflection',
-        'cs_credit': 'cs_credit'
+        'cs_credit': 'cs_credit',
+        'previewUrl': 'previewUrl'
       };
       Object.entries(map).forEach(([id, key]) => {
         const el = document.getElementById('f-' + id);
@@ -609,13 +731,21 @@
         });
       });
       // arrays
-      ['display', 'tags', 'chips'].forEach(key => {
+      ['display', 'chips'].forEach(key => {
         const el = document.getElementById('f-' + key);
         if (!el) return;
         el.addEventListener('input', () => {
           draft[key] = el.value.split(',').map(s => s.trim()).filter(Boolean);
         });
       });
+      // Filter tags input with live tag-picker synchronization
+      const tagsInput = document.getElementById('f-tags');
+      if (tagsInput) {
+        tagsInput.addEventListener('input', () => {
+          draft.tags = tagsInput.value.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+          renderTagPicker();
+        });
+      }
       // featured toggle
       document.getElementById('f-featured').addEventListener('change', (e) => {
         draft.featured = e.target.checked;
@@ -1038,6 +1168,7 @@
       }
       projects = ProjectStore.load();
       renderSidebar();
+      renderTagPicker();
       toast('Saved. ✓');
       const status = document.getElementById('statusLine');
       if (status) status.textContent = 'Last saved ' + new Date().toLocaleTimeString();

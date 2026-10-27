@@ -854,6 +854,66 @@
       const HOME_LIMIT = 9;
       let currentFilter = 'all';
 
+      const KNOWN_TAG_LABELS = {
+        'mobile': 'Mobile',
+        'web': 'Web',
+        'ipad': 'iPad',
+        'design-system': 'Design System',
+        'government': 'Government',
+        'hr-tech': 'HR-Tech',
+        'edu-tech': 'Edu-Tech',
+        'mms': 'MMS',
+        'b2b': 'B2B',
+        'pos': 'POS',
+        'erp': 'ERP',
+        'api': 'API',
+        'cms': 'CMS',
+        'crm': 'CRM',
+        'ai': 'AI',
+        'iot': 'IoT',
+        'saas': 'SaaS',
+        'fintech': 'Fintech'
+      };
+
+      function formatTagLabel(slug) {
+        if (KNOWN_TAG_LABELS[slug]) return KNOWN_TAG_LABELS[slug];
+        if (slug.length <= 4 && !slug.includes('-')) return slug.toUpperCase();
+        return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      }
+
+      function getDynamicFilters(allProjects) {
+        const BASE_TAGS = ['mobile', 'web', 'ipad', 'design-system', 'government', 'hr-tech', 'edu-tech'];
+        const tagMap = new Map();
+        BASE_TAGS.forEach(slug => {
+          tagMap.set(slug, { slug, label: formatTagLabel(slug) });
+        });
+        (allProjects || []).forEach(p => {
+          (p.tags || []).forEach(t => {
+            const slug = String(t || '').trim().toLowerCase();
+            if (slug && !tagMap.has(slug)) {
+              tagMap.set(slug, { slug, label: formatTagLabel(slug) });
+            }
+          });
+        });
+        return Array.from(tagMap.values());
+      }
+
+      function renderFiltersUI(all) {
+        const filtersWrap = document.getElementById('archiveFilters');
+        if (!filtersWrap) return;
+        const filterList = getDynamicFilters(all);
+        // If currentFilter is not in list and not 'all', reset to 'all'
+        if (currentFilter !== 'all' && !filterList.some(f => f.slug === currentFilter)) {
+          currentFilter = 'all';
+        }
+        filtersWrap.innerHTML = `
+          <button class="archive-filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All · <span id="archiveFilterAllCount">${all.length}</span></button>
+          ${filterList.map(f => `
+            <button class="archive-filter ${currentFilter === f.slug ? 'active' : ''}" data-filter="${escapeHtml(f.slug)}">${escapeHtml(f.label)}</button>
+          `).join('')}
+        `;
+      }
+
       function getDisplay(p) { return (p.display && p.display[0]) || 'Project'; }
 
       function render() {
@@ -861,9 +921,8 @@
         if (!grid) return;
         const all = ProjectStore.load();
 
-        // Update "All · N" count
-        const allCountEl = document.getElementById('archiveFilterAllCount');
-        if (allCountEl) allCountEl.textContent = all.length;
+        // Dynamically render filter tablist (includes new tags, deduplicated)
+        renderFiltersUI(all);
 
         // Filter
         const filtered = currentFilter === 'all' ? all : all.filter(p => (p.tags || []).includes(currentFilter));
@@ -896,7 +955,7 @@
                 <span class="av2-link">View case study →</span>
               </div>
             </a>`;
-        }).join('');
+        }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--muted);">No projects match "${currentFilter}".</div>`;
 
         // Update counter line
         const counter = document.getElementById('homeArchiveCount');
@@ -907,14 +966,12 @@
         if (viewAllBtn) viewAllBtn.innerHTML = `View all ${all.length} projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
       }
 
-      // Filter click handler
+      // Filter click handler (delegated)
       const filtersWrap = document.getElementById('archiveFilters');
       if (filtersWrap) {
         filtersWrap.addEventListener('click', (e) => {
           const btn = e.target.closest('.archive-filter');
           if (!btn) return;
-          filtersWrap.querySelectorAll('.archive-filter').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
           currentFilter = btn.dataset.filter;
           render();
         });
