@@ -56,6 +56,39 @@
   .cs-block ul li::before { content: '↳'; position: absolute; left: 0; color: var(--accent); }
   .cs-block strong { font-weight: 600; color: var(--fg); }
   
+  /* Inline links in case studies, sections, and lead */
+  .cs-inline-link,
+  .cs-block a,
+  .detail .body p a:not(.btn),
+  .detail .body li a:not(.btn),
+  .detail .lead a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    font-weight: 500;
+    transition: color 150ms ease, opacity 150ms ease;
+    word-break: break-word;
+    display: inline;
+  }
+  .cs-inline-link:hover,
+  .cs-block a:hover,
+  .detail .body p a:not(.btn):hover,
+  .detail .body li a:not(.btn):hover,
+  .detail .lead a:hover {
+    color: var(--fg);
+    opacity: 0.85;
+  }
+  .cs-inline-link::after {
+    content: ' \2197';
+    font-family: var(--font-sans);
+    font-size: 0.85em;
+    opacity: 0.85;
+    text-decoration: none !important;
+    display: inline-block;
+    margin-left: 2px;
+  }
+  
   .cs-block.impact {
     background: color-mix(in oklab, var(--accent) 8%, transparent);
     border-radius: 8px; padding: 32px;
@@ -130,13 +163,15 @@
 
   /* ====== Gallery Carousel ====== */
   .gallery-carousel-block {
-    margin: 48px 0;
-    padding: 32px;
+    margin: 64px auto;
+    padding: 36px;
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.06);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px -10px rgba(0,0,0,0.06);
     transition: box-shadow 300ms ease, border-color 300ms ease;
+    width: 100%;
+    box-sizing: border-box;
   }
   .gallery-carousel-block.carousel-pulse {
     border-color: var(--accent);
@@ -144,34 +179,42 @@
   }
   .carousel-head {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    gap: 16px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 24px;
+    gap: 12px;
+  }
+  .carousel-head-title-wrap {
+    text-align: center;
   }
   .carousel-eyebrow {
     font-family: var(--font-mono);
-    font-size: 10.5px;
+    font-size: 11px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
-    display: inline-block;
-    margin-bottom: 4px;
+    display: block;
+    margin-bottom: 6px;
+    text-align: center;
   }
   .carousel-title {
     font-family: var(--font-sans);
-    font-size: 26px;
+    font-size: clamp(24px, 3.2vw, 34px);
     font-weight: 600;
     margin: 0;
     color: var(--fg);
     letter-spacing: -0.01em;
+    text-align: center;
   }
   .carousel-nav-group {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    margin-top: 4px;
   }
   .carousel-counter {
     font-family: var(--font-mono);
@@ -205,15 +248,17 @@
   .carousel-stage {
     position: relative;
     width: 100%;
-    aspect-ratio: 16/10;
-    border-radius: 8px;
+    height: clamp(440px, 72vh, 760px);
+    border-radius: 12px;
     overflow: hidden;
-    background: var(--paper);
+    background: color-mix(in oklab, var(--paper) 60%, var(--card));
     border: 1px solid var(--border);
     cursor: zoom-in;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
   }
   .carousel-stage-inner {
     width: 100%;
@@ -224,15 +269,21 @@
     justify-content: center;
   }
   .carousel-stage-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    margin: 0 auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.18);
     transition: opacity 200ms ease, transform 300ms ease;
     user-select: none;
   }
   .carousel-stage:hover .carousel-stage-img {
-    transform: scale(1.015);
+    transform: scale(1.018);
   }
   .carousel-badge-screen {
     position: absolute;
@@ -306,15 +357,16 @@
   .carousel-thumbs {
     display: flex;
     gap: 12px;
-    margin-top: 18px;
+    margin-top: 20px;
     overflow-x: auto;
-    padding-bottom: 6px;
+    padding: 6px 4px 10px;
     scrollbar-width: thin;
+    justify-content: safe center;
   }
   .carousel-thumb {
     position: relative;
-    flex: 0 0 140px;
-    aspect-ratio: 16/10;
+    flex: 0 0 130px;
+    height: 84px;
     border-radius: 6px;
     overflow: hidden;
     border: 2px solid var(--border);
@@ -322,12 +374,15 @@
     cursor: pointer;
     transition: all 180ms ease;
     opacity: 0.65;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .carousel-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top center;
+    object-position: center;
     pointer-events: none;
   }
   .carousel-thumb .thumb-idx {
@@ -528,8 +583,9 @@
   }
 
   .detail .next-cta {
-    margin-top: 60px; padding: 36px; border: 1px solid var(--border); border-radius: 4px; background: var(--card);
+    margin-top: 60px; padding: 36px; border: 1px solid var(--border); border-radius: 12px; background: var(--card);
     display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap;
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.04);
   }
   .detail .next-cta h4 { font-family: var(--font-sans); font-weight: 600; font-size: 28px; margin: 0; max-width: 22ch; letter-spacing: -0.01em; }
   
@@ -538,9 +594,9 @@
     .detail .title-row { flex-direction: column; align-items: flex-start; gap: 14px; }
     .detail .title-action { padding-top: 0; width: 100%; }
     .btn-preview-design { width: 100%; justify-content: center; }
-    .gallery-carousel-block { padding: 20px 16px; margin: 32px 0; }
-    .carousel-stage { aspect-ratio: 4/3; }
-    .carousel-thumb { flex: 0 0 100px; }
+    .gallery-carousel-block { padding: 20px 14px; margin: 36px 0; }
+    .carousel-stage { height: clamp(300px, 55vh, 480px); padding: 14px; }
+    .carousel-thumb { flex: 0 0 96px; height: 66px; }
     .lightbox-arrow { width: 40px; height: 40px; }
     .lightbox-img-box { max-width: 96vw; max-height: 65vh; }
     .lightbox-img-box img { max-height: 65vh; }
@@ -639,13 +695,41 @@
     /* ===== Render ===== */
     function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
 
+    function formatInline(str) {
+      if (!str) return '';
+      // 1. Bold: **text**
+      str = str.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // 2. Italic: *text* (when not preceded or followed by *)
+      str = str.replace(/(^|[^\*])\*([^\*\n]+)\*([^\*]|$)/g, '$1<em>$2</em>$3');
+      // 3. Markdown links: [label](url) -> open in new tab
+      str = str.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+|www\.[^\s\)]+|[a-zA-Z0-9_\-\.\/]+\.html[^\s\)]*|[a-zA-Z0-9_\-\.\/]+)\)/g, (match, label, url) => {
+        let href = url;
+        if (href.startsWith('www.')) href = 'https://' + href;
+        return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="cs-inline-link">${label}</a>`;
+      });
+      // 4. Standalone raw URLs: https://... or http://... or www.... (not already inside an <a> tag)
+      str = str.replace(/(<a\b[^>]*>.*?<\/a>)|((https?:\/\/|www\.)[^\s<]+)/gi, (match, aTag, url) => {
+        if (aTag) return aTag;
+        let href = url;
+        let trailing = '';
+        const m = href.match(/[.,;:)\]]+$/);
+        if (m) {
+          trailing = m[0];
+          href = href.slice(0, -trailing.length);
+        }
+        const cleanHref = href.startsWith('www.') ? 'https://' + href : href;
+        return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="cs-inline-link">${href}</a>${trailing}`;
+      });
+      return str;
+    }
+
     function renderSectionBlock(s) {
       const heading = escapeHtml(s.heading || '');
       if (s.type === 'list') {
-        const items = (s.items || []).filter(Boolean).map(b => '<li>' + escapeHtml(b) + '</li>').join('');
+        const items = (s.items || []).filter(Boolean).map(b => '<li>' + formatInline(escapeHtml(b)) + '</li>').join('');
         return '<h3>' + heading + '</h3><ul>' + items + '</ul>';
       }
-      return '<h3>' + heading + '</h3><p>' + escapeHtml(s.body || '') + '</p>';
+      return '<h3>' + heading + '</h3><p>' + formatInline(escapeHtml(s.body || '')) + '</p>';
     }
 
     function renderMarkdown(text) {
@@ -653,16 +737,15 @@
       let lines = escapeHtml(text.trim()).split('\n');
       let out = '';
       let inList = false;
-      for(let line of lines) {
-        line = line.trim();
-        line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        if (line.startsWith('- ')) {
+      for (let rawLine of lines) {
+        let line = rawLine.trim();
+        if (line.startsWith('- ') || line.startsWith('* ')) {
           if (!inList) { out += '<ul>'; inList = true; }
-          out += '<li>' + line.substring(2) + '</li>';
+          out += '<li>' + formatInline(line.substring(2)) + '</li>';
         } else {
           if (inList) { out += '</ul>'; inList = false; }
           if (line) {
-            out += '<p>' + line + '</p>';
+            out += '<p>' + formatInline(line) + '</p>';
           }
         }
       }
@@ -708,7 +791,7 @@
         gallerySectionHTML = `
           <section class="gallery-carousel-block" id="galleryCarousel">
             <div class="carousel-head">
-              <div>
+              <div class="carousel-head-title-wrap">
                 <span class="carousel-eyebrow">Visual Gallery</span>
                 <h3 class="carousel-title">Project Screens &amp; Flows</h3>
               </div>
@@ -756,13 +839,13 @@
         gallerySectionHTML = `
           <section class="gallery-carousel-block" id="galleryCarousel">
             <div class="carousel-head">
-              <div>
+              <div class="carousel-head-title-wrap">
                 <span class="carousel-eyebrow">Visual Gallery</span>
                 <h3 class="carousel-title">Project Screens &amp; Flows</h3>
               </div>
             </div>
-            <div style="padding: 40px 20px; text-align: center; color: var(--muted); background: var(--paper); border: 1px dashed var(--border); border-radius: 8px;">
-              <p style="margin: 0; font-size: 14.5px;">No preview screens uploaded yet. Upload screens via CMS to preview in carousel.</p>
+            <div style="padding: 48px 24px; text-align: center; color: var(--muted); background: var(--paper); border: 1px dashed var(--border); border-radius: 12px; margin-top: 8px;">
+              <p style="margin: 0; font-size: 15px;">No preview screens uploaded yet. Upload screens via CMS to preview in carousel.</p>
             </div>
           </section>
         `;
@@ -797,7 +880,7 @@
             </a>
           </div>
         </div>
-        <p class="lead">${escapeHtml(p.lead || p.d || '')}</p>
+        <p class="lead">${formatInline(escapeHtml(p.lead || p.d || ''))}</p>
         ${heroVisual}
         <div class="info-grid">
           <aside class="info">
@@ -825,14 +908,14 @@
             ${renderCSBlock('Lampiran & Credit', p.cs_credit)}
             
             ${(p.sections || []).map(renderSectionBlock).join('')}
-            ${gallerySectionHTML}
-            <div class="next-cta">
-              <h4>Want a project like this for your team?</h4>
-              <div style="display:flex; gap:10px;">
-                <a class="btn" href="index.html">More projects</a>
-                <a class="btn btn-primary" href="../#contact">Start a project</a>
-              </div>
-            </div>
+          </div>
+        </div>
+        ${gallerySectionHTML}
+        <div class="next-cta">
+          <h4>Want a project like this for your team?</h4>
+          <div style="display:flex; gap:10px;">
+            <a class="btn" href="index.html">More projects</a>
+            <a class="btn btn-primary" href="../#contact">Start a project</a>
           </div>
         </div>
       `;
