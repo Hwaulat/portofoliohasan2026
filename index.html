@@ -703,6 +703,7 @@
           <button class="btn btn-accent submit" type="submit">Send message
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </button>
+          <div id="contactFormStatus" style="display:none; font-size: 13px; line-height: 1.5; margin-top: 14px; text-align: center; border-radius: 6px; padding: 10px 14px;"></div>
           <p style="font-size: 12px; color: var(--muted); text-align: center; margin: 14px 0 0;">Or <a href="https://wa.me/6285254308418" target="_blank" rel="noopener" style="color: var(--accent); border-bottom: 1px solid currentColor;">message me on WhatsApp →</a></p>
         </form>
       </div>
@@ -730,7 +731,6 @@
             <li><a href="#contact">Contact</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/19UDNCV26YAT2PRHzTATrqiZzWjLvAJ4l" download>Download CV</a></li>
             <li><a href="projects/index.html">All Projects</a></li>
-            <li><a href="admin/index.html" style="color: var(--accent);">CMS Admin →</a></li>
           </ul>
         </div>
         <div>
@@ -765,7 +765,16 @@
     const saved = (() => { try { return localStorage.getItem('theme'); } catch(e) { return null; }})();
     setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     themeBtn.addEventListener('click', () => setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
-    document.addEventListener('keydown', (e) => { if (e.key === 't' || e.key === 'T') setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
+    document.addEventListener('keydown', (e) => {
+      const activeEl = document.activeElement;
+      const target = e.target;
+      const tag = (target && target.tagName ? target.tagName : activeEl && activeEl.tagName ? activeEl.tagName : '').toUpperCase();
+      const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (target && target.isContentEditable) || (activeEl && activeEl.isContentEditable);
+      if (isInput || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === 't' || e.key === 'T') {
+        setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      }
+    });
 
     /* ====== Reveal observer ====== */
     const io = new IntersectionObserver((entries) => {
@@ -815,31 +824,82 @@
     window.__sentForm = async function(e) {
       const form = e.target;
       const btn = form.querySelector('button[type=submit]');
+      const statusEl = document.getElementById('contactFormStatus');
       const original = btn.innerHTML;
-      const resetStyle = () => { btn.style.background = ''; btn.style.borderColor = ''; };
+      const resetBtn = () => {
+        btn.disabled = false;
+        btn.innerHTML = original;
+        btn.style.background = '';
+        btn.style.borderColor = '';
+      };
+
       btn.disabled = true;
       btn.innerHTML = 'Sending…';
+      if (statusEl) {
+        statusEl.style.display = 'none';
+        statusEl.textContent = '';
+      }
+
       try {
-        const endpoint = form.getAttribute('action').replace('formsubmit.co/', 'formsubmit.co/ajax/');
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        const endpoint = 'https://formsubmit.co/ajax/hasanjobs3@gmail.com';
         const res = await fetch(endpoint, {
           method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
         });
+
         const data = await res.json().catch(() => ({}));
-        if (res.ok && (data.success === 'true' || data.success === true)) {
+        const isSuccess = res.ok && (data.success === true || data.success === 'true');
+
+        if (isSuccess) {
           btn.innerHTML = '✓ Sent — talk soon';
-          btn.style.background = '#58c47a'; btn.style.borderColor = '#58c47a';
-          setTimeout(() => { form.reset(); btn.disabled = false; btn.innerHTML = original; resetStyle(); }, 3000);
+          btn.style.background = '#58c47a';
+          btn.style.borderColor = '#58c47a';
+          if (statusEl) {
+            statusEl.style.display = 'block';
+            statusEl.style.background = 'rgba(88,196,122,0.12)';
+            statusEl.style.color = '#58c47a';
+            statusEl.style.border = '1px solid rgba(88,196,122,0.3)';
+            statusEl.textContent = 'Pesan Anda berhasil dikirim ke hasanjobs3@gmail.com. Terima kasih!';
+          }
+          setTimeout(() => {
+            form.reset();
+            resetBtn();
+          }, 3500);
         } else {
-          throw new Error(data.message || 'Submission failed');
+          const errorMsg = data.message || 'Submission failed';
+          throw new Error(errorMsg);
         }
       } catch (err) {
         console.error('Contact form submit failed:', err);
         btn.disabled = false;
-        btn.innerHTML = 'Success — Waiting to be informed';
-        btn.style.background = '#d9534f'; btn.style.borderColor = '#d9534f';
-        setTimeout(() => { btn.innerHTML = original; resetStyle(); }, 4000);
+        btn.innerHTML = 'Gagal Mengirim';
+        btn.style.background = '#d9534f';
+        btn.style.borderColor = '#d9534f';
+
+        const isActivationNotice = err.message && /activate|inbox|spam|confirm/i.test(err.message);
+        if (statusEl) {
+          statusEl.style.display = 'block';
+          statusEl.style.background = 'rgba(217,83,79,0.12)';
+          statusEl.style.color = '#d9534f';
+          statusEl.style.border = '1px solid rgba(217,83,79,0.3)';
+          if (isActivationNotice) {
+            statusEl.innerHTML = '<strong>Aktivasi Diperlukan:</strong> FormSubmit telah mengirim email konfirmasi ke <strong>hasanjobs3@gmail.com</strong>. Silakan periksa kotak masuk atau folder <strong>Spam</strong> Anda lalu klik link aktivasi agar formulir ini aktif.';
+          } else {
+            statusEl.innerHTML = 'Pengiriman gagal (' + (err.message || 'Koneksi terhambat') + '). Anda juga dapat mengirim pesan langsung via <a href="https://wa.me/6285254308418" target="_blank" style="color:var(--accent);text-decoration:underline;font-weight:600;">WhatsApp</a>.';
+          }
+        }
+        setTimeout(() => {
+          btn.innerHTML = original;
+          btn.style.background = '';
+          btn.style.borderColor = '';
+        }, 4000);
       }
     };
   </script>
