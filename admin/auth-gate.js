@@ -18,9 +18,9 @@
   var NAV_KEY = 'hw_cms_internal_nav';    // set just before an admin→admin navigation
   var ADMIN_EMAIL = 'hasanjobs3@gmail.com';
 
-  // Directory of the current admin page, e.g. "/admin/". A link that
+  // Directory of the admin area. A link that
   // resolves to a path starting with this stays inside the admin area.
-  var ADMIN_BASE = location.pathname.replace(/[^/]*$/, '');
+  var ADMIN_BASE = '/admin';
 
   /* ---- Navigation guards (always active) ---- */
   document.addEventListener('click', function (e) {
@@ -94,7 +94,7 @@
           'style="width:100%;box-sizing:border-box;background:transparent;color:#F5F5F0;border:0;border-bottom:1px solid #2A2A26;padding:10px 0;font:inherit;font-size:15px;outline:none;" />' +
         '<div id="cms-gate-err" style="color:#d9534f;font-size:12px;min-height:16px;margin-top:8px;"></div>' +
         '<button type="submit" id="cms-gate-btn" style="width:100%;margin-top:18px;padding:12px 16px;border-radius:999px;border:1px solid #9A9AE6;background:#9A9AE6;color:#0E0E0C;font:inherit;font-size:14px;font-weight:500;cursor:pointer;">Sign in</button>' +
-        '<a href="../" style="display:block;text-align:center;margin-top:14px;color:#A8A8A2;font-size:13px;text-decoration:none;">&larr; Back to site</a>' +
+        '<a href="/" style="display:block;text-align:center;margin-top:14px;color:#A8A8A2;font-size:13px;text-decoration:none;">&larr; Back to site</a>' +
       '</form>';
 
     document.body.appendChild(overlay);

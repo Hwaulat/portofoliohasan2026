@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../supabase-config.js"></script>
-<script src="../cms-cloud.js"></script>
-<script src="auth-gate.js"></script>
+<script src="/supabase-config.js"></script>
+<script src="/cms-cloud.js"></script>
+<script src="/admin/auth-gate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Site Content · CMS — Hasan Waulat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/styles.css" />
 <style>
   body { display: flex; flex-direction: column; min-height: 100vh; }
   .admin-shell { padding-top: 80px; display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
@@ -125,20 +125,20 @@
 <body>
 
   <nav class="nav">
-    <a class="nav-brand" href="../">
+    <a class="nav-brand" href="/">
       <div class="mark">h</div>
       <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— Site CMS</span></span>
     </a>
     <div class="nav-links">
-      <a href="index.html">CMS Home</a>
-      <a href="projects.html">Projects</a>
-      <a href="../" target="_blank">Live Site</a>
+      <a href="/admin/index.html">CMS Home</a>
+      <a href="/admin/projects.html">Projects</a>
+      <a href="/" target="_blank">Live Site</a>
     </div>
     <div class="nav-actions">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a class="btn btn-primary" href="../" target="_blank">Preview live →</a>
+      <a class="btn btn-primary" href="/" target="_blank">Preview live →</a>
     </div>
   </nav>
 
@@ -162,9 +162,9 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="../image-upload.js"></script>
-  <script src="site-store.js"></script>
-  <script src="editor-render.js"></script>
+  <script src="/image-upload.js"></script>
+  <script src="/admin/site-store.js"></script>
+  <script src="/admin/editor-render.js"></script>
   <script>
     /* ===== Theme ===== */
     const root = document.documentElement;
@@ -222,13 +222,13 @@
       actions.className = 'actions';
       actions.innerHTML = `
         <span class="save-note" id="saveNote">Auto-saved on change</span>
-        <a class="btn" href="../#${active}" target="_blank">Preview ${meta.label} →</a>
+        <a class="btn" href="/#${active}" target="_blank">Preview ${meta.label} →</a>
         <button class="btn btn-primary" id="saveBtn2">Save & preview</button>
       `;
       root.appendChild(actions);
       document.getElementById('saveBtn2').addEventListener('click', () => {
         commit();
-        window.open('../#' + active, '_blank');
+        window.open('/#' + active, '_blank');
       });
     }
 

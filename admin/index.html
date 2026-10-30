@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="../supabase-config.js"></script>
-<script src="../cms-cloud.js"></script>
-<script src="auth-gate.js"></script>
+<script src="/supabase-config.js"></script>
+<script src="/cms-cloud.js"></script>
+<script src="/admin/auth-gate.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CMS — Hasan Waulat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/styles.css" />
 <style>
   body { padding-top: 100px; }
   .cms-wrap { max-width: 1100px; margin: 0 auto; padding: 0 36px 80px; }
@@ -45,20 +45,20 @@
 </head>
 <body>
   <nav class="nav">
-    <a class="nav-brand" href="../">
+    <a class="nav-brand" href="/">
       <div class="mark">h</div>
       <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— CMS</span></span>
     </a>
     <div class="nav-links">
-      <a href="../">Live Site</a>
-      <a href="site.html">Site Content</a>
-      <a href="projects.html">Projects</a>
+      <a href="/">Live Site</a>
+      <a href="/admin/site.html">Site Content</a>
+      <a href="/admin/projects.html">Projects</a>
     </div>
     <div class="nav-actions">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a class="btn btn-primary" href="../">View live site →</a>
+      <a class="btn btn-primary" href="/">View live site →</a>
     </div>
   </nav>
 
@@ -70,7 +70,7 @@
     </header>
 
     <div class="cms-cards">
-      <a class="cms-card" href="site.html">
+      <a class="cms-card" href="/admin/site.html">
         <span class="label">CMS · Section 01</span>
         <h3>Site Content</h3>
         <p>Hero, About, Skills, Services, Process, Experience, Testimonials, Customers, Contact — every text block, image, and link on the home page.</p>
@@ -85,7 +85,7 @@
         <span class="arrow">Edit site content →</span>
       </a>
 
-      <a class="cms-card" href="projects.html">
+      <a class="cms-card" href="/admin/projects.html">
         <span class="label">CMS · Section 02</span>
         <h3>Projects &amp; Case Studies</h3>
         <p>The 32 projects shown on the home archive and the full <code>/projects/</code> page. Edit cards, upload cover images, manage detail-page content section by section.</p>
@@ -108,16 +108,16 @@
         <button class="btn" id="importAll">Import from JSON</button>
         <input type="file" id="importFile" accept="application/json" multiple style="display:none" />
         <button class="btn" id="resetAll" style="border-color:#d54545; color:#d54545;">Reset all to defaults</button>
-        <a class="btn" href="../" target="_blank">Open live site →</a>
+        <a class="btn" href="/" target="_blank">Open live site →</a>
       </div>
       <p style="font-size: 12px; color: var(--muted); margin-top: 16px; max-width: 64ch;">All CMS data is stored in your browser's local storage. To move to another device, export to JSON, then import on the new device. The "Export everything" button bundles both site content and projects into one file.</p>
     </section>
   </div>
 
-  <div class="toast" id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:999px;font-size:13px;z-index:100;opacity:0;transition:opacity 220ms ease, transform 220ms ease;pointer-events:none;"></div>
+  <div class="toast" id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:9999px;font-size:13px;z-index:100;opacity:0;transition:opacity 220ms ease, transform 220ms ease;pointer-events:none;"></div>
 
-  <script src="site-store.js"></script>
-  <script src="../projects/store.js"></script>
+  <script src="/admin/site-store.js"></script>
+  <script src="/projects/store.js"></script>
   <script>
     const root = document.documentElement;
     const themeBtn = document.getElementById('themeBtn');
