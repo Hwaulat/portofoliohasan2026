@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="/styles.css" />
 <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script defer src="../supabase-config.js"></script>
-<script defer src="../cms-cloud.js"></script>
+<script defer src="/supabase-config.js"></script>
+<script defer src="/cms-cloud.js"></script>
 <style>
   .projects-page { padding-top: 120px; }
   .projects-head { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; padding-bottom: 60px; border-bottom: 1px solid var(--border); }
@@ -71,21 +71,21 @@
   <div class="scroll-bar" id="scrollBar"></div>
 
   <nav class="nav">
-    <a class="nav-brand" href="../">
+    <a class="nav-brand" href="/">
       <div class="mark">h</div>
       <span>Hasan Waulat<span style="color: var(--muted); margin-left: 8px;">— UI/UX Designer</span></span>
     </a>
     <div class="nav-links">
-      <a href="../#work">Work</a>
-      <a href="../#about">About</a>
-      <a href="../#skills">Skills</a>
-      <a href="../#contact">Contact</a>
+      <a href="/#work">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#skills">Skills</a>
+      <a href="/#contact">Contact</a>
     </div>
     <div class="nav-actions">
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
-      <a class="btn" href="../cv/Hasan-Waulat-CV.pdf" download>
+      <a class="btn" href="/cv/Hasan-Waulat-CV.pdf" download>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
         <span class="label">Download CV</span>
       </a>
@@ -97,7 +97,7 @@
   </nav>
 
   <main class="shell projects-page">
-    <a class="back" href="../">← Back to home</a>
+    <a class="back" href="/">← Back to home</a>
 
     <div class="projects-head">
       <div>
@@ -126,7 +126,7 @@
     <div class="all-grid" id="allGrid"></div>
   </main>
 
-  <script src="store.js"></script>
+  <script src="/projects/store.js"></script>
   <script>
     /* ===== Theme ===== */
     const root = document.documentElement;
@@ -213,7 +213,7 @@
           ? `<img src="${p.coverImage}" alt="${escapeHtml(p.t)}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />`
           : escapeHtml(p.cover || p.t);
         return `
-        <a class="pcard" href="detail.html?id=${encodeURIComponent(p.id)}">
+        <a class="pcard" href="/projects/detail.html?id=${encodeURIComponent(p.id)}">
           <div class="cover">
             <div class="idx" style="z-index:2;">${escapeHtml(p.n || '')}</div>
             ${coverInner}

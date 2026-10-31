@@ -66,7 +66,7 @@
             <a class="btn btn-primary" href="#archive">See selected work
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="btn" href="projects/index.html">All Projects (32)
+            <a class="btn" href="/projects/index.html">All Projects (32)
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
             <a class="btn" href="#contact">Book a 30-min intro call</a>
@@ -181,7 +181,7 @@
       <div class="archive-grid-v2" id="homeArchiveGrid"></div>
       <div style="margin-top: 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
         <p id="homeArchiveCount" style="font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--muted); margin: 0; letter-spacing: 0.06em;">Showing 9 of 32</p>
-        <a class="btn btn-primary" href="projects/index.html">View all 32 projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-primary" href="/projects/index.html">View all 32 projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </section>
 
@@ -730,7 +730,7 @@
             <li><a href="#process">Process</a></li>
             <li><a href="#contact">Contact</a></li>
             <li><a href="https://drive.google.com/drive/u/0/folders/19UDNCV26YAT2PRHzTATrqiZzWjLvAJ4l" download>Download CV</a></li>
-            <li><a href="projects/index.html">All Projects</a></li>
+            <li><a href="/projects/index.html">All Projects</a></li>
           </ul>
         </div>
         <div>
@@ -905,7 +905,7 @@
   </script>
   <script src="admin/site-store.js"></script>
   <script src="admin/hydrate.js"></script>
-  <script src="projects/store.js"></script>
+  <script src="/projects/store.js"></script>
   <script>
     /* ===== Home archive — dynamic from CMS store (v2 card design) ===== */
     (function() {
@@ -999,7 +999,7 @@
           const tagsHtml = (p.display || []).map(d => `<span>${escapeHtml(d)}</span>`).join('');
 
           return `
-            <a class="av2-card reveal in" href="projects/detail.html?id=${encodeURIComponent(p.id)}">
+            <a class="av2-card reveal in" href="/projects/detail.html?id=${encodeURIComponent(p.id)}">
               <div class="av2-cover">
                 <div class="av2-badge">#${escapeHtml(p.n || '')}</div>
                 ${coverContent}

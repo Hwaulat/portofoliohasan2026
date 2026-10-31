@@ -6,7 +6,10 @@
     { "source": "/admin/", "destination": "/admin/index.html" },
     { "source": "/site.html", "destination": "/admin/site.html" },
     { "source": "/site", "destination": "/admin/site.html" },
-    { "source": "/projects.html", "destination": "/admin/projects.html" }
+    { "source": "/projects", "destination": "/projects/index.html" },
+    { "source": "/projects/", "destination": "/projects/index.html" },
+    { "source": "/projects.html", "destination": "/projects/index.html" },
+    { "source": "/store.js", "destination": "/projects/store.js" },
+    { "source": "/detail.html", "destination": "/projects/detail.html" }
   ]
 }
-
