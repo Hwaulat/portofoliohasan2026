@@ -435,6 +435,8 @@
     hydrate(data);
   }
 
+  window.hydrateSite = init;
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

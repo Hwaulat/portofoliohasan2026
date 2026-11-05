@@ -513,239 +513,245 @@
     if (backProjects) backProjects.textContent = d.projectDetail.back;
 
     // ----- Apply to Homepage if present -----
-    var heroEyebrow = document.querySelector('.hero .eyebrow');
-    if (heroEyebrow) heroEyebrow.textContent = d.hero.eyebrow;
-
-    var heroWords = document.getElementById('heroWords');
-    if (heroWords) {
-      heroWords.innerHTML = d.hero.words.join('<br/>');
-      var ws = heroWords.querySelectorAll('.w');
-      ws.forEach(function (w, i) { w.style.transitionDelay = (200 + i * 70) + 'ms'; });
-      requestAnimationFrame(function () { heroWords.classList.add('in'); });
-    }
-
-    var heroSub = document.querySelector('.hero-sub');
-    if (heroSub) heroSub.innerHTML = d.hero.sub;
-
-    var heroCtas = document.querySelectorAll('.hero-cta a.btn');
-    if (heroCtas.length >= 3) {
-      if (heroCtas[0].childNodes[0]) heroCtas[0].childNodes[0].nodeValue = d.hero.ctaPrimary + ' ';
-      if (heroCtas[1].childNodes[0]) heroCtas[1].childNodes[0].nodeValue = d.hero.ctaSecondary + ' ';
-      heroCtas[2].textContent = d.hero.ctaTertiary;
-    }
-
-    var heroNow = document.querySelector('.hero-visual .now');
-    if (heroNow) heroNow.innerHTML = '<span class="pulse"></span> ' + d.hero.nowBadge;
-
-    var scrollCue = document.querySelector('.scroll-cue span:first-child');
-    if (scrollCue) scrollCue.textContent = d.hero.scrollCue;
-
-    // Metrics labels
-    var metricLabels = document.querySelectorAll('.metrics .metric .label');
-    if (metricLabels.length >= 3) {
-      metricLabels[0].textContent = d.metrics.m1;
-      metricLabels[1].textContent = d.metrics.m2;
-      metricLabels[2].textContent = d.metrics.m3;
-    }
-
-    // About section
-    var aboutEyebrow = document.querySelector('#about .head .eyebrow');
-    if (aboutEyebrow) aboutEyebrow.textContent = d.about.eyebrow;
-
-    var aboutHeadline = document.querySelector('#about .head h2');
-    if (aboutHeadline) aboutHeadline.innerHTML = d.about.headline;
-
-    var aboutParas = document.querySelectorAll('.about-bio p');
-    if (aboutParas.length >= 3) {
-      aboutParas[0].innerHTML = d.about.p1;
-      aboutParas[1].innerHTML = d.about.p2;
-      aboutParas[2].innerHTML = d.about.p3;
-    }
-
-    var aboutCta = document.querySelector('.about-bio a.download');
-    if (aboutCta) aboutCta.textContent = d.about.cta;
-
-    var nowCardTitle = document.querySelector('.now-card .title span:first-child');
-    if (nowCardTitle) nowCardTitle.textContent = d.about.nowTitle;
-    var nowCardLive = document.querySelector('.now-card .title span:last-child');
-    if (nowCardLive) nowCardLive.textContent = d.about.nowLive;
-
-    var nowRows = document.querySelectorAll('.now-card .row');
-    nowRows.forEach(function (row, idx) {
-      if (d.about.nowRows[idx]) {
-        var k = row.querySelector('.k');
-        var v = row.querySelector('.v');
-        if (k) k.textContent = d.about.nowRows[idx].k;
-        if (v) v.innerHTML = d.about.nowRows[idx].v;
+    if (lang === 'en') {
+      if (global.hydrateSite) {
+        global.hydrateSite();
       }
-    });
+    } else {
+      var heroEyebrow = document.querySelector('.hero .eyebrow');
+      if (heroEyebrow) heroEyebrow.textContent = d.hero.eyebrow;
 
-    // Archive section
-    var archiveEyebrow = document.querySelector('#archive .head .eyebrow');
-    if (archiveEyebrow) archiveEyebrow.textContent = d.archive.eyebrow;
+      var heroWords = document.getElementById('heroWords');
+      if (heroWords) {
+        heroWords.innerHTML = d.hero.words.join('<br/>');
+        var ws = heroWords.querySelectorAll('.w');
+        ws.forEach(function (w, i) { w.style.transitionDelay = (200 + i * 70) + 'ms'; });
+        requestAnimationFrame(function () { heroWords.classList.add('in'); });
+      }
 
-    var archiveHeadline = document.querySelector('#archive .head h2');
-    if (archiveHeadline) archiveHeadline.innerHTML = d.archive.headline;
+      var heroSub = document.querySelector('.hero-sub');
+      if (heroSub) heroSub.innerHTML = d.hero.sub;
 
-    var archiveDesc = document.querySelector('#archive .head .desc');
-    if (archiveDesc) archiveDesc.textContent = d.archive.desc;
+      var heroCtas = document.querySelectorAll('.hero-cta a.btn');
+      if (heroCtas.length >= 3) {
+        if (heroCtas[0].childNodes[0]) heroCtas[0].childNodes[0].nodeValue = d.hero.ctaPrimary + ' ';
+        if (heroCtas[1].childNodes[0]) heroCtas[1].childNodes[0].nodeValue = d.hero.ctaSecondary + ' ';
+        heroCtas[2].textContent = d.hero.ctaTertiary;
+      }
 
-    var viewAllBtn = document.querySelector('#archive .btn-primary');
-    if (viewAllBtn && viewAllBtn.childNodes[0]) {
-      viewAllBtn.childNodes[0].nodeValue = d.archive.viewAllBtn + ' ';
-    }
+      var heroNow = document.querySelector('.hero-visual .now');
+      if (heroNow) heroNow.innerHTML = '<span class="pulse"></span> ' + d.hero.nowBadge;
 
-    // Services section
-    var servEyebrow = document.querySelector('#services .head .eyebrow');
-    if (servEyebrow) servEyebrow.textContent = d.services.eyebrow;
+      var scrollCue = document.querySelector('.scroll-cue span:first-child');
+      if (scrollCue) scrollCue.textContent = d.hero.scrollCue;
 
-    var servHeadline = document.querySelector('#services .head h2');
-    if (servHeadline) servHeadline.innerHTML = d.services.headline;
+      // Metrics labels
+      var metricLabels = document.querySelectorAll('.metrics .metric .label');
+      if (metricLabels.length >= 3) {
+        metricLabels[0].textContent = d.metrics.m1;
+        metricLabels[1].textContent = d.metrics.m2;
+        metricLabels[2].textContent = d.metrics.m3;
+      }
 
-    var servArticles = document.querySelectorAll('.services-list .service');
-    servArticles.forEach(function (art, idx) {
-      var itemData = d.services.cards[idx];
-      if (!itemData) return;
-      var h3 = art.querySelector('h3');
-      var p = art.querySelector('p');
-      var lis = art.querySelectorAll('ul li');
-      if (h3) h3.textContent = itemData.title;
-      if (p) p.textContent = itemData.desc;
-      lis.forEach(function (li, liIdx) {
-        if (itemData.items[liIdx]) li.textContent = itemData.items[liIdx];
+      // About section
+      var aboutEyebrow = document.querySelector('#about .head .eyebrow');
+      if (aboutEyebrow) aboutEyebrow.textContent = d.about.eyebrow;
+
+      var aboutHeadline = document.querySelector('#about .head h2');
+      if (aboutHeadline) aboutHeadline.innerHTML = d.about.headline;
+
+      var aboutParas = document.querySelectorAll('.about-bio p');
+      if (aboutParas.length >= 3) {
+        aboutParas[0].innerHTML = d.about.p1;
+        aboutParas[1].innerHTML = d.about.p2;
+        aboutParas[2].innerHTML = d.about.p3;
+      }
+
+      var aboutCta = document.querySelector('.about-bio a.download');
+      if (aboutCta) aboutCta.textContent = d.about.cta;
+
+      var nowCardTitle = document.querySelector('.now-card .title span:first-child');
+      if (nowCardTitle) nowCardTitle.textContent = d.about.nowTitle;
+      var nowCardLive = document.querySelector('.now-card .title span:last-child');
+      if (nowCardLive) nowCardLive.textContent = d.about.nowLive;
+
+      var nowRows = document.querySelectorAll('.now-card .row');
+      nowRows.forEach(function (row, idx) {
+        if (d.about.nowRows[idx]) {
+          var k = row.querySelector('.k');
+          var v = row.querySelector('.v');
+          if (k) k.textContent = d.about.nowRows[idx].k;
+          if (v) v.innerHTML = d.about.nowRows[idx].v;
+        }
       });
-    });
 
-    // Skills section
-    var skillsEyebrow = document.querySelector('#skills .head .eyebrow');
-    if (skillsEyebrow) skillsEyebrow.textContent = d.skills.eyebrow;
+      // Archive section
+      var archiveEyebrow = document.querySelector('#archive .head .eyebrow');
+      if (archiveEyebrow) archiveEyebrow.textContent = d.archive.eyebrow;
 
-    var skillsHeadline = document.querySelector('#skills .head h2');
-    if (skillsHeadline) skillsHeadline.innerHTML = d.skills.headline;
+      var archiveHeadline = document.querySelector('#archive .head h2');
+      if (archiveHeadline) archiveHeadline.innerHTML = d.archive.headline;
 
-    var skillsDesc = document.querySelector('#skills .head .desc');
-    if (skillsDesc) skillsDesc.textContent = d.skills.desc;
+      var archiveDesc = document.querySelector('#archive .head .desc');
+      if (archiveDesc) archiveDesc.textContent = d.archive.desc;
 
-    var pillarArticles = document.querySelectorAll('.pillars .pillar');
-    pillarArticles.forEach(function (pil, idx) {
-      var pData = d.skills.pillars[idx];
-      if (!pData) return;
-      var roleTag = pil.querySelector('.role-tag');
-      var h3 = pil.querySelector('h3');
-      var p = pil.querySelector('p');
-      var lis = pil.querySelectorAll('.skills-list li');
-      if (roleTag) roleTag.innerHTML = '<span class="dot"></span> ' + pData.role;
-      if (h3) h3.innerHTML = pData.title;
-      if (p) p.textContent = pData.desc;
-      lis.forEach(function (li, liIdx) {
-        if (pData.items[liIdx]) li.textContent = pData.items[liIdx];
+      var viewAllBtn = document.querySelector('#archive .btn-primary');
+      if (viewAllBtn && viewAllBtn.childNodes[0]) {
+        viewAllBtn.childNodes[0].nodeValue = d.archive.viewAllBtn + ' ';
+      }
+
+      // Services section
+      var servEyebrow = document.querySelector('#services .head .eyebrow');
+      if (servEyebrow) servEyebrow.textContent = d.services.eyebrow;
+
+      var servHeadline = document.querySelector('#services .head h2');
+      if (servHeadline) servHeadline.innerHTML = d.services.headline;
+
+      var servArticles = document.querySelectorAll('.services-list .service');
+      servArticles.forEach(function (art, idx) {
+        var itemData = d.services.cards[idx];
+        if (!itemData) return;
+        var h3 = art.querySelector('h3');
+        var p = art.querySelector('p');
+        var lis = art.querySelectorAll('ul li');
+        if (h3) h3.textContent = itemData.title;
+        if (p) p.textContent = itemData.desc;
+        lis.forEach(function (li, liIdx) {
+          if (itemData.items[liIdx]) li.textContent = itemData.items[liIdx];
+        });
       });
-    });
 
-    var e2eSteps = document.querySelectorAll('.e2e .step .label');
-    e2eSteps.forEach(function (el, idx) {
-      if (d.skills.e2e[idx]) el.textContent = d.skills.e2e[idx];
-    });
+      // Skills section
+      var skillsEyebrow = document.querySelector('#skills .head .eyebrow');
+      if (skillsEyebrow) skillsEyebrow.textContent = d.skills.eyebrow;
 
-    // Process section
-    var procEyebrow = document.querySelector('#process .head .eyebrow');
-    if (procEyebrow) procEyebrow.textContent = d.process.eyebrow;
+      var skillsHeadline = document.querySelector('#skills .head h2');
+      if (skillsHeadline) skillsHeadline.innerHTML = d.skills.headline;
 
-    var procHeadline = document.querySelector('#process .head h2');
-    if (procHeadline) procHeadline.innerHTML = d.process.headline;
+      var skillsDesc = document.querySelector('#skills .head .desc');
+      if (skillsDesc) skillsDesc.textContent = d.skills.desc;
 
-    var procSteps = document.querySelectorAll('.process-track .process-step');
-    procSteps.forEach(function (step, idx) {
-      var sData = d.process.steps[idx];
-      if (!sData) return;
-      var week = step.querySelector('.week');
-      var h4 = step.querySelector('h4');
-      var p = step.querySelector('p');
-      if (week) week.textContent = sData.week;
-      if (h4) h4.textContent = sData.title;
-      if (p) p.textContent = sData.desc;
-    });
-
-    var procNote = document.querySelector('#process p[style*="monospace"]');
-    if (procNote) procNote.textContent = d.process.note;
-
-    // Experience section
-    var expEyebrow = document.querySelector('#experience .head .eyebrow');
-    if (expEyebrow) expEyebrow.textContent = d.experience.eyebrow;
-
-    var expHeadline = document.querySelector('#experience .head h2');
-    if (expHeadline) expHeadline.innerHTML = d.experience.headline;
-
-    // Contact section
-    var contEyebrow = document.querySelector('#contact .eyebrow');
-    if (contEyebrow) contEyebrow.textContent = d.contact.eyebrow;
-
-    var contHeadline = document.querySelector('#contact h2');
-    if (contHeadline) contHeadline.innerHTML = d.contact.headline;
-
-    var contDesc = document.querySelector('#contact .contact-grid > div > p');
-    if (contDesc) contDesc.textContent = d.contact.desc;
-
-    var contNotes = document.querySelectorAll('.contact-info .row .v small');
-    if (contNotes.length >= 3) {
-      contNotes[0].textContent = d.contact.emailNote;
-      contNotes[1].textContent = d.contact.phoneNote;
-      contNotes[2].textContent = d.contact.locNote;
-    }
-
-    var formTitle = document.querySelector('.contact form .title');
-    if (formTitle) formTitle.textContent = d.contact.formTitle;
-
-    var formDesc = document.querySelector('.contact form > p');
-    if (formDesc) formDesc.textContent = d.contact.formDesc;
-
-    var formLabels = document.querySelectorAll('.contact form .field label');
-    if (formLabels.length >= 6) {
-      formLabels[0].textContent = d.contact.nameLabel;
-      formLabels[1].textContent = d.contact.emailLabel;
-      formLabels[2].textContent = d.contact.companyLabel;
-      formLabels[3].textContent = d.contact.typeLabel;
-      formLabels[4].textContent = d.contact.budgetLabel;
-      formLabels[5].textContent = d.contact.messageLabel;
-    }
-
-    var nameInput = document.querySelector('.contact form input[name="name"]');
-    if (nameInput) nameInput.setAttribute('placeholder', d.contact.namePlaceholder);
-
-    var emailInput = document.querySelector('.contact form input[name="email"]');
-    if (emailInput) emailInput.setAttribute('placeholder', d.contact.emailPlaceholder);
-
-    var companyInput = document.querySelector('.contact form input[name="company"]');
-    if (companyInput) companyInput.setAttribute('placeholder', d.contact.companyPlaceholder);
-
-    var msgTextarea = document.querySelector('.contact form textarea[name="message"]');
-    if (msgTextarea) msgTextarea.setAttribute('placeholder', d.contact.messagePlaceholder);
-
-    var typeSelect = document.querySelector('.contact form select[name="type"]');
-    if (typeSelect && typeSelect.options.length >= 5) {
-      d.contact.typeOptions.forEach(function (optText, i) {
-        if (typeSelect.options[i]) typeSelect.options[i].text = optText;
+      var pillarArticles = document.querySelectorAll('.pillars .pillar');
+      pillarArticles.forEach(function (pil, idx) {
+        var pData = d.skills.pillars[idx];
+        if (!pData) return;
+        var roleTag = pil.querySelector('.role-tag');
+        var h3 = pil.querySelector('h3');
+        var p = pil.querySelector('p');
+        var lis = pil.querySelectorAll('.skills-list li');
+        if (roleTag) roleTag.innerHTML = '<span class="dot"></span> ' + pData.role;
+        if (h3) h3.innerHTML = pData.title;
+        if (p) p.textContent = pData.desc;
+        lis.forEach(function (li, liIdx) {
+          if (pData.items[liIdx]) li.textContent = pData.items[liIdx];
+        });
       });
-    }
 
-    var budgetSelect = document.querySelector('.contact form select[name="budget"]');
-    if (budgetSelect && budgetSelect.options.length >= 5) {
-      d.contact.budgetOptions.forEach(function (optText, i) {
-        if (budgetSelect.options[i]) budgetSelect.options[i].text = optText;
+      var e2eSteps = document.querySelectorAll('.e2e .step .label');
+      e2eSteps.forEach(function (el, idx) {
+        if (d.skills.e2e[idx]) el.textContent = d.skills.e2e[idx];
       });
+
+      // Process section
+      var procEyebrow = document.querySelector('#process .head .eyebrow');
+      if (procEyebrow) procEyebrow.textContent = d.process.eyebrow;
+
+      var procHeadline = document.querySelector('#process .head h2');
+      if (procHeadline) procHeadline.innerHTML = d.process.headline;
+
+      var procSteps = document.querySelectorAll('.process-track .process-step');
+      procSteps.forEach(function (step, idx) {
+        var sData = d.process.steps[idx];
+        if (!sData) return;
+        var week = step.querySelector('.week');
+        var h4 = step.querySelector('h4');
+        var p = step.querySelector('p');
+        if (week) week.textContent = sData.week;
+        if (h4) h4.textContent = sData.title;
+        if (p) p.textContent = sData.desc;
+      });
+
+      var procNote = document.querySelector('#process p[style*="monospace"]');
+      if (procNote) procNote.textContent = d.process.note;
+
+      // Experience section
+      var expEyebrow = document.querySelector('#experience .head .eyebrow');
+      if (expEyebrow) expEyebrow.textContent = d.experience.eyebrow;
+
+      var expHeadline = document.querySelector('#experience .head h2');
+      if (expHeadline) expHeadline.innerHTML = d.experience.headline;
+
+      // Contact section
+      var contEyebrow = document.querySelector('#contact .eyebrow');
+      if (contEyebrow) contEyebrow.textContent = d.contact.eyebrow;
+
+      var contHeadline = document.querySelector('#contact h2');
+      if (contHeadline) contHeadline.innerHTML = d.contact.headline;
+
+      var contDesc = document.querySelector('#contact .contact-grid > div > p');
+      if (contDesc) contDesc.textContent = d.contact.desc;
+
+      var contNotes = document.querySelectorAll('.contact-info .row .v small');
+      if (contNotes.length >= 3) {
+        contNotes[0].textContent = d.contact.emailNote;
+        contNotes[1].textContent = d.contact.phoneNote;
+        contNotes[2].textContent = d.contact.locNote;
+      }
+
+      var formTitle = document.querySelector('.contact form .title');
+      if (formTitle) formTitle.textContent = d.contact.formTitle;
+
+      var formDesc = document.querySelector('.contact form > p');
+      if (formDesc) formDesc.textContent = d.contact.formDesc;
+
+      var formLabels = document.querySelectorAll('.contact form .field label');
+      if (formLabels.length >= 6) {
+        formLabels[0].textContent = d.contact.nameLabel;
+        formLabels[1].textContent = d.contact.emailLabel;
+        formLabels[2].textContent = d.contact.companyLabel;
+        formLabels[3].textContent = d.contact.typeLabel;
+        formLabels[4].textContent = d.contact.budgetLabel;
+        formLabels[5].textContent = d.contact.messageLabel;
+      }
+
+      var nameInput = document.querySelector('.contact form input[name="name"]');
+      if (nameInput) nameInput.setAttribute('placeholder', d.contact.namePlaceholder);
+
+      var emailInput = document.querySelector('.contact form input[name="email"]');
+      if (emailInput) emailInput.setAttribute('placeholder', d.contact.emailPlaceholder);
+
+      var companyInput = document.querySelector('.contact form input[name="company"]');
+      if (companyInput) companyInput.setAttribute('placeholder', d.contact.companyPlaceholder);
+
+      var msgTextarea = document.querySelector('.contact form textarea[name="message"]');
+      if (msgTextarea) msgTextarea.setAttribute('placeholder', d.contact.messagePlaceholder);
+
+      var typeSelect = document.querySelector('.contact form select[name="type"]');
+      if (typeSelect && typeSelect.options.length >= 5) {
+        d.contact.typeOptions.forEach(function (optText, i) {
+          if (typeSelect.options[i]) typeSelect.options[i].text = optText;
+        });
+      }
+
+      var budgetSelect = document.querySelector('.contact form select[name="budget"]');
+      if (budgetSelect && budgetSelect.options.length >= 5) {
+        d.contact.budgetOptions.forEach(function (optText, i) {
+          if (budgetSelect.options[i]) budgetSelect.options[i].text = optText;
+        });
+      }
+
+      var submitBtn = document.querySelector('.contact form button.submit');
+      if (submitBtn && submitBtn.childNodes[0]) {
+        submitBtn.childNodes[0].nodeValue = d.contact.submitBtn + '\n            ';
+      }
+
+      var waFallback = document.querySelector('.contact form p a[href*="wa.me"]');
+      if (waFallback) waFallback.textContent = d.contact.waFallback;
+
+      // Footer section
+      var footTagline = document.querySelector('footer.foot .tag');
+      if (footTagline) footTagline.textContent = d.footer.tagline;
     }
-
-    var submitBtn = document.querySelector('.contact form button.submit');
-    if (submitBtn && submitBtn.childNodes[0]) {
-      submitBtn.childNodes[0].nodeValue = d.contact.submitBtn + '\n            ';
-    }
-
-    var waFallback = document.querySelector('.contact form p a[href*="wa.me"]');
-    if (waFallback) waFallback.textContent = d.contact.waFallback;
-
-    // Footer section
-    var footTagline = document.querySelector('footer.foot .tag');
-    if (footTagline) footTagline.textContent = d.footer.tagline;
 
     var footHeadings = document.querySelectorAll('footer.foot h5');
     if (footHeadings.length >= 2) {
@@ -816,7 +822,11 @@
 
   // Re-apply on hydrate / cloud change
   global.addEventListener('hw-site-changed', function () {
-    setTimeout(function () { applyLanguage(currentLang); }, 50);
+    if (currentLang === 'en') {
+      if (global.hydrateSite) global.hydrateSite();
+    } else {
+      setTimeout(function () { applyLanguage(currentLang); }, 50);
+    }
   });
 
   // Initialize on DOM ready
