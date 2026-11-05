@@ -258,9 +258,9 @@
       hero: {
         eyebrow: 'Tersedia untuk proyek · Q2 2026',
         words: [
-          '<span class="w">Saya&nbsp;mendesain</span> <span class="w">produk</span> <span class="w">digital</span>',
-          '<span class="w">yang&nbsp;menggerakkan</span> <span class="w accent">metrik</span><span class="w"> —</span>',
-          '<span class="w">bukan&nbsp;hanya</span> <span class="w display-italic accent">hati.</span>'
+          '<span class="w">Saya&nbsp;mendesain</span> <span class="w">sistem</span> <span class="w">digital</span>',
+          '<span class="w">yang&nbsp;mudah</span> <span class="w">dipakai</span> <span class="w">tim</span> <span class="w">Anda</span>',
+          '<span class="w">dan</span> <span class="w accent">terukur</span> <span class="w display-italic accent">hasilnya.</span>'
         ],
         sub: 'UI/UX Designer dengan <strong>32 produk rilis</strong> di sektor fintech, logistik, pemerintahan, dan HR‑tech. Membantu tim merilis antarmuka yang benar-benar dituntaskan pengguna — dan bisnis yang bertumbuh nyata.',
         ctaPrimary: 'Lihat karya pilihan',
