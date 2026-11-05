@@ -82,6 +82,10 @@
       <a href="/#contact">Contact</a>
     </div>
     <div class="nav-actions">
+      <div class="lang-switch" role="tablist" aria-label="Language selection">
+        <button type="button" role="tab" class="lang-btn" data-lang="id" aria-selected="false">ID</button>
+        <button type="button" role="tab" class="lang-btn active" data-lang="en" aria-selected="true">EN</button>
+      </div>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
@@ -127,6 +131,7 @@
   </main>
 
   <script src="/projects/store.js"></script>
+  <script src="/i18n.js"></script>
   <script>
     /* ===== Theme ===== */
     const root = document.documentElement;
@@ -192,8 +197,10 @@
       if (currentFilter !== 'all' && !list.some(f => f.slug === currentFilter)) {
         currentFilter = 'all';
       }
+      const isId = window.I18N && window.I18N.getLang() === 'id';
+      const allLabel = isId ? 'Semua' : 'All';
       filtersEl.innerHTML = `
-        <button class="filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All · ${all.length}</button>
+        <button class="filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">${allLabel} · ${all.length}</button>
         ${list.map(f => `
           <button class="filter ${currentFilter === f.slug ? 'active' : ''}" data-filter="${escapeHtml(f.slug)}">${escapeHtml(f.label)}</button>
         `).join('')}
@@ -206,6 +213,10 @@
       if (filter) currentFilter = filter;
       const all = ProjectStore.load();
       renderFiltersUI(all);
+
+      const isId = window.I18N && window.I18N.getLang() === 'id';
+      const moreLabel = isId ? 'Lihat studi kasus →' : 'View case study →';
+      const emptyMsg = isId ? `Tidak ada proyek dengan filter "${escapeHtml(currentFilter)}".` : `No projects match "${escapeHtml(currentFilter)}".`;
 
       const items = currentFilter === 'all' ? all : all.filter(p => (p.tags||[]).includes(currentFilter));
       grid.innerHTML = items.map(p => {
@@ -223,10 +234,10 @@
             <h3>${escapeHtml(p.t)}</h3>
             <p>${escapeHtml(p.d || '')}</p>
             <div class="chips">${(p.display||[]).map(d => `<span>${escapeHtml(d)}</span>`).join('')}</div>
-            <span class="more">View case study →</span>
+            <span class="more">${moreLabel}</span>
           </div>
         </a>`;
-      }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted);">No projects match "${currentFilter}".</div>`;
+      }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted);">${emptyMsg}</div>`;
     }
     function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c])); }
 
@@ -241,6 +252,7 @@
     /* React to admin saves in another tab */
     window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
     window.addEventListener('hw-projects-changed', () => render());
+    window.addEventListener('hw-lang-changed', () => render());
 
     /* ===== Scroll bar ===== */
     const bar = document.getElementById('scrollBar');

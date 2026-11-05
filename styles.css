@@ -124,6 +124,46 @@ a { color: inherit; text-decoration: none; }
 .btn-accent:hover { filter: brightness(1.1); }
 .btn .dot { width: 6px; height: 6px; border-radius: 999px; background: #58c47a; box-shadow: 0 0 0 4px rgba(88,196,122,0.18); }
 
+/* ====== Language Switcher Tablist ====== */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  background: var(--paper);
+  background: color-mix(in oklab, var(--paper) 65%, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px;
+  height: 38px;
+  box-sizing: border-box;
+  position: relative;
+  user-select: none;
+  gap: 2px;
+}
+.lang-btn {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0 9px;
+  height: 100%;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 180ms cubic-bezier(.22,.61,.36,1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.lang-btn:hover { color: var(--fg); }
+.lang-btn.active {
+  background: var(--fg);
+  color: var(--bg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
 .icon-btn {
   width: 38px; height: 38px; border-radius: 999px;
   display: grid; place-items: center;
@@ -138,6 +178,8 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 540px) {
   .btn span.label { display: none; }
+  .lang-switch { height: 34px; padding: 2px; }
+  .lang-btn { padding: 0 7px; font-size: 10px; }
   .btn { padding: 10px 12px; }
 }
 

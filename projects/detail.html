@@ -618,6 +618,10 @@
       <a href="/#contact">Contact</a>
     </div>
     <div class="nav-actions">
+      <div class="lang-switch" role="tablist" aria-label="Language selection">
+        <button type="button" role="tab" class="lang-btn" data-lang="id" aria-selected="false">ID</button>
+        <button type="button" role="tab" class="lang-btn active" data-lang="en" aria-selected="true">EN</button>
+      </div>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
@@ -680,6 +684,7 @@
   </div>
 
   <script src="/projects/store.js"></script>
+  <script src="/i18n.js"></script>
   <script>
     /* ===== Theme ===== */
     const root = document.documentElement;
@@ -772,10 +777,17 @@
     let lightboxIdx = 0;
 
     function render() {
+      const isId = window.I18N && window.I18N.getLang() === 'id';
+      const backLink = document.querySelector('a.back');
+      if (backLink) backLink.textContent = isId ? '← Semua proyek' : '← All projects';
+
       const id = new URLSearchParams(location.search).get('id') || 'lppom-digital';
       const p = ProjectStore.get(id);
       if (!p) {
-        document.getElementById('detailRoot').innerHTML = '<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: var(--font-sans); font-weight: 600; font-size: 36px; color: var(--fg);">Project not found</h1><p>This project may have been deleted. <a href="/projects/index.html" style="color: var(--accent);">Back to all projects →</a></p></div>';
+        const notFoundTitle = isId ? 'Proyek tidak ditemukan' : 'Project not found';
+        const notFoundDesc = isId ? 'Proyek ini mungkin telah dihapus.' : 'This project may have been deleted.';
+        const backBtnText = isId ? 'Kembali ke semua proyek →' : 'Back to all projects →';
+        document.getElementById('detailRoot').innerHTML = `<div style="padding: 80px 0; text-align: center; color: var(--muted);"><h1 style="font-family: var(--font-sans); font-weight: 600; font-size: 36px; color: var(--fg);">${notFoundTitle}</h1><p>${notFoundDesc} <a href="/projects/index.html" style="color: var(--accent);">${backBtnText}</a></p></div>`;
         return;
       }
       document.title = p.t + ' — Hasan Waulat';
@@ -791,8 +803,8 @@
           <section class="gallery-carousel-block" id="galleryCarousel">
             <div class="carousel-head">
               <div class="carousel-head-title-wrap">
-                <span class="carousel-eyebrow">Visual Gallery</span>
-                <h3 class="carousel-title">Project Screens &amp; Flows</h3>
+                <span class="carousel-eyebrow">${isId ? 'Galeri Visual' : 'Visual Gallery'}</span>
+                <h3 class="carousel-title">${isId ? 'Tampilan Layar & Alur Desain' : 'Project Screens & Flows'}</h3>
               </div>
               <div class="carousel-nav-group">
                 <span class="carousel-counter" id="carouselCounter">1 / ${galleryImages.length}</span>
@@ -805,7 +817,7 @@
               </div>
             </div>
 
-            <div class="carousel-stage" id="carouselStage" title="Click to zoom in">
+            <div class="carousel-stage" id="carouselStage" title="${isId ? 'Klik untuk memperbesar' : 'Click to zoom in'}">
               <div class="carousel-stage-inner">
                 <img id="carouselMainImg" class="carousel-stage-img" src="${escapeHtml(galleryImages[0])}" alt="Project screen 1" />
                 <span class="carousel-badge-screen" id="carouselBadge">SCREEN 01</span>
@@ -813,7 +825,7 @@
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
                   </svg>
-                  <span>Click to zoom</span>
+                  <span>${isId ? 'Klik untuk zoom' : 'Click to zoom'}</span>
                 </div>
                 <button class="carousel-stage-arrow prev" id="carouselStagePrev" aria-label="Previous image" type="button">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
@@ -839,12 +851,12 @@
           <section class="gallery-carousel-block" id="galleryCarousel">
             <div class="carousel-head">
               <div class="carousel-head-title-wrap">
-                <span class="carousel-eyebrow">Visual Gallery</span>
-                <h3 class="carousel-title">Project Screens &amp; Flows</h3>
+                <span class="carousel-eyebrow">${isId ? 'Galeri Visual' : 'Visual Gallery'}</span>
+                <h3 class="carousel-title">${isId ? 'Tampilan Layar & Alur Desain' : 'Project Screens & Flows'}</h3>
               </div>
             </div>
             <div style="padding: 48px 24px; text-align: center; color: var(--muted); background: var(--paper); border: 1px dashed var(--border); border-radius: 12px; margin-top: 8px;">
-              <p style="margin: 0; font-size: 15px;">No preview screens uploaded yet. Upload screens via CMS to preview in carousel.</p>
+              <p style="margin: 0; font-size: 15px;">${isId ? 'Belum ada gambar layar yang diunggah. Unggah gambar melalui CMS untuk melihat pratinjau.' : 'No preview screens uploaded yet. Upload screens via CMS to preview in carousel.'}</p>
             </div>
           </section>
         `;
@@ -868,7 +880,7 @@
                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
                 <circle cx="12" cy="12" r="3"/>
               </svg>
-              <span>Preview Design</span>
+              <span>${isId ? 'Pratinjau Desain' : 'Preview Design'}</span>
               ${hasPreviewUrl ? `
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.8; margin-left:-2px;">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -883,12 +895,12 @@
         ${heroVisual}
         <div class="info-grid">
           <aside class="info">
-            <div class="row"><span class="k">Client</span><span class="v">${escapeHtml(p.client || '')}</span></div>
-            <div class="row"><span class="k">Industry</span><span class="v">${escapeHtml(p.industry || '')}</span></div>
-            <div class="row"><span class="k">Role</span><span class="v">${escapeHtml(p.role || '')}</span></div>
-            <div class="row"><span class="k">Team</span><span class="v">${escapeHtml(p.team || '')}</span></div>
-            <div class="row"><span class="k">Surfaces</span><span class="v">${escapeHtml(p.surfaces || '')}</span></div>
-            <div class="row"><span class="k">Timeline</span><span class="v">${escapeHtml(p.timeline || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Klien' : 'Client'}</span><span class="v">${escapeHtml(p.client || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Industri' : 'Industry'}</span><span class="v">${escapeHtml(p.industry || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Peran' : 'Role'}</span><span class="v">${escapeHtml(p.role || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Tim' : 'Team'}</span><span class="v">${escapeHtml(p.team || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Platform' : 'Surfaces'}</span><span class="v">${escapeHtml(p.surfaces || '')}</span></div>
+            <div class="row"><span class="k">${isId ? 'Lini Masa' : 'Timeline'}</span><span class="v">${escapeHtml(p.timeline || '')}</span></div>
           </aside>
           <div class="body">
             ${renderCSBlock('TL;DR', p.cs_summary, 'highlight')}
@@ -911,10 +923,10 @@
         </div>
         ${gallerySectionHTML}
         <div class="next-cta">
-          <h4>Want a project like this for your team?</h4>
+          <h4>${isId ? 'Ingin membuat proyek seperti ini untuk tim Anda?' : 'Want a project like this for your team?'}</h4>
           <div style="display:flex; gap:10px;">
-            <a class="btn" href="/projects/index.html">More projects</a>
-            <a class="btn btn-primary" href="/#contact">Start a project</a>
+            <a class="btn" href="/projects/index.html">${isId ? 'Proyek lainnya' : 'More projects'}</a>
+            <a class="btn btn-primary" href="/#contact">${isId ? 'Mulai proyek' : 'Start a project'}</a>
           </div>
         </div>
       `;
@@ -1129,6 +1141,7 @@
     render();
     window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
     window.addEventListener('hw-projects-changed', render);
+    window.addEventListener('hw-lang-changed', render);
 
     const bar = document.getElementById('scrollBar');
     addEventListener('scroll', () => {

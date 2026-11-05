@@ -33,6 +33,10 @@
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-actions">
+      <div class="lang-switch" role="tablist" aria-label="Language selection">
+        <button type="button" role="tab" class="lang-btn" data-lang="id" aria-selected="false">ID</button>
+        <button type="button" role="tab" class="lang-btn active" data-lang="en" aria-selected="true">EN</button>
+      </div>
       <button class="icon-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">
         <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
       </button>
@@ -905,6 +909,7 @@
   </script>
   <script src="admin/site-store.js"></script>
   <script src="admin/hydrate.js"></script>
+  <script src="/i18n.js"></script>
   <script src="/projects/store.js"></script>
   <script>
     /* ===== Home archive — dynamic from CMS store (v2 card design) ===== */
@@ -966,8 +971,10 @@
         if (currentFilter !== 'all' && !filterList.some(f => f.slug === currentFilter)) {
           currentFilter = 'all';
         }
+        const isId = window.I18N && window.I18N.getLang() === 'id';
+        const allLabel = isId ? 'Semua' : 'All';
         filtersWrap.innerHTML = `
-          <button class="archive-filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All · <span id="archiveFilterAllCount">${all.length}</span></button>
+          <button class="archive-filter ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">${allLabel} · <span id="archiveFilterAllCount">${all.length}</span></button>
           ${filterList.map(f => `
             <button class="archive-filter ${currentFilter === f.slug ? 'active' : ''}" data-filter="${escapeHtml(f.slug)}">${escapeHtml(f.label)}</button>
           `).join('')}
@@ -989,6 +996,10 @@
 
         // Limit to 9 on home
         const items = filtered.slice(0, HOME_LIMIT);
+
+        const isId = window.I18N && window.I18N.getLang() === 'id';
+        const caseStudyText = isId ? 'Lihat studi kasus →' : 'View case study →';
+        const emptyText = isId ? `Tidak ada proyek dengan filter "${escapeHtml(currentFilter)}".` : `No projects match "${escapeHtml(currentFilter)}".`;
 
         grid.innerHTML = items.map(p => {
           const hasCover = p.coverImage && p.coverImage.length > 10;
@@ -1012,18 +1023,21 @@
                 <h4>${escapeHtml(p.t)}</h4>
                 <p class="av2-desc">${escapeHtml(p.d || '')}</p>
                 <div class="av2-tags">${tagsHtml}</div>
-                <span class="av2-link">View case study →</span>
+                <span class="av2-link">${caseStudyText}</span>
               </div>
             </a>`;
-        }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--muted);">No projects match "${currentFilter}".</div>`;
+        }).join('') || `<div style="grid-column:1/-1; text-align:center; padding:50px; color:var(--muted);">${emptyText}</div>`;
 
         // Update counter line
         const counter = document.getElementById('homeArchiveCount');
-        if (counter) counter.textContent = 'Showing ' + items.length + ' of ' + all.length;
+        if (counter) counter.textContent = isId ? ('Menampilkan ' + items.length + ' dari ' + all.length) : ('Showing ' + items.length + ' of ' + all.length);
 
         // Update "View all" button count
         const viewAllBtn = grid.parentElement.querySelector('.btn-primary');
-        if (viewAllBtn) viewAllBtn.innerHTML = `View all ${all.length} projects <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+        if (viewAllBtn) {
+          const viewAllLabel = isId ? `Lihat semua ${all.length} proyek` : `View all ${all.length} projects`;
+          viewAllBtn.innerHTML = `${viewAllLabel} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+        }
       }
 
       // Filter click handler (delegated)
@@ -1040,6 +1054,7 @@
       render();
       window.addEventListener('storage', (e) => { if (e.key === 'hw_projects_v1') render(); });
       window.addEventListener('hw-projects-changed', render);
+      window.addEventListener('hw-lang-changed', render);
     })();
   </script>
   <script>
