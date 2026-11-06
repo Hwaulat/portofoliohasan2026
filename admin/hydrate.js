@@ -430,30 +430,18 @@
     }, 50);
   }
 
-  function init(targetLang) {
-    let lang = targetLang;
-    if (!lang) {
-      try {
-        const saved = localStorage.getItem('hw_lang');
-        if (saved === 'id' || saved === 'en') lang = saved;
-      } catch (e) {}
-    }
-    lang = lang || 'id';
-
-    const data = window.SiteStore.load(lang);
+  function init() {
+    const data = window.SiteStore.load('en');
     hydrate(data);
   }
 
   window.hydrateSite = init;
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => init());
+    document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-  window.addEventListener('hw-site-changed', (e) => {
-    const lang = (e && e.detail && e.detail.lang) || localStorage.getItem('hw_lang') || 'id';
-    init(lang);
-  });
+  window.addEventListener('hw-site-changed', () => init());
   window.addEventListener('storage', (e) => { if (e.key === 'hw_site_v1') init(); });
 })();

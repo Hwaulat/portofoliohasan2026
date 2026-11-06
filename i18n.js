@@ -10,10 +10,7 @@
   var currentLang = 'en';
 
   try {
-    var saved = localStorage.getItem(LANG_KEY);
-    if (saved === 'id' || saved === 'en') {
-      currentLang = saved;
-    }
+    localStorage.setItem(LANG_KEY, 'en');
   } catch (e) {}
 
   var DICT = {

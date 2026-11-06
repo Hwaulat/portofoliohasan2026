@@ -391,16 +391,12 @@
   }
 
   function getActiveLang() {
-    try {
-      const s = localStorage.getItem('hw_lang');
-      if (s === 'id' || s === 'en') return s;
-    } catch (_) {}
-    return 'id';
+    return 'en';
   }
 
   function load(lang) {
-    const l = lang || getActiveLang();
-    const def = (l === 'en') ? DEFAULT_EN : DEFAULT_ID;
+    const l = lang || 'en';
+    const def = (l === 'id') ? DEFAULT_ID : DEFAULT_EN;
     try {
       const raw = localStorage.getItem(KEY);
       if (!raw) return clone(def);
@@ -408,16 +404,12 @@
 
       // Multilingual structure: { en: {...}, id: {...} }
       if (parsed && (parsed.en || parsed.id)) {
-        const langData = parsed[l] || {};
+        const langData = parsed[l] || (l === 'en' ? parsed : {});
         return deepMerge(def, langData);
       }
 
-      // Legacy flat structure
-      if (l === 'en') {
-        return deepMerge(DEFAULT_EN, parsed);
-      } else {
-        return clone(DEFAULT_ID);
-      }
+      // Flat structure
+      return deepMerge(def, parsed);
     } catch (e) {
       console.warn('SiteStore: load failed', e);
       return clone(def);
