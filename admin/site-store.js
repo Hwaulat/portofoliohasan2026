@@ -2,6 +2,7 @@
    Site Content Store — everything on the home page that's
    editable from the CMS lives here. Schema is flat-ish per
    section; the admin renders form controls for each leaf.
+   Supports both English (en) and Indonesian (id).
 
    Key: hw_site_v1
    ============================================================ */
@@ -9,7 +10,7 @@
   'use strict';
   const KEY = 'hw_site_v1';
 
-  const DEFAULT = {
+  const DEFAULT_EN = {
     header: {
       cvPath: 'cv/Hasan-Waulat-CV.pdf',
       waNumber: '6285254308418',
@@ -191,6 +192,190 @@
     }
   };
 
+  const DEFAULT_ID = {
+    header: {
+      cvPath: 'cv/Hasan-Waulat-CV.pdf',
+      waNumber: '6285254308418',
+      waMessage: 'Halo Hasan, saya tertarik bekerja sama',
+      brandName: 'Hasan Waulat',
+      brandTitle: 'UI/UX Designer',
+      brandInitial: 'h'
+    },
+    hero: {
+      eyebrow: 'Tersedia untuk proyek · Q2 2026',
+      headlineLines: [
+        'Saya mendesain sistem digital',
+        'yang mudah dipakai tim Anda',
+        'dan terukur <em>hasilnya.</em>'
+      ],
+      sub: 'UI/UX Designer dengan <strong>32 produk rilis</strong> di sektor fintech, logistik, pemerintahan, dan HR‑tech. Membantu tim merilis antarmuka yang benar-benar dituntaskan pengguna — dan bisnis yang bertumbuh nyata.',
+      ctaPrimary: 'Lihat karya pilihan',
+      ctaPrimaryHref: '#work',
+      ctaSecondaryText: 'Semua Proyek (32)',
+      ctaSecondaryHref: 'projects/index.html',
+      ctaTertiaryText: 'Jadwalkan diskusi 30 menit',
+      ctaTertiaryHref: '#contact',
+      trust: ['LPPOM MUI', 'Kementerian Keuangan', 'Ragdalion', 'Binar Academy', 'Eduwork'],
+      nowBadge: 'Sedang mendesain — Platform Digital LPPOM',
+      photo: 'assets/profile.png',
+      scrollCue: 'Gulir ke bawah — ada bukti nyata'
+    },
+    metrics: [
+      { value: 2, suffix: '+ thn', label: 'dalam desain produk' },
+      { value: 32, suffix: '', label: 'proyek rilis di 4 industri' },
+      { value: 15, suffix: '', label: 'klien puas di Asia Tenggara' }
+    ],
+    about: {
+      eyebrow: 'Tentang',
+      headline: 'Saya menjembatani kebutuhan pengguna dan tujuan bisnis — <em>tanpa terlihat rumit.</em>',
+      paragraphs: [
+        "Halo, saya <strong>Hasan</strong>. Saya mulai mendesain pada tahun 2022 melalui program studi independen Binar Academy, dan selama dua setengah tahun berikutnya telah merilis <strong>32 produk nyata</strong> — mulai dari platform sertifikasi halal yang digunakan ribuan pelaku usaha di Indonesia, sistem HR internal, hingga aplikasi informasi regulasi hukum pemerintah.",
+        "Saya bukan tipe desainer yang hanya menyerahkan file Figma lalu menghilang. Saya duduk bersama engineer, mengajukan pertanyaan mendasar ke product manager, melakukan usability testing meskipun deadline ketat, dan merawat dokumen developer-handoff sama telitinya dengan visual desain. Tujuannya bukan sekadar layar yang cantik — tetapi produk yang berfungsi nyata bagi pengguna dan tim pembangunnya.",
+        "Saat ini saya berbasis di <strong>Jakarta Timur</strong>, mengerjakan platform web dan mobile tingkat enterprise — dan terbuka untuk kerja remote secara global."
+      ],
+      ctaText: 'Ingin cerita selengkapnya? Unduh CV saya →',
+      nowCard: [
+        { k: 'Mendesain', v: 'Platform Digital LPPOM — <em>mobile, web admin, iPad</em>' },
+        { k: 'Membaca', v: 'Refactoring UI oleh Adam Wathan & Steve Schoger' },
+        { k: 'Mempelajari', v: 'Motion design dengan <em>Lottie & Rive</em>' },
+        { k: 'Lokasi', v: 'Jakarta Timur · terbuka untuk remote' },
+        { k: 'Waktu Balas', v: 'Kurang dari 24 jam' }
+      ]
+    },
+    customers: [
+      { initial: 'L', name: 'LPPOM MUI' },
+      { initial: 'K', name: 'Kementerian Keuangan' },
+      { initial: 'R', name: 'Ragdalion' },
+      { initial: 'B', name: 'Binar Academy' },
+      { initial: 'E', name: 'Eduwork' },
+      { initial: 'D', name: 'Digimarly' },
+      { initial: 'A', name: 'Azura Labs' },
+      { initial: 'J', name: 'JDIH Kemenkeu' }
+    ],
+    skills: {
+      eyebrow: 'Keahlian & kapabilitas',
+      headline: 'Lebih dari sekadar desainer — saya mengawal produk dari <em>brief hingga rilis.</em>',
+      desc: 'Banyak tim merekrut desainer lalu bingung mengisi celah lainnya — siapa yang merumuskan requirement, mengelola sprint, dan menjaga keselarasan pasca-peluncuran? Saya mencakup seluruh alur tersebut. Satu orang, tiga peran, tanpa distorsi komunikasi.',
+      pillars: [
+        {
+          role: 'Peran 01 · Designer',
+          title: 'Keahlian <em>desain</em> — antarmuka yang siap rilis dan bertahan lama.',
+          desc: 'Desain produk menyeluruh dari riset hingga handoff. Bagian visual yang terlihat — namun hanya permukaan dari apa yang saya kerjakan.',
+          items: ['Riset pengguna, wawancara & usability testing', 'Arsitektur informasi & user flows', 'Wireframe, UI hi-fi, prototipe interaktif', 'Design system & komponen library', 'Mobile, web, iPad — multi-platform', 'Spesifikasi motion & dokumen developer handoff'],
+          stack: ['Figma', 'Framer', 'Maze', 'Tokens Studio', 'Lottie']
+        },
+        {
+          role: 'Peran 02 · Business Analyst',
+          title: 'Jembatan <em>komunikasi</em> — mengubah brief abstrak menjadi spesifikasi siap bangun.',
+          desc: 'Saya menghubungkan stakeholder dan tim engineering, menyusun dokumen requirement, dan memastikan apa yang dibangun sesuai kebutuhan nyata.',
+          items: ['Elisitas kebutuhan stakeholder & user', 'Pemetaan proses bisnis (BPMN, swimlanes)', 'Kebutuhan fungsional & non-fungsional (FRD/PRD)', 'Penulisan use-case & pemecahan user-story', 'Gap analysis & benchmarking kompetitor', 'Kriteria penerimaan & skenario UAT'],
+          stack: ['Notion', 'Confluence', 'Whimsical', 'Miro', 'Lucidchart']
+        },
+        {
+          role: 'Peran 03 · Project Driver',
+          title: 'Pengarah <em>proyek</em> — dari kickoff hingga go-live tanpa kendala.',
+          desc: 'Saya mengawal siklus proyek: ruang lingkup, jadwal, ritme sprint, QA, peluncuran — menjaga desain, engineer, dan stakeholder tetap selaras.',
+          items: ['Perencanaan lingkup & jadwal proyek', 'Sprint planning & koordinasi agile', 'Penyelarasan tim lintas divisi', 'Review QA & fasilitasi UAT', 'Rencana rilis & kesiapan go-live', 'Monitoring pasca-rilis & siklus iterasi'],
+          stack: ['Jira', 'ClickUp', 'Trello', 'Slack', 'Linear']
+        }
+      ],
+      e2e: [
+        { n: '01', label: 'Brief', role: 'BA' },
+        { n: '02', label: 'Kebutuhan', role: 'BA' },
+        { n: '03', label: 'Desain', role: 'Designer' },
+        { n: '04', label: 'Bangun', role: 'PM · Designer' },
+        { n: '05', label: 'QA & UAT', role: 'PM · BA' },
+        { n: '06', label: 'Rilis', role: 'PM' }
+      ]
+    },
+    services: {
+      eyebrow: 'Layanan',
+      headline: 'Tiga hal yang akan saya lakukan <em>untuk tim Anda.</em>',
+      cards: [
+        {
+          num: '01',
+          title: 'Menemukan masalah nyata sebelum merancang solusi.',
+          desc: 'Saya melakukan wawancara pengguna, uji kegunaan, dan analisis kompetitor untuk memastikan kita membangun solusi yang tepat — bukan sekadar yang termudah dibuat.',
+          items: ['Wawancara stakeholder & riset pengguna', 'Pemetaan persona & journey map', 'Usability testing — Maze, langsung, remote', 'Laporan insight yang actionable bagi PM'],
+          tools: 'Maze · Notion · Whimsical'
+        },
+        {
+          num: '02',
+          title: 'Desain yang siap bersaing di setiap sprint.',
+          desc: 'Dari wireframe hingga prototipe interaktif, saya merancang antarmuka yang teruji pada pengguna nyata — dan rilis tanpa kejutan saat QA.',
+          items: ['Wireframe & prototipe interaktif', 'UI high-fidelity untuk mobile, web & iPad', 'Spesifikasi motion untuk handoff engineering', 'Tata letak ramah aksesibilitas (WCAG-aware)'],
+          tools: 'Figma · Framer'
+        },
+        {
+          num: '03',
+          title: 'Sistem desain terukur untuk skala jangka panjang.',
+          desc: 'Saya membangun design system yang mudah digunakan engineer — berbasis token, terdokumentasi, dan selaras dengan codebase tim.',
+          items: ['Design tokens — warna, tipografi, spasi, animasi', 'Component library dengan varian & state', 'Dokumentasi handoff siap pakai untuk developer', 'Living style guide yang fleksibel dikembangkan'],
+          tools: 'Figma · Tokens Studio · Storybook'
+        }
+      ]
+    },
+    process: {
+      eyebrow: 'Cara Kerja',
+      headline: 'Transparan dan jelas. Alur kerja terstruktur dari <em>kickoff</em> hingga <em>handoff.</em>',
+      steps: [
+        { n: '01', week: 'Minggu 1', title: 'Discover', desc: 'Wawancara stakeholder, riset pengguna, analisis kompetitor. Target: memahami masalah mendasar.' },
+        { n: '02', week: 'Minggu 1–2', title: 'Define', desc: 'Sintesis temuan menjadi sasaran produk, user flow, dan kriteria keberhasilan yang terukur.' },
+        { n: '03', week: 'Minggu 2–3', title: 'Design', desc: 'Eksplorasi wireframe, prototipe klik, dan iterasi cepat sebelum masuk ke tahap visual mendalam.' },
+        { n: '04', week: 'Minggu 3–4', title: 'Polish & Test', desc: 'Visual UI high-fidelity, spesifikasi motion, dan usability test untuk memvalidasi alur.' },
+        { n: '05', week: 'Minggu 4+', title: 'Handoff & Build', desc: 'Dokumentasi token, sesi walkthrough dengan engineer, dan pendampingan implementasi QA.' }
+      ],
+      note: 'Sprint fleksibel 2–4 minggu · Demo berkala setiap akhir pekan'
+    },
+    experience: {
+      eyebrow: 'Pengalaman',
+      headline: 'Dua tahun. Empat perusahaan. <em>Satu disiplin.</em>',
+      items: [
+        { now: true, when: 'Des 2025 - Des 2026 · Cikarang Selatan · Sekarang', title: 'Product Designer', org: 'PT. Ragdalion Revolusi Industry', desc: '', bullets: ['Mengkoordinasikan pertemuan klien untuk menggali kebutuhan bisnis dan pengguna, mengidentifikasi pain point dan peluang solusi desain yang lebih baik.', 'Merancang dan mengembangkan sistem desain yang fleksibel untuk sektor manufaktur dan industri umum guna menjamin skalabilitas dan kemudahan pakai.', 'Berkolaborasi dengan developer untuk mengimplementasikan konsep desain, mengoptimalkan kualitas, dan mengelola jadwal proyek agar eksekusi efisien.'] },
+        { now: false, when: 'Jun 2025 – Des 2025 · Cikarang Selatan', title: 'UI/UX Designer (Kontrak)', org: 'PT. Ragdalion Revolusi Industry', desc: 'Memimpin desain produk skala enterprise termasuk Platform Digital LPPOM. Mengawal siklus menyeluruh dari riset hingga developer handoff, bermitra langsung dengan frontend, backend, dan tim PM.', bullets: ['Merilis Platform Digital LPPOM di 3 platform (web, mobile, iPad) dalam 4 bulan', 'Membangun cross-platform design system dari nol', 'Menurunkan hambatan komunikasi desain-ke-engineering dengan dokumen handoff terstruktur'] },
+        { now: false, when: 'Des 2024 – Mar 2025 · Remote', title: 'UI/UX Designer (Freelance)', org: 'PT. Ragdalion Revolusi Industry', desc: 'Kemitraan lanjutan pasca-magang untuk proyek produk pesanan khusus. Bekerja secara async bersama tim terdistribusi di Cikarang dan remote.', bullets: [] },
+        { now: false, when: 'Mei – Nov 2024 · Onsite, Cikarang Selatan', title: 'UI/UX Designer (Magang)', org: 'PT. Ragdalion Revolusi Industry', desc: 'Adaptasi ke workflow produk skala industri. Berkontribusi pada berbagai produk yang rilis dan membuktikan kemitraan yang berlanjut ke peran freelance dan kontrak.', bullets: [] },
+        { now: false, when: 'Mei – Nov 2024 · Remote', title: 'UI/UX Designer (Magang)', org: 'Digimarly', desc: 'Magang paralel dengan fokus pada digital marketing & web klien. Mengasah kemampuan desain cepat di bawah batasan waktu klien.', bullets: [] },
+        { now: false, when: 'Mei – Jul 2024 · Remote, Semarang', title: 'UI/UX Designer (Magang)', org: 'Azura Labs', desc: 'Magang singkat berkontribusi pada eksplorasi desain produk dan alur kerja tim.', bullets: [] },
+        { now: false, when: 'Des 2023 – Mar 2024 · Remote, Yogyakarta', title: 'UI/UX Designer (Magang)', org: 'Eduwork', desc: 'Fondasi awal karir. Merancang alur produk edu-tech, membangun kebiasaan komunikasi dengan stakeholder.', bullets: [] },
+        { now: false, when: 'Agu 2022 – Jan 2023 · Online', title: 'UI/UX Research & Design', org: 'Binar Academy · Studi Independen Kampus Merdeka', desc: 'Awal perjalanan. Studi independen 6 bulan bersertifikat Kemendikbud. Membangun fondasi riset desain yang menjadi pedoman kerja hingga hari ini.', bullets: [] }
+      ]
+    },
+    testimonials: {
+      eyebrow: 'Apa Kata Mereka',
+      headline: 'Sepatah kata dari rekan kerja <em>dalam berbagai proyek.</em>',
+      items: [
+        { quote: "Hasan tidak hanya menyerahkan file Figma — ia ikut mendampingi di pull request. Waktu siklus handoff kami berkurang dari berhari-hari menjadi hitungan jam.", name: 'Adi Pranoto', role: 'Engineering Lead · Ragdalion', initial: 'A' },
+        { quote: "Ia berani mengajukan pertanyaan mendasar di awal sehingga kami tidak perlu merombak ulang di akhir. Itu menghemat banyak waktu tim dev.", name: 'Rina Halim', role: 'Product Manager · LPPOM Digital', initial: 'R' },
+        { quote: 'Design system yang dibangun Hasan tetap menjadi tulang punggung produk kami, delapan bulan setelah diserahterimakan.', name: 'Faiz Hakim', role: 'CTO · Klien Logistik', initial: 'F' }
+      ]
+    },
+    contact: {
+      eyebrow: 'Mari Bekerja Sama',
+      headline: 'Punya proyek menarik? <em>Mari diskusikan.</em>',
+      desc: 'Saya terbuka untuk proyek baru mulai Q2 2026. Baik brief yang sudah lengkap maupun ide tahap awal, langkah terbaik adalah diskusi singkat 30 menit tanpa komitmen.',
+      email: 'hasanjobs3@gmail.com',
+      emailNote: 'Balas dalam < 24 jam',
+      phone: '+62 852-5430-8418',
+      phoneNote: 'Disukai via WhatsApp · GMT+7',
+      location: 'Jakarta Timur, Indonesia',
+      locationNote: 'Terbuka untuk remote global',
+      socials: {
+        linkedin: '#',
+        dribbble: '#',
+        behance: '#',
+        instagram: '#'
+      }
+    },
+    footer: {
+      tagline: 'Mendesain produk digital yang rilis — dan berdampak nyata. Jakarta Timur · Terbuka untuk remote global.',
+      copyright: '© 2026 Hasan Waulat. Didesain & dibangun mandiri di Jakarta.',
+      nowList: ['Mendesain — LPPOM Digital', 'Tersedia — Q2 2026', 'Waktu Balas — < 24 jam', 'GMT+7 · Jakarta Timur']
+    }
+  };
+
+  const DEFAULT = DEFAULT_EN;
+
   /* ---------- Storage ---------- */
   function deepMerge(base, override) {
     if (Array.isArray(override) || override === null || typeof override !== 'object') return override;
@@ -205,37 +390,100 @@
     return out;
   }
 
-  function load() {
+  function getActiveLang() {
+    try {
+      const s = localStorage.getItem('hw_lang');
+      if (s === 'id' || s === 'en') return s;
+    } catch (_) {}
+    return 'id';
+  }
+
+  function load(lang) {
+    const l = lang || getActiveLang();
+    const def = (l === 'en') ? DEFAULT_EN : DEFAULT_ID;
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return clone(DEFAULT);
+      if (!raw) return clone(def);
       const parsed = JSON.parse(raw);
-      return deepMerge(DEFAULT, parsed);
+
+      // Multilingual structure: { en: {...}, id: {...} }
+      if (parsed && (parsed.en || parsed.id)) {
+        const langData = parsed[l] || {};
+        return deepMerge(def, langData);
+      }
+
+      // Legacy flat structure
+      if (l === 'en') {
+        return deepMerge(DEFAULT_EN, parsed);
+      } else {
+        return clone(DEFAULT_ID);
+      }
     } catch (e) {
       console.warn('SiteStore: load failed', e);
-      return clone(DEFAULT);
+      return clone(def);
     }
   }
 
-  function save(data) {
+  function save(data, lang) {
+    if (data && (data.en || data.id)) {
+      if (data.en) save(data.en, 'en');
+      if (data.id) save(data.id, 'id');
+      return { ok: true };
+    }
+    const l = lang || getActiveLang();
     try {
-      localStorage.setItem(KEY, JSON.stringify(data));
-      window.dispatchEvent(new CustomEvent('hw-site-changed'));
+      let raw = {};
+      try {
+        const existing = localStorage.getItem(KEY);
+        if (existing) raw = JSON.parse(existing) || {};
+      } catch (_) {}
+
+      // Normalize if raw was legacy flat object
+      if (!raw.en && !raw.id && (raw.hero || raw.about)) {
+        raw = { en: clone(raw), id: clone(DEFAULT_ID) };
+      }
+      if (!raw.en) raw.en = clone(DEFAULT_EN);
+      if (!raw.id) raw.id = clone(DEFAULT_ID);
+
+      raw[l] = data;
+
+      // Keep root properties updated for backward compatibility
+      Object.keys(data).forEach(k => { raw[k] = data[k]; });
+
+      localStorage.setItem(KEY, JSON.stringify(raw));
+      window.dispatchEvent(new CustomEvent('hw-site-changed', { detail: { lang: l, data: data } }));
       return { ok: true };
     } catch (e) {
       return { ok: false, error: e.message || 'Storage failed' };
     }
   }
 
-  function reset() {
-    localStorage.removeItem(KEY);
-    window.dispatchEvent(new CustomEvent('hw-site-changed'));
+  function reset(lang) {
+    if (!lang || lang === 'all') {
+      localStorage.removeItem(KEY);
+      window.dispatchEvent(new CustomEvent('hw-site-changed', { detail: { lang: getActiveLang() } }));
+      return;
+    }
+    const l = lang;
+    try {
+      const raw = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (raw[l]) delete raw[l];
+      localStorage.setItem(KEY, JSON.stringify(raw));
+    } catch (_) {
+      localStorage.removeItem(KEY);
+    }
+    window.dispatchEvent(new CustomEvent('hw-site-changed', { detail: { lang: l } }));
   }
 
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
 
   function exportJSON() {
-    const blob = new Blob([JSON.stringify(load(), null, 2)], { type: 'application/json' });
+    const data = {
+      en: load('en'),
+      id: load('id'),
+      exportedAt: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -250,7 +498,9 @@
       r.onload = () => {
         try {
           const data = JSON.parse(r.result);
-          save(data);
+          if (data.en) save(data.en, 'en');
+          if (data.id) save(data.id, 'id');
+          if (!data.en && !data.id) save(data, 'id');
           resolve(data);
         } catch (e) { reject(e); }
       };
@@ -268,7 +518,7 @@
       return window.ImageUpload.upload(file, maxWidth, quality);
     }
 
-    // Fallback: old base64 approach
+    // Fallback: base64
     return new Promise((resolve, reject) => {
       if (!file) return reject(new Error('No file'));
       const reader = new FileReader();
@@ -291,5 +541,15 @@
     });
   }
 
-  global.SiteStore = { DEFAULT, load, save, reset, exportJSON, importJSON, fileToCompressedDataURL };
+  global.SiteStore = {
+    DEFAULT,
+    DEFAULT_EN,
+    DEFAULT_ID,
+    load,
+    save,
+    reset,
+    exportJSON,
+    importJSON,
+    fileToCompressedDataURL
+  };
 })(window);

@@ -133,7 +133,11 @@
     function toast(m) { toastEl.textContent = m; toastEl.style.opacity = '1'; toastEl.style.transform = 'translate(-50%,-8px)'; clearTimeout(tt); tt = setTimeout(()=>{ toastEl.style.opacity='0'; toastEl.style.transform='translateX(-50%)'; }, 2200); }
 
     document.getElementById('exportAll').addEventListener('click', () => {
-      const bundle = { site: SiteStore.load(), projects: ProjectStore.load(), exportedAt: new Date().toISOString() };
+      const bundle = {
+        site: { en: SiteStore.load('en'), id: SiteStore.load('id') },
+        projects: ProjectStore.load(),
+        exportedAt: new Date().toISOString()
+      };
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
